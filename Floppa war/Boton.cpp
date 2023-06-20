@@ -1,15 +1,14 @@
 #include "Boton.h"
 #include "SFML/Window.hpp"
+#include <SFML/Graphics.hpp>
 Boton::Boton() {};
 Boton::Boton(std::string texto_, sf::Vector2f pos_, sf::Vector2f tamanio_) {
-    if (!fuente.loadFromFile("arial.ttf")) {
-
-    }
+    
     texto.setFont(fuente);
     texto.setString(texto_);
     posicion = pos_;
-    rectanguloBoton.setFillColor(sf::Color::Blue);
     tamanio = tamanio_;
+    rectanguloBoton.setFillColor(sf::Color::Blue);
     rectanguloBoton.setSize(tamanio);
 }
 
