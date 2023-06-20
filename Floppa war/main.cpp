@@ -4,7 +4,7 @@
 
 int main() {
     
-    Boton inicio("Configuraciones", { 512,120 },{400,100});
+    Boton inicio("Inicio", { 512,120 },{400,100});
 
     sf::RenderWindow ventana(sf::VideoMode(1024, 640), "Floppa War");
 
