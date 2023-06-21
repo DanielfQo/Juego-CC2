@@ -1,29 +1,15 @@
+
 #include <SFML/Graphics.hpp>
+#include<SFML/Window.hpp>
 #include <iostream>
 #include "Boton.h"
+#include "Menus.h"
+#include "Viewer.h"
 
 int main() {
     
-    Boton inicio("Inicio", { 512,120 },{400,100});
-
-    sf::RenderWindow ventana(sf::VideoMode(1024, 640), "Floppa War");
-
-
-    while (ventana.isOpen())
-    {
-        sf::Event evento;
-        while (ventana.pollEvent(evento))
-        {
-            if (evento.type == sf::Event::Closed)
-                ventana.close();
-        }
-        ventana.clear();
-        inicio.dibujarBoton(ventana);
-        ventana.display();
-
-    }
-    
-    
+    Viewer vista;
+    vista.dibujarVentana();
 
     return 0;
 }

@@ -12,9 +12,9 @@ private:
 
 public:
 	Boton();
+	~Boton();
 	Boton(std::string, sf::Vector2f, sf::Vector2f);//el Vector2f en un tipo de dato que almacena un valor x y de tipo float
 	void dibujarBoton(sf::RenderWindow&);
-	~Boton();
 
 };
 
