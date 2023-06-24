@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Boton.h"
 #include <iostream>
-#include <vector>
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 class Menu {
@@ -21,14 +21,41 @@ public:
 			boton.dibujarBoton(window);
 		}
 	}
-
+	std::string botonPresionado(sf::Vector2i coordMouse){
+		for (auto& boton : botones){
+			boton.estaPresionado(coordMouse);
+			if (boton.getPresionado()) {
+				std::string nombre = boton.getTexto();
+				return nombre;
+			}
+		}
+		return "";
+	}
 };
 
 class MenuInicio:public Menu{
-
 public:
 	MenuInicio();
-	~MenuInicio();
+	~MenuInicio() = default;
 	void mostrarMenu(sf::RenderWindow&) override;
 };
 
+class MenuJugar:public Menu {
+public:
+	MenuJugar();
+	~MenuJugar() = default;
+	void mostrarMenu(sf::RenderWindow&) override;
+};
+
+class MenuConfiguraciones:public Menu {
+public:
+	MenuConfiguraciones();
+	~MenuConfiguraciones() = default;
+	void mostrarMenu(sf::RenderWindow&) override;
+};
+class MenuTutorial:public Menu {
+public:
+	MenuTutorial();
+	~MenuTutorial() = default;
+	void mostrarMenu(sf::RenderWindow&) override;
+};

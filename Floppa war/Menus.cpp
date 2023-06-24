@@ -13,7 +13,38 @@ MenuInicio::MenuInicio(){
 	agregarBoton(salir);
 };
 void MenuInicio::mostrarMenu(sf::RenderWindow& window) {
-	
 	dibujarBotones(window);
 }
-MenuInicio::~MenuInicio(){}
+
+
+MenuJugar::MenuJugar() {
+	Boton singleplayer("Singleplayer", { 350,80 }, { 300,80 });
+	Boton multiplayer("Multiplayer", { 350,230 }, { 300,80 });
+	Boton regresar("Regresar", { 0,0 }, { 50,50 });
+	agregarBoton(regresar);
+	agregarBoton(singleplayer);
+	agregarBoton(multiplayer);
+	
+}
+void MenuJugar::mostrarMenu(sf::RenderWindow& window) {
+	dibujarBotones(window);
+}
+
+MenuConfiguraciones::MenuConfiguraciones() {
+	Boton cancelar("Cancelar", { 100,550 }, { 300,80 });
+	Boton aceptar("Aceptar", { 500,550 }, { 300,80 });
+	Boton regresar("Regresar", { 0,0 }, { 50,50 });
+	agregarBoton(regresar);
+	agregarBoton(cancelar);
+	agregarBoton(aceptar);
+}
+void MenuConfiguraciones::mostrarMenu(sf::RenderWindow& window) {
+	dibujarBotones(window);
+}
+MenuTutorial::MenuTutorial() {
+	Boton regresar("Regresar", { 0,0 }, { 50,50 });
+	agregarBoton(regresar);
+}
+void MenuTutorial::mostrarMenu(sf::RenderWindow& window) {
+	dibujarBotones(window);
+}

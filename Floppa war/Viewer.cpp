@@ -12,23 +12,36 @@ sf::RenderWindow& Viewer::getVentana() {
 bool Viewer::ventanaCerrada() {
 	return ventana.isOpen();
 }
-void Viewer::updateMenu() {
-    delete tipoMenu;  
-    tipoMenu = new MenuInicio();
+void Viewer::updateMenu(sf::Vector2i coordMouse){
+    std::string nombre = tipoMenu->botonPresionado(coordMouse);
+    if (nombre == "Regresar")
+        tipoMenu = std::make_unique<MenuInicio>();
+    else if (nombre == "Jugar") 
+        tipoMenu = std::make_unique<MenuJugar>();
+    else if (nombre == "Configuracion") 
+        tipoMenu = std::make_unique<MenuConfiguraciones>();
+    else if (nombre == "Tutorial")
+        tipoMenu = std:: make_unique<MenuTutorial>();
+    else if(nombre=="Salir")
+        ventana.close();
+    
 }
 void Viewer::dibujarVentana() {
-    updateMenu();
     while (ventana.isOpen()) {
         sf::Event event;
         while (ventana.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 ventana.close();
+            else if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    sf::Vector2i coordMouse(event.mouseButton.x, event.mouseButton.y);
+                    updateMenu(coordMouse);
+                }
+            }
         }
         ventana.clear();
         tipoMenu->mostrarMenu(ventana);
         ventana.display();
     }
 }
-Viewer::~Viewer(){
-    delete tipoMenu;
-}
+Viewer::~Viewer(){}

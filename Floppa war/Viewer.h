@@ -5,14 +5,14 @@
 class Viewer{
 private:
 	sf::RenderWindow ventana;
-	Menu* tipoMenu = new MenuInicio();
+	std::unique_ptr<Menu> tipoMenu = std::make_unique<MenuInicio>();
+	
 public:
 	Viewer();
 	~Viewer();
 	sf::RenderWindow& getVentana();
 	bool ventanaCerrada();
-	void updateMenu();
+	void updateMenu(sf::Vector2i);
 	void dibujarVentana();
-	
 };
 
