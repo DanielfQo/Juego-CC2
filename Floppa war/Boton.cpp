@@ -3,11 +3,11 @@
 #include <SFML/Graphics.hpp>
 
 
-Boton::Boton(const std::string& texto_, const sf::Vector2f& pos_, const sf::Texture & textura_) {
-    textura = textura_;
+Boton::Boton(const std::string& texto_, const sf::Vector2f& pos_, const std::string & rutaImagen) {
+    textura.loadFromFile(rutaImagen);
     posicion = pos_;
     tamanio = sf::Vector2f(textura.getSize());
-    imagen.setTexture(textura_);
+    imagen.setTexture(textura);
     imagen.setPosition(posicion);
     texto = texto_;
 }

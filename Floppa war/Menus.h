@@ -5,34 +5,27 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
-class Menu{
+class Menu {
 protected:
-	std::vector<sf::Texture>texturas;
-	std::vector<Boton> botones;
-	
+    std::vector<std::unique_ptr<Boton>> botones;  
 public:
-	virtual void mostrarMenu(sf::RenderWindow&) = 0;
+    virtual void mostrarMenu(sf::RenderWindow&) = 0;
 
-	void agregarBoton(Boton& boton) {
-		botones.push_back(boton);
-	}
-	void dibujarBotones(sf::RenderWindow& window) {
-		
-		for (const auto& boton : botones) {
-			
-			boton.dibujarBoton(window);
-		}
-	}
-	std::string botonPresionado(sf::Vector2i coordMouse){
-		for (auto& boton : botones){
-			boton.estaPresionado(coordMouse);
-			if (boton.getPresionado()) {
-				std::string nombre = boton.getTexto();
-				return nombre;
-			}
-		}
-		return "";
-	}
+    void dibujarBotones(sf::RenderWindow& window) {
+        for (const auto& boton : botones) {
+            boton->dibujarBoton(window);  
+        }
+    }
+
+    std::string botonPresionado(sf::Vector2i coordMouse) {
+        for (const auto& boton : botones) {
+            boton->estaPresionado(coordMouse);  
+            if (boton->getPresionado()) {
+                return boton->getTexto();
+            }
+        }
+        return "";
+    }
 };
 
 class MenuInicio:public Menu{
