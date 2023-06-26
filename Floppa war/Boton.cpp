@@ -1,23 +1,18 @@
 #include "Boton.h"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-Boton::Boton() {};
-Boton::Boton(std::string texto_, sf::Vector2f pos_, sf::Vector2f tamanio_) {
-    if (!fuente.loadFromFile("Arial.ttf")) {
-    }
+
+
+Boton::Boton(const std::string& texto_, const sf::Vector2f& pos_, const sf::Texture & textura_) {
+    textura = textura_;
     posicion = pos_;
-    tamanio = tamanio_;
-    rectanguloBoton.setFillColor(sf::Color::Blue);
-    rectanguloBoton.setSize(tamanio);
-    rectanguloBoton.setPosition(posicion);
+    tamanio = sf::Vector2f(textura.getSize());
+    imagen.setTexture(textura_);
+    imagen.setPosition(posicion);
     texto = texto_;
 }
-
-void Boton::dibujarBoton(sf::RenderWindow& window) {
-    if (window.isOpen()) {
-        window.draw(rectanguloBoton);
-        //window.draw(texto) // error;
-    }
+void Boton::dibujarBoton(sf::RenderWindow& window) const {
+    window.draw(imagen);
 }
 void Boton::estaPresionado(sf::Vector2i coord) {
     if (coord.x >= posicion.x && coord.x <= posicion.x + tamanio.x && coord.y >= posicion.y && coord.y <= posicion.y + tamanio.y)
@@ -29,4 +24,3 @@ bool Boton::getPresionado () const{
 std::string Boton::getTexto() const {
     return texto;
 }
-Boton::~Boton() {}

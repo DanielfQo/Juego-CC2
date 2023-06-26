@@ -27,6 +27,7 @@ void Viewer::updateMenu(sf::Vector2i coordMouse){
     
 }
 void Viewer::dibujarVentana() {
+    
     while (ventana.isOpen()) {
         sf::Event event;
         while (ventana.pollEvent(event)) {
@@ -40,6 +41,7 @@ void Viewer::dibujarVentana() {
             }
         }
         ventana.clear();
+        
         tipoMenu->mostrarMenu(ventana);
         ventana.display();
     }

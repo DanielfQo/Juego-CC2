@@ -5,19 +5,19 @@
 
 class Boton{
 private:
-	sf::Font fuente;
-	sf::RectangleShape rectanguloBoton;
+	sf::Texture textura;
+	sf::Sprite imagen;
 	std::string texto;
 	sf::Vector2f posicion;
 	sf::Vector2f tamanio;
+	std::string rutaImagen;
 	bool presionado = false;
 public:
-	Boton();
-	~Boton();
-	Boton(std::string, sf::Vector2f, sf::Vector2f);//el Vector2f en un tipo de dato que almacena un valor x y de tipo float
+	Boton(const std::string& , const sf::Vector2f& , const sf::Texture& );
+	~Boton() = default;
 	bool getPresionado ()const;
 	std::string getTexto()const;
-	void dibujarBoton(sf::RenderWindow&);
+	void dibujarBoton(sf::RenderWindow&) const;
 	void estaPresionado(sf::Vector2i);
 };
 

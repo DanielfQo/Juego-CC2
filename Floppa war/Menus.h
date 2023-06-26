@@ -2,22 +2,24 @@
 #include <SFML/Graphics.hpp>
 #include "Boton.h"
 #include <iostream>
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-class Menu {
-private:
+
+class Menu{
+protected:
+	std::vector<sf::Texture>texturas;
 	std::vector<Boton> botones;
+	
 public:
 	virtual void mostrarMenu(sf::RenderWindow&) = 0;
-	const std::vector<Boton>& getBotones() const {
-		return botones;
-	}
-	void agregarBoton(const Boton& boton) {
+
+	void agregarBoton(Boton& boton) {
 		botones.push_back(boton);
 	}
 	void dibujarBotones(sf::RenderWindow& window) {
-		for (auto& boton : botones) {
+		
+		for (const auto& boton : botones) {
+			
 			boton.dibujarBoton(window);
 		}
 	}
