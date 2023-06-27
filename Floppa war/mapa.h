@@ -2,10 +2,85 @@
 #include <vector>
 #include "entidades.h"
 
-class mapa  : public entidades{
+class mapa1{
     private:
-        std::vector<entidades> entidad;
+        int FILAS = 25;
+        int COLUMNAS = 40;
+        int GENERACIONES = 2;
+        std::vector<std::vector<int>> mapa;
+
     public:
-        void load_mapa();
+        std::vector<std::vector<int>> getMapa1(){
+            return mapa;
+        }
+        int getFilas(){
+            return FILAS;
+        }
+        int getColumnas(){
+            return COLUMNAS;
+        }
+        void imprimirmapa() {     //mostrar mapa  
+            for (int i = 0; i < FILAS; i++) {
+                for (int j = 0; j < COLUMNAS; j++) {
+                    std::cout << (mapa[i][j] ? ". " : "0 ");
+                }
+                std::cout << std::endl;
+            }
+            std::cout << std::endl;
+        }
+        
+        void aplicarReglas(){ // Creador del mapa
+
+            std::vector<std::vector<int>> newMapa = mapa;
+            for (int i = 0; i < FILAS; i++){
+                for (int j = 0; j < COLUMNAS; j++){
+
+                    int caminosVecinos = 0; // Calcular caminos adyacentes
+                    for (int aux_x = -1; aux_x <= 1; aux_x++){
+                        for (int aux_y = -1; aux_y <= 1; aux_y++){
+                            if (aux_x == 0 && aux_y == 0)continue; // No contar la posicion
+
+                            int ni = i + aux_x;
+                            int nj = j + aux_y;
+
+                            if (ni >= 0 && ni < FILAS && nj >= 0 && nj < COLUMNAS){ // limites
+                                caminosVecinos += mapa[ni][nj];
+                            }
+                        }
+                    }
+
+                    // reglas
+                    if (mapa[i][j] == 1){
+                        if (caminosVecinos < 3){
+                            newMapa[i][j] = 0;
+                        }
+                    }
+                    else{
+                        if (caminosVecinos > 3){
+                            newMapa[i][j] = 1;
+                        }
+                    }
+                }
+            }
+            mapa = newMapa;
+        }
+
+        void generar_campo(){
+            std::vector<std::vector<int>> NewMapa (FILAS, std::vector<int>(COLUMNAS, 0));
+            mapa  = NewMapa;
+            for (int i = 0; i < FILAS; i++) {
+                for (int j = 0; j < COLUMNAS; j++) {
+                    mapa[i][j] = rand() % 2;
+                }
+            }
+
+            for (int generacion = 0; generacion < GENERACIONES; generacion++) {
+                std::cout << "Generacion " << generacion+1 << ":" << std::endl;
+                imprimirmapa();
+                aplicarReglas();
+            }  
+            
+        }
+        
         void load_entidad();
 };
