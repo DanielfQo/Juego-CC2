@@ -1,6 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Boton.h"
+#include "Imagen.h"
+#include "EntidadViewer.h"
+#include "MapaViewer.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -54,3 +57,14 @@ public:
 	~MenuTutorial() = default;
 	void mostrarMenu(sf::RenderWindow&) override;
 };
+
+class VentanaJuego :public Menu{
+private:
+    std::unique_ptr<Imagen> Personaje1;
+    std::unique_ptr<Imagen> Mapa;
+public:
+    VentanaJuego();
+    ~VentanaJuego() = default;
+    void mostrarMenu(sf::RenderWindow&) override;
+};
+

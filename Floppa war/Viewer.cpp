@@ -24,7 +24,11 @@ void Viewer::updateMenu(sf::Vector2i coordMouse){
         tipoMenu = std:: make_unique<MenuTutorial>();
     else if(nombre=="Salir")
         ventana.close();
-    
+    else if(nombre=="Singleplayer")
+        tipoMenu = std::make_unique<VentanaJuego>();
+    else if (nombre == "Multiplayer")
+        tipoMenu = std::make_unique<VentanaJuego>();
+
 }
 void Viewer::dibujarVentana() {
     

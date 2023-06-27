@@ -1,8 +1,11 @@
 #include "Menus.h"
 #include "Boton.h"
+#include "Imagen.h"
+#include "EntidadViewer.h"
+#include "MapaViewer.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-
+///////////////////////////
 MenuInicio::MenuInicio() {
 	std::unique_ptr<Boton> jugar = std::make_unique<Boton>("Jugar", sf::Vector2f(144, 352), "BotonJugar.png");
 	std::unique_ptr<Boton> configuracion = std::make_unique<Boton>("Configuracion", sf::Vector2f(144, 496), "BotonConfiguracion.png");
@@ -13,15 +16,14 @@ MenuInicio::MenuInicio() {
 	botones.push_back(std::move(tutorial));
 	botones.push_back(std::move(salir));
 }
-
 void MenuInicio::mostrarMenu(sf::RenderWindow& window) {
 	dibujarBotones(window);
 }
-
+///////////////////////////
 MenuJugar::MenuJugar() {
-	std::unique_ptr<Boton> singleplayer = std::make_unique<Boton>("Singleplayer", sf::Vector2f(350, 80), "BotonJugar.png");
-	std::unique_ptr<Boton> multiplayer = std::make_unique<Boton>("Multiplayer", sf::Vector2f(350, 230), "BotonJugar.png");
-	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(0, 0), "BotonRegresar.png");
+	std::unique_ptr<Boton> singleplayer = std::make_unique<Boton>("Singleplayer", sf::Vector2f(364, 352), "BotonSingleplayer.png");
+	std::unique_ptr<Boton> multiplayer = std::make_unique<Boton>("Multiplayer", sf::Vector2f(364, 496), "BotonMultiplayer.png");
+	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "BotonRegresar.png");
 	botones.push_back(std::move(singleplayer));
 	botones.push_back(std::move(multiplayer));
 	botones.push_back(std::move(regresar));
@@ -29,11 +31,11 @@ MenuJugar::MenuJugar() {
 void MenuJugar::mostrarMenu(sf::RenderWindow& window) {
 	dibujarBotones(window);
 }
-
+///////////////////////////
 MenuConfiguraciones::MenuConfiguraciones() {
-	std::unique_ptr<Boton> cancelar = std::make_unique<Boton>("Cancelar", sf::Vector2f(100, 550), "BotonJugar.png");
-	std::unique_ptr<Boton> aceptar = std::make_unique<Boton>("Aceptar", sf::Vector2f(500, 550), "BotonJugar.png");
-	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(0, 0), "BotonRegresar.png");
+	std::unique_ptr<Boton> cancelar = std::make_unique<Boton>("Cancelar", sf::Vector2f(144, 496), "BotonCancelar.png");
+	std::unique_ptr<Boton> aceptar = std::make_unique<Boton>("Aceptar", sf::Vector2f(584, 496), "BotonAceptar.png");
+	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "BotonRegresar.png");
 	botones.push_back(std::move(cancelar));
 	botones.push_back(std::move(aceptar));
 	botones.push_back(std::move(regresar));
@@ -41,10 +43,23 @@ MenuConfiguraciones::MenuConfiguraciones() {
 void MenuConfiguraciones::mostrarMenu(sf::RenderWindow& window) {
 	dibujarBotones(window);
 }
+///////////////////////////
 MenuTutorial::MenuTutorial() {
-	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(0, 0), "BotonRegresar.png");
+	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "BotonRegresar.png");
 	botones.push_back(std::move(regresar));
 }
 void MenuTutorial::mostrarMenu(sf::RenderWindow& window) {
 	dibujarBotones(window);
+}
+///////////////////////////
+VentanaJuego::VentanaJuego() {
+	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "BotonRegresar.png");
+	botones.push_back(std::move(regresar));
+	Personaje1 = std::make_unique<EntidadViewer>("floppa.png");
+	Mapa = std::make_unique<EntidadViewer>("background.png");
+}
+void VentanaJuego::mostrarMenu(sf::RenderWindow& window) {
+	dibujarBotones(window);
+	Personaje1->dibujarSprite(window);
+	Mapa->dibujarSprite(window);	
 }

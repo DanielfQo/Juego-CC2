@@ -7,9 +7,9 @@ class Boton{
 private:
 	sf::Texture textura;
 	sf::Sprite imagen;
-	std::string texto;
 	sf::Vector2f posicion;
 	sf::Vector2f tamanio;
+	std::string texto;
 	bool presionado = false;
 public:
 	Boton(const std::string& , const sf::Vector2f& , const std::string& );

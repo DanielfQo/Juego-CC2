@@ -1,20 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-using namespace sf;
 
-class Imagen : public sf::Drawable{
-	sf::Sprite spr;
-	sf::Texture txt;
-	sf::Vector2f vel;
-	sf::Texture background;
-	sf::Sprite spritebackground;
+class Imagen {
+protected:
+	sf::Texture spriteTexture;
+	sf::Sprite sprite;
 public:
-	Imagen();
-	void update();
-	void draw(RenderTarget& target, RenderStates states) const override;
+	Imagen(std::string );
+	~Imagen()=default;
+	void dibujarSprite(sf::RenderWindow & window);
+	virtual void updateImagen() = 0;
 };
-
-
-
-
-
