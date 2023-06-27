@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Boton.h"
-#include "Imagen.h"
 #include "EntidadViewer.h"
 #include "MapaViewer.h"
 #include <iostream>
@@ -10,6 +9,8 @@
 
 class Menu {
 protected:
+    std::unique_ptr<EntidadViewer> Personaje1;
+    std::unique_ptr<MapaViewer> Mapa;
     std::vector<std::unique_ptr<Boton>> botones;  
 public:
     virtual void mostrarMenu(sf::RenderWindow&) = 0;
@@ -28,6 +29,9 @@ public:
             }
         }
         return "";
+    }
+    void updateVentana(const sf::Event::KeyEvent& keyevent) {
+        Personaje1->movimientoEntidad(keyevent);
     }
 };
 
@@ -59,9 +63,7 @@ public:
 };
 
 class VentanaJuego :public Menu{
-private:
-    std::unique_ptr<Imagen> Personaje1;
-    std::unique_ptr<Imagen> Mapa;
+
 public:
     VentanaJuego();
     ~VentanaJuego() = default;

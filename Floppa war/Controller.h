@@ -16,9 +16,3 @@ class Controller{
 		void updateParaViewer();
 		*/
 };
-void Controller::cargarModel(){
-	Model aux;
-	Modelo = &aux;
-    Modelo->cargarMapa();
-
-}

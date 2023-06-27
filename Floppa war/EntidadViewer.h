@@ -1,12 +1,15 @@
 #pragma once
-#include "Imagen.h"
-class EntidadViewer :public Imagen{
+#include <SFML/Graphics.hpp>
+class EntidadViewer {
 private:
+	sf::Texture spriteTexture;
+	sf::Sprite sprite;
 	sf::Vector2f velocidad;
 public:
 	EntidadViewer(std::string);
 	~EntidadViewer()=default;
-	void movimientoEntidad();
-	void updateImagen() override;
+	void dibujarEntidad(sf::RenderWindow &);
+	void movimientoEntidad(const sf::Event::KeyEvent& );
+
 };
 

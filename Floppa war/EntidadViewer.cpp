@@ -1,10 +1,16 @@
 #include "EntidadViewer.h"
 
-EntidadViewer::EntidadViewer(std::string rutaImagen) : Imagen(rutaImagen) {
+EntidadViewer::EntidadViewer(std::string rutaImagen) {
     //llamamos al constructor de Imagen con el nombre de archivo proporcionado
+    spriteTexture.loadFromFile(rutaImagen);
+    sprite.setTexture(spriteTexture);
+}
+void EntidadViewer::dibujarEntidad(sf::RenderWindow& window) {
+    window.draw(sprite);
+
 }
 
-void EntidadViewer::movimientoEntidad() {
+void EntidadViewer::movimientoEntidad(const sf::Event::KeyEvent& keyEvent) {
     velocidad = { 0,0 };
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
         velocidad.y = -4;
@@ -26,7 +32,6 @@ void EntidadViewer::movimientoEntidad() {
     else if (velocidad.x > 0) {
         sprite.setScale(1, 1);
     }
-
     if (sprite.getGlobalBounds().left < 0) {
         sprite.setPosition(sprite.getOrigin().x, sprite.getPosition().y);
     }
@@ -39,7 +44,4 @@ void EntidadViewer::movimientoEntidad() {
     if (sprite.getGlobalBounds().top + sprite.getGlobalBounds().height > 600) {
         sprite.setPosition(sprite.getPosition().x, 600 + (sprite.getGlobalBounds().height - sprite.getOrigin().y));
     }
-}
-void EntidadViewer::updateImagen() {
-    movimientoEntidad();
 }
