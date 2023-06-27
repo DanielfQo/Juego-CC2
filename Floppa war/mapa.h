@@ -82,5 +82,5 @@ class mapa1{
             
         }
         
-        void load_entidad();
+        //void load_entidad();
 };
