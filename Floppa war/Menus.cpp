@@ -61,5 +61,4 @@ void VentanaJuego::mostrarMenu(sf::RenderWindow& window) {
 	Mapa->mostrarMapa(window);
 	Personaje1->dibujarEntidad(window);
 	dibujarBotones(window);
-	
 }
