@@ -9,11 +9,16 @@
 
 class Menu {
 protected:
-    std::unique_ptr<EntidadViewer> Personaje1;
+    std::unique_ptr<EntidadViewer> Personaje;
     std::unique_ptr<MapaViewer> Mapa;
-    std::vector<std::unique_ptr<Boton>> botones;  
+    std::vector<std::unique_ptr<Boton>> botones;
+    std::vector<std::unique_ptr<Boton>> seleccionPersonaje;
+
+    int idPersonaje1 = 0;
+    int idPersonaje2 = 1;
 public:
     virtual void mostrarMenu(sf::RenderWindow&) = 0;
+    
 
     void dibujarBotones(sf::RenderWindow& window) {
         for (const auto& boton : botones) {
@@ -30,9 +35,25 @@ public:
         }
         return "";
     }
-    void updateVentana(const sf::Event::KeyEvent& keyevent) {
-        Personaje1->movimientoEntidad(keyevent);
+
+    std::string PersonajePresionado(sf::Vector2i coordMouse) {
+        for (const auto& boton : seleccionPersonaje) {
+            if (boton->getDibujado()) {
+                boton->estaPresionado(coordMouse);
+                if (boton->getPresionado()) {
+                    return boton->getTexto();
+                }
+            }
+        }
+        return "";
     }
+
+    void updateJuego1(const sf::Event::KeyEvent& keyevent) {
+        Personaje->movimientoEntidad1(keyevent);
+    }void updateJuego2(const sf::Event::KeyEvent& keyevent) {
+        Personaje->movimientoEntidad2(keyevent);
+    }
+    int getIDPersonaje() {return idPersonaje1;}
 };
 
 class MenuInicio:public Menu{
@@ -62,11 +83,32 @@ public:
 	void mostrarMenu(sf::RenderWindow&) override;
 };
 
+class SeleccionPersonajeSingle :public Menu {
+
+public:
+    SeleccionPersonajeSingle(int);
+    ~SeleccionPersonajeSingle() = default;
+    void mostrarMenu(sf::RenderWindow&) override;
+    void dibujarBotonSeleccionPersonaje(sf::RenderWindow&);
+
+};
+
+class SeleccionPersonajeMulti :public Menu {
+
+public:
+    SeleccionPersonajeMulti(int,int);
+    ~SeleccionPersonajeMulti() = default;
+    void mostrarMenu(sf::RenderWindow&) override;
+    void dibujarBotonSeleccionPersonaje(sf::RenderWindow&);
+
+};
+
 class VentanaJuego :public Menu{
 
 public:
-    VentanaJuego();
+    VentanaJuego(int);
     ~VentanaJuego() = default;
     void mostrarMenu(sf::RenderWindow&) override;
 };
+
 

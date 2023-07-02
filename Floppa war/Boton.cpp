@@ -4,6 +4,7 @@
 
 
 Boton::Boton(const std::string& texto_, const sf::Vector2f& pos_, const std::string & rutaImagen) {
+
     textura.loadFromFile(rutaImagen);
     posicion = pos_;
     tamanio = sf::Vector2f(textura.getSize());
@@ -11,15 +12,20 @@ Boton::Boton(const std::string& texto_, const sf::Vector2f& pos_, const std::str
     imagen.setPosition(posicion);
     texto = texto_;
 }
-void Boton::dibujarBoton(sf::RenderWindow& window) const {
+void Boton::dibujarBoton(sf::RenderWindow& window){
+    dibujado = true;
     window.draw(imagen);
 }
 void Boton::estaPresionado(sf::Vector2i coord) {
     if (coord.x >= posicion.x && coord.x <= posicion.x + tamanio.x && coord.y >= posicion.y && coord.y <= posicion.y + tamanio.y)
         presionado = true;
+    dibujado = false;
 }
 bool Boton::getPresionado () const{
     return presionado;
+}
+bool Boton::getDibujado() const {
+    return dibujado;
 }
 std::string Boton::getTexto() const {
     return texto;

@@ -2,8 +2,10 @@
 #include "Boton.h"
 #include "EntidadViewer.h"
 #include "MapaViewer.h"
+#include "PersonajesViewer.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+const int cantidadPersonajes = 3;
 ///////////////////////////
 MenuInicio::MenuInicio() {
 	std::unique_ptr<Boton> jugar = std::make_unique<Boton>("Jugar", sf::Vector2f(144, 352), "Imagenes/BotonJugar.png");
@@ -51,14 +53,94 @@ void MenuTutorial::mostrarMenu(sf::RenderWindow& window) {
 	dibujarBotones(window);
 }
 ///////////////////////////
-VentanaJuego::VentanaJuego() {
+SeleccionPersonajeSingle::SeleccionPersonajeSingle(int selecPersonaje) {
+	idPersonaje1 = selecPersonaje;
+
+	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
+
+	std::unique_ptr<Boton> anterior = std::make_unique<Boton>("Anterior", sf::Vector2f(324, 516), "Imagenes/BotonAnterior.png");
+	std::unique_ptr<Boton> siguiente = std::make_unique<Boton>("Siguiente", sf::Vector2f(668, 516), "Imagenes/BotonSiguiente.png");
+
+	std::unique_ptr<Boton> NombreFloppa = std::make_unique<Boton>("NombreFloppa", sf::Vector2f(364, 496), "Imagenes/NombreFloppa.png");
+	std::unique_ptr<Boton> NombreSogga = std::make_unique<Boton>("NombreSogga", sf::Vector2f(364, 496), "Imagenes/NombreSogga.png");
+	std::unique_ptr<Boton> NombreJinx = std::make_unique<Boton>("NombreJinx", sf::Vector2f(364, 496), "Imagenes/NombreJinx.png");
+	botones.push_back(std::move(regresar));
+	botones.push_back(std::move(anterior));
+	botones.push_back(std::move(siguiente));
+	seleccionPersonaje.push_back(std::move(NombreFloppa));
+	seleccionPersonaje.push_back(std::move(NombreSogga));
+	seleccionPersonaje.push_back(std::move(NombreJinx));
+}
+void SeleccionPersonajeSingle::mostrarMenu(sf::RenderWindow& window) {
+	dibujarBotones(window);
+	dibujarBotonSeleccionPersonaje(window);
+}
+void SeleccionPersonajeSingle::dibujarBotonSeleccionPersonaje(sf::RenderWindow& window) {
+	seleccionPersonaje[idPersonaje1]->dibujarBoton(window);
+}
+///////////////////////////
+SeleccionPersonajeMulti::SeleccionPersonajeMulti(int selecPersonaje1, int selecPersonaje2) {
+	idPersonaje1 = selecPersonaje1;
+	idPersonaje2 = selecPersonaje1;
+
+	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
+
+	std::unique_ptr<Boton> anterior = std::make_unique<Boton>("Anterior", sf::Vector2f(104, 516), "Imagenes/BotonAnterior.png");
+	std::unique_ptr<Boton> siguiente = std::make_unique<Boton>("Siguiente", sf::Vector2f(448, 516), "Imagenes/BotonSiguiente.png");
+
+	std::unique_ptr<Boton> anterior2 = std::make_unique<Boton>("Anterior2", sf::Vector2f(544, 516), "Imagenes/BotonAnterior.png");
+	std::unique_ptr<Boton> siguiente2 = std::make_unique<Boton>("Siguiente2", sf::Vector2f(888, 516), "Imagenes/BotonSiguiente.png");
+
+	std::unique_ptr<Boton> NombreFloppa = std::make_unique<Boton>("NombreFloppa", sf::Vector2f(144, 496), "Imagenes/NombreFloppa.png");
+	std::unique_ptr<Boton> NombreSogga = std::make_unique<Boton>("NombreSogga", sf::Vector2f(144, 496), "Imagenes/NombreSogga.png");
+	std::unique_ptr<Boton> NombreJinx = std::make_unique<Boton>("NombreJinx", sf::Vector2f(144, 496), "Imagenes/NombreJinx.png");
+
+	std::unique_ptr<Boton> NombreFloppa2 = std::make_unique<Boton>("NombreFloppa2", sf::Vector2f(584, 496), "Imagenes/NombreFloppa.png");
+	std::unique_ptr<Boton> NombreSogga2 = std::make_unique<Boton>("NombreSogga2", sf::Vector2f(584, 496), "Imagenes/NombreSogga.png");
+	std::unique_ptr<Boton> NombreJinx2 = std::make_unique<Boton>("NombreJinx2", sf::Vector2f(584, 496), "Imagenes/NombreJinx.png");
+
+	botones.push_back(std::move(regresar));
+	botones.push_back(std::move(anterior));
+	botones.push_back(std::move(siguiente));
+	botones.push_back(std::move(anterior2));
+	botones.push_back(std::move(siguiente2));
+
+	seleccionPersonaje.push_back(std::move(NombreFloppa));
+	seleccionPersonaje.push_back(std::move(NombreSogga));
+	seleccionPersonaje.push_back(std::move(NombreJinx));
+	seleccionPersonaje.push_back(std::move(NombreFloppa2));
+	seleccionPersonaje.push_back(std::move(NombreSogga2));
+	seleccionPersonaje.push_back(std::move(NombreJinx2));
+}
+void SeleccionPersonajeMulti::mostrarMenu(sf::RenderWindow& window) {
+	dibujarBotones(window);
+	dibujarBotonSeleccionPersonaje(window);
+}
+void SeleccionPersonajeMulti::dibujarBotonSeleccionPersonaje(sf::RenderWindow& window) {
+	seleccionPersonaje[idPersonaje1]->dibujarBoton(window);
+	seleccionPersonaje[idPersonaje2+ cantidadPersonajes]->dibujarBoton(window);
+}
+///////////////////////////
+VentanaJuego::VentanaJuego(int id) {
 	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
 	botones.push_back(std::move(regresar));
 	Mapa = std::make_unique<MapaViewer>("Imagenes/background.png");
-	Personaje1 = std::make_unique<EntidadViewer>("Imagenes/floppa.png");
+	if (id == 0) {
+		std::unique_ptr<EntidadViewer>Personaje1 = std::make_unique<PersonajesViewer>("Imagenes/FloppaSpriteSheet.png");
+		Personaje = std::move(Personaje1);
+	}
+	else if (id == 1) {
+		std::unique_ptr<EntidadViewer>Personaje2 = std::make_unique<PersonajesViewer>("Imagenes/SoggaSpriteSheet.png");
+		Personaje = std::move(Personaje2);
+	}
+	else if (id == 2) {
+		std::unique_ptr<EntidadViewer>Personaje3 = std::make_unique<PersonajesViewer>("Imagenes/JinxSpriteSheet.png");
+		Personaje = std::move(Personaje3);
+	}
 }
 void VentanaJuego::mostrarMenu(sf::RenderWindow& window) {
 	Mapa->mostrarMapa(window);
-	Personaje1->dibujarEntidad(window);
+	Personaje->dibujarEntidad(window);
 	dibujarBotones(window);
 }
+///////////////////////////
