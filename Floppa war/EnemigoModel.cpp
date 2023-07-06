@@ -2,8 +2,8 @@
 void MeleeEnemigoModel::moverse(float x, float y){}
 void MeleeEnemigoModel::atacar() {}
 
-void RangedEnemidoModel::moverse(float x, float y) {}
-void RangedEnemidoModel::atacar() {}
+void RangedEnemigoModel::moverse(float x, float y) {}
+void RangedEnemigoModel::atacar() {}
 
 void TanqueEnemigoModel::moverse(float x, float y) {}
 void TanqueEnemigoModel::atacar() {}

@@ -1,5 +1,4 @@
 #include "PersonajeModel.h"
-#include "EnemigoModel.h"
 void FloppaModel::moverse(float x, float y) {}
 void FloppaModel::atacar() {}
 void FloppaModel::ataqueEspecial() {}
