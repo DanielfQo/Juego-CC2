@@ -1,10 +1,10 @@
 #include <iostream>
 #include <vector>
-#include "mapa.h"
+#include "MapaModel.h"
 
 class Model{
 private:
-	mapa1* maparef;
+	std::unique_ptr<MapaModel> maparef;
     //mapa2  mapa2;	
 public:
     void cargarMapa();
@@ -14,8 +14,3 @@ public:
 
 };
 
-/*
-std::vector<std::vector<int>> Model::getMapa(){
-    return maparef->getMapa1();
-}
-*/
