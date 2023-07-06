@@ -13,7 +13,7 @@ private:
 public:
     PersonajesViewer(std::string rutaImagen);
     void dibujarEntidad(sf::RenderWindow& window) override;
-    void movimientoEntidad1(const sf::Event::KeyEvent& keyevent);
-    void movimientoEntidad2(const sf::Event::KeyEvent& keyevent);
+    void movimientoEntidadPress(const sf::Event::KeyEvent& keyevent);
+    void movimientoEntidadRele(const sf::Event::KeyEvent& keyevent);
     sf::IntRect FragmentarSprite(int);
 };

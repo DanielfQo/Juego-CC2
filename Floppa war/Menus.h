@@ -48,12 +48,14 @@ public:
         return "";
     }
 
-    void updateJuego1(const sf::Event::KeyEvent& keyevent) {
-        Personaje->movimientoEntidad1(keyevent);
-    }void updateJuego2(const sf::Event::KeyEvent& keyevent) {
-        Personaje->movimientoEntidad2(keyevent);
+    void eventoMovimientoPress(const sf::Event::KeyEvent& keyevent) {
+        Personaje->movimientoEntidadPress(keyevent);
     }
-    int getIDPersonaje() {return idPersonaje1;}
+    void eventoMovimientoRele(const sf::Event::KeyEvent& keyevent) {
+        Personaje->movimientoEntidadRele(keyevent);
+    }
+    int getIDPersonaje1() {return idPersonaje1;}
+    int getIDPersonaje2() {return idPersonaje2;}
 };
 
 class MenuInicio:public Menu{

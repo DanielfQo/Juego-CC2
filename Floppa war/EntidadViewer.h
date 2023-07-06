@@ -10,7 +10,7 @@ public:
 	EntidadViewer(std::string);
 	~EntidadViewer()=default;
 	virtual void dibujarEntidad(sf::RenderWindow &) = 0;
-	virtual void movimientoEntidad1(const sf::Event::KeyEvent& keyevent) = 0;
-	virtual void movimientoEntidad2(const sf::Event::KeyEvent& keyevent) = 0;
+	virtual void movimientoEntidadPress(const sf::Event::KeyEvent& keyevent) = 0;
+	virtual void movimientoEntidadRele(const sf::Event::KeyEvent& keyevent) = 0;
 };
 

@@ -81,33 +81,34 @@ void SeleccionPersonajeSingle::dibujarBotonSeleccionPersonaje(sf::RenderWindow& 
 ///////////////////////////
 SeleccionPersonajeMulti::SeleccionPersonajeMulti(int selecPersonaje1, int selecPersonaje2) {
 	idPersonaje1 = selecPersonaje1;
-	idPersonaje2 = selecPersonaje1;
+	idPersonaje2 = selecPersonaje2;
 
 	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
 
-	std::unique_ptr<Boton> anterior = std::make_unique<Boton>("Anterior", sf::Vector2f(104, 516), "Imagenes/BotonAnterior.png");
-	std::unique_ptr<Boton> siguiente = std::make_unique<Boton>("Siguiente", sf::Vector2f(448, 516), "Imagenes/BotonSiguiente.png");
+	std::unique_ptr<Boton> anterior1 = std::make_unique<Boton>("Anterior1", sf::Vector2f(104, 516), "Imagenes/BotonAnterior.png");
+	std::unique_ptr<Boton> siguiente1 = std::make_unique<Boton>("Siguiente1", sf::Vector2f(448, 516), "Imagenes/BotonSiguiente.png");
 
 	std::unique_ptr<Boton> anterior2 = std::make_unique<Boton>("Anterior2", sf::Vector2f(544, 516), "Imagenes/BotonAnterior.png");
 	std::unique_ptr<Boton> siguiente2 = std::make_unique<Boton>("Siguiente2", sf::Vector2f(888, 516), "Imagenes/BotonSiguiente.png");
 
-	std::unique_ptr<Boton> NombreFloppa = std::make_unique<Boton>("NombreFloppa", sf::Vector2f(144, 496), "Imagenes/NombreFloppa.png");
-	std::unique_ptr<Boton> NombreSogga = std::make_unique<Boton>("NombreSogga", sf::Vector2f(144, 496), "Imagenes/NombreSogga.png");
-	std::unique_ptr<Boton> NombreJinx = std::make_unique<Boton>("NombreJinx", sf::Vector2f(144, 496), "Imagenes/NombreJinx.png");
+	std::unique_ptr<Boton> NombreFloppa1 = std::make_unique<Boton>("NombreFloppa1", sf::Vector2f(144, 496), "Imagenes/NombreFloppa.png");
+	std::unique_ptr<Boton> NombreSogga1 = std::make_unique<Boton>("NombreSogga1", sf::Vector2f(144, 496), "Imagenes/NombreSogga.png");
+	std::unique_ptr<Boton> NombreJinx1 = std::make_unique<Boton>("NombreJinx1", sf::Vector2f(144, 496), "Imagenes/NombreJinx.png");
 
 	std::unique_ptr<Boton> NombreFloppa2 = std::make_unique<Boton>("NombreFloppa2", sf::Vector2f(584, 496), "Imagenes/NombreFloppa.png");
 	std::unique_ptr<Boton> NombreSogga2 = std::make_unique<Boton>("NombreSogga2", sf::Vector2f(584, 496), "Imagenes/NombreSogga.png");
 	std::unique_ptr<Boton> NombreJinx2 = std::make_unique<Boton>("NombreJinx2", sf::Vector2f(584, 496), "Imagenes/NombreJinx.png");
 
 	botones.push_back(std::move(regresar));
-	botones.push_back(std::move(anterior));
-	botones.push_back(std::move(siguiente));
+
+	botones.push_back(std::move(anterior1));
+	botones.push_back(std::move(siguiente1));
 	botones.push_back(std::move(anterior2));
 	botones.push_back(std::move(siguiente2));
 
-	seleccionPersonaje.push_back(std::move(NombreFloppa));
-	seleccionPersonaje.push_back(std::move(NombreSogga));
-	seleccionPersonaje.push_back(std::move(NombreJinx));
+	seleccionPersonaje.push_back(std::move(NombreFloppa1));
+	seleccionPersonaje.push_back(std::move(NombreSogga1));
+	seleccionPersonaje.push_back(std::move(NombreJinx1));
 	seleccionPersonaje.push_back(std::move(NombreFloppa2));
 	seleccionPersonaje.push_back(std::move(NombreSogga2));
 	seleccionPersonaje.push_back(std::move(NombreJinx2));
