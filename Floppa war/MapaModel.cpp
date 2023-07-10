@@ -58,3 +58,44 @@ void MapaModel::generar_campo() {
     for (int generacion = 0; generacion < GENERACIONES; generacion++)
         aplicarReglas();
 }
+
+void MapaModel::moverMapa(bool vector[4]) {
+    
+    bool arriba = vector[0];
+    bool abajo = vector[1];
+    bool izquierda = vector[2];
+    bool derecha = vector[3];
+
+
+    // Ajustar las velocidades en función de los flags
+    if (arriba)
+        velocidadY += aceleracion;
+    if (abajo)
+        velocidadY -= aceleracion;
+    if (izquierda)
+        velocidadX += aceleracion;
+    if (derecha)
+        velocidadX -= aceleracion;
+
+    // Aplicar desaceleración
+    if (!arriba && !abajo)
+        velocidadY -= (velocidadY * desaceleracion);
+    if (!izquierda && !derecha)
+        velocidadX -= (velocidadX * desaceleracion);
+
+    // Limitar la velocidad máxima
+    if (velocidadY > velocidadMaxima)
+        velocidadY = velocidadMaxima;
+    if (velocidadY < -velocidadMaxima)
+        velocidadY = -velocidadMaxima;
+    if (velocidadX > velocidadMaxima)
+        velocidadX = velocidadMaxima;
+    if (velocidadX < -velocidadMaxima)
+        velocidadX = -velocidadMaxima;
+
+    // Mover la posición en función de las velocidades
+    posicionY += velocidadY;
+    posicionX += velocidadX;
+
+    
+}
