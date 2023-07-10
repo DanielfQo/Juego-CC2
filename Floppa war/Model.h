@@ -4,10 +4,15 @@
 
 class Model{
 private:
-	std::unique_ptr<MapaModel> maparef;
+	std::shared_ptr<MapaModel> maparef;
     //mapa2  mapa2;	
 public:
-    void cargarMapa();
+	std::shared_ptr<MapaModel> getMapa() {
+		return maparef;
+	}
+
+	void cargarMapa();
+	bool colisiones(int, int, int, int, int, int);
     //std::vector<std::vector<int>> getMapa();
 	//void getposiciones();
 	//void updateposicion();

@@ -1,29 +1,29 @@
-#pragma once
-#include "EntidadModel.h"
-class PersonajeModel :public EntidadModel{
-protected:
-    std::string arma1, arma2;
+class PersonajeModel{
 public:
-    virtual void moverse(float, float) = 0;
-    virtual void atacar() = 0;
-    virtual void ataqueEspecial() = 0;
+    virtual bool atacar(int, int,int, int) = 0;
+    virtual void SpecialAbility() = 0;
 };
+// leaf
 
-class FloppaModel :public PersonajeModel {
+class FloppaModel : public PersonajeModel {
+private:
+    float radioAtack = 10;
 public:
-    void moverse(float, float) override;
-    void atacar() override;
-    void ataqueEspecial() override;
+    bool atacar(int, int,int, int) override; //atack meele
+    void SpecialAbility() override;
 };
-class SoggaModel :public PersonajeModel {
+class SoggaModel :public PersonajeModel { // atack large
+private:
+    float AtackMin = 30;
+    float AtackMax = 60;
 public:
-    void moverse(float, float) override;
-    void atacar() override;
-    void ataqueEspecial() override;
+    bool atacar(int, int, int, int) override;
+    void SpecialAbility() override;
 };
-class JinxModel :public PersonajeModel {
+class JinxModel :public PersonajeModel { //atack medium
+private:
+    float radioAtack = 30;
 public:
-    void moverse(float, float) override;
-    void atacar() override;
-    void ataqueEspecial() override;
+    bool atacar(int, int, int, int) override;
+    void SpecialAbility() override;
 };

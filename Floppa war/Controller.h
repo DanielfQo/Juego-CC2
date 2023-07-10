@@ -7,10 +7,13 @@ class Controller{
 	private:
 		float posicionPersonaje;
 		std::string nombreMenu;
-		std::unique_ptr<Model> Modelo;
+		std::shared_ptr<Model> Modelo;
 		std::unique_ptr<Viewer> Vista;
 		
 	public:
+		std::shared_ptr<Model> getModelo(){
+			return Modelo;
+		}
 		void cargarModel();
 		/*
 		void verificarCambios();

@@ -4,7 +4,7 @@
 
 class MapaModel{
     private:
-        int FILAS = 25;
+        int FILAS = 30;
         int COLUMNAS = 40;
         int GENERACIONES = 2;
         std::vector<std::vector<int>> mapa;

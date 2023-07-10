@@ -1,4 +1,6 @@
 #pragma once
+#include<stdlib.h>
+#include<time.h>
 #include "MapaModel.h"
 
 void MapaModel::imprimirMapa() {     //mostrar mapa  
@@ -46,16 +48,13 @@ void MapaModel::aplicarReglas(){ // Creador del mapa
 void MapaModel::generar_campo() {
     std::vector<std::vector<int>> NewMapa(FILAS, std::vector<int>(COLUMNAS, 0));
     mapa = NewMapa;
+    srand(time(NULL));
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
             mapa[i][j] = rand() % 2;
         }
     }
 
-    for (int generacion = 0; generacion < GENERACIONES; generacion++) {
-        std::cout << "Generacion " << generacion + 1 << ":" << std::endl;
-        imprimirMapa();
+    for (int generacion = 0; generacion < GENERACIONES; generacion++)
         aplicarReglas();
-    }
-
 }
