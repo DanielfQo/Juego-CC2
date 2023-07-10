@@ -1,6 +1,6 @@
 #include<cmath>
 #include "PersonajeModel.h"
-#include "PersonajeAbstract.h"
+
 // personajeAbstract
 bool FloppaModel::atacar(int x, int y,int posX, int posY) {
 	float distancia = sqrt((posX - x) * (posX - x) + (posY - y) * (posY - y));
