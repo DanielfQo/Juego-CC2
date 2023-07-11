@@ -10,7 +10,7 @@ class Controller{
 		std::unique_ptr<Viewer> Vista = std::make_unique<Viewer>();
 		
 	public:
-		void cargarJuego();
+		void cargarVentana();
 		/*
 		void verificarCambios();
 		void updateParaModelo();

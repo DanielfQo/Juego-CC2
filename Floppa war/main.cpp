@@ -1,12 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include<SFML/Window.hpp>
 #include <iostream>
-#include "Viewer.h"
+#include "Controller.h"
 
 int main() {
     
-    Viewer vista;
-    vista.dibujarVentana();
+    Controller controlador;
+    controlador.cargarVentana();
     
     return 0;
 }

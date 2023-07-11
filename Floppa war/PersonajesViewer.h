@@ -16,4 +16,9 @@ public:
     void movimientoEntidadPress(const sf::Event::KeyEvent& keyevent);
     void movimientoEntidadRele(const sf::Event::KeyEvent& keyevent);
     sf::IntRect FragmentarSprite(int);
+
+    bool getMueveArriba() {return mueveArriba;}
+    bool getMueveAbajo() { return mueveAbajo; }
+    bool getMueveIzquierda() { return mueveIzquierda; }
+    bool getMueveDerecha() { return mueveDerecha; }
 };

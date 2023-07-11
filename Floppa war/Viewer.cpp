@@ -13,36 +13,36 @@ bool Viewer::ventanaCerrada() {
 	return ventana.isOpen();
 }
 
-void Viewer::dibujarVentana() {
+void Viewer::actualizarVentana() {
+    ventana.clear();
+    tipoMenu->mostrarMenu(ventana);
+    ventana.display();
     
-    while (ventana.isOpen()) {
-        sf::Event event;
-        while (ventana.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                ventana.close();
-            else if (event.type == sf::Event::MouseButtonPressed) {
-                if (event.mouseButton.button == sf::Mouse::Left) {
-                    sf::Vector2i coordMouse(event.mouseButton.x, event.mouseButton.y);
-                    updateMenu(coordMouse);
-                }
-            }
-            if (typeid(*tipoMenu) == typeid(VentanaJuego)) {
-                if (event.type == sf::Event::KeyPressed) {
-                    tipoMenu->eventoMovimientoPress(event.key);
-                }
-                else if (event.type == sf::Event::KeyReleased) {
-                    tipoMenu->eventoMovimientoRele(event.key);
-                }
+}
+void Viewer::manejarEventos() {
+    sf::Event event;
+    while (ventana.pollEvent(event)) {
+        if (event.type == sf::Event::Closed)
+            ventana.close();
+        else if (event.type == sf::Event::MouseButtonPressed) {
+            if (event.mouseButton.button == sf::Mouse::Left) {
+                sf::Vector2i coordMouse(event.mouseButton.x, event.mouseButton.y);
+                updateMenu(coordMouse);
             }
         }
-        ventana.clear();
-        tipoMenu->mostrarMenu(ventana);
-        ventana.display();
+        if (typeid(*tipoMenu) == typeid(VentanaJuego)) {
+            if (event.type == sf::Event::KeyPressed) {
+                tipoMenu->eventoMovimientoPress(event.key);
+            }
+            else if (event.type == sf::Event::KeyReleased) {
+                tipoMenu->eventoMovimientoRele(event.key);
+            }
+        }
     }
 }
 
 void Viewer::updateMenu(sf::Vector2i coordMouse) {
-
+    
     std::string nombre = tipoMenu->botonPresionado(coordMouse);
     std::string nombrePersonaje = tipoMenu->PersonajePresionado(coordMouse);
     if (nombre == "Regresar")
@@ -70,27 +70,27 @@ void Viewer::updateMenu(sf::Vector2i coordMouse) {
     }
     else if (nombre == "Siguiente") {
         int id = tipoMenu->getIDPersonaje1();
-        if (id < tamPersonajes - 1) {
+        if (id < tamPersonajes-1) {
             id++;
             tipoMenu = std::make_unique<SeleccionPersonajeSingle>(id);
         }
-        else
-            tipoMenu = std::make_unique<SeleccionPersonajeSingle>(tamPersonajes - 1);
+        else 
+            tipoMenu = std::make_unique<SeleccionPersonajeSingle>(tamPersonajes-1);
     }
-    else if (nombrePersonaje == "NombreFloppa")
+    else if (nombrePersonaje == "NombreFloppa") 
         tipoMenu = std::make_unique<VentanaJuego>(0);
     else if (nombrePersonaje == "NombreSogga")
         tipoMenu = std::make_unique<VentanaJuego>(1);
     else if (nombrePersonaje == "NombreJinx")
         tipoMenu = std::make_unique<VentanaJuego>(2);
     //////////////////////////////////
-    else if (nombre == "Multiplayer")
-        tipoMenu = std::make_unique<SeleccionPersonajeMulti>(0, 0);
+    else if (nombre == "Multiplayer") 
+        tipoMenu = std::make_unique<SeleccionPersonajeMulti>(0,0);
     else if (nombre == "Anterior1") {
         int id1 = tipoMenu->getIDPersonaje1();
         int id2 = tipoMenu->getIDPersonaje2();
 
-        if (id1 > 0) {
+        if (id1 > 0 ) {
             id1--;
             tipoMenu = std::make_unique<SeleccionPersonajeMulti>(id1, id2);
         }

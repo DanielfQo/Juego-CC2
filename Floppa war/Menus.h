@@ -14,11 +14,16 @@ protected:
     std::vector<std::unique_ptr<Boton>> botones;
     std::vector<std::unique_ptr<Boton>> seleccionPersonaje;
 
+    bool direccion[4];
+
     int idPersonaje1 = 0;
     int idPersonaje2 = 1;
 public:
     virtual void mostrarMenu(sf::RenderWindow&) = 0;
     
+    bool* getDireccion() {
+        return direccion;
+    }
 
     void dibujarBotones(sf::RenderWindow& window) {
         for (const auto& boton : botones) {

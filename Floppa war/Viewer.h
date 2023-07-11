@@ -11,7 +11,9 @@ public:
 	Viewer();
 	~Viewer();
 	bool ventanaCerrada();
+	void actualizarVentana();
+	void manejarEventos();
 	void updateMenu(sf::Vector2i);
-	void dibujarVentana();
+	
 };
 
