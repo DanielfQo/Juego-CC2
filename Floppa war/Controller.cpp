@@ -1,6 +1,6 @@
 #include "Controller.h"
+void Controller::cargarJuego() {
+	while (Vista->ventanaCerrada()) {
 
-void Controller::cargarModel() {
-    Modelo = std::make_shared<Model>();
-    Modelo->cargarMapa();
+	}
 }

@@ -8,14 +8,41 @@ Viewer::Viewer() {
 	ventana.create(sf::VideoMode(1024, 640), "Floppa War");
     ventana.setFramerateLimit(24);
 }
-sf::RenderWindow& Viewer::getVentana() {
-	return ventana;
-}
+
 bool Viewer::ventanaCerrada() {
 	return ventana.isOpen();
 }
-void Viewer::updateMenu(sf::Vector2i coordMouse) {
+
+void Viewer::dibujarVentana() {
     
+    while (ventana.isOpen()) {
+        sf::Event event;
+        while (ventana.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                ventana.close();
+            else if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    sf::Vector2i coordMouse(event.mouseButton.x, event.mouseButton.y);
+                    updateMenu(coordMouse);
+                }
+            }
+            if (typeid(*tipoMenu) == typeid(VentanaJuego)) {
+                if (event.type == sf::Event::KeyPressed) {
+                    tipoMenu->eventoMovimientoPress(event.key);
+                }
+                else if (event.type == sf::Event::KeyReleased) {
+                    tipoMenu->eventoMovimientoRele(event.key);
+                }
+            }
+        }
+        ventana.clear();
+        tipoMenu->mostrarMenu(ventana);
+        ventana.display();
+    }
+}
+
+void Viewer::updateMenu(sf::Vector2i coordMouse) {
+
     std::string nombre = tipoMenu->botonPresionado(coordMouse);
     std::string nombrePersonaje = tipoMenu->PersonajePresionado(coordMouse);
     if (nombre == "Regresar")
@@ -43,27 +70,27 @@ void Viewer::updateMenu(sf::Vector2i coordMouse) {
     }
     else if (nombre == "Siguiente") {
         int id = tipoMenu->getIDPersonaje1();
-        if (id < tamPersonajes-1) {
+        if (id < tamPersonajes - 1) {
             id++;
             tipoMenu = std::make_unique<SeleccionPersonajeSingle>(id);
         }
-        else 
-            tipoMenu = std::make_unique<SeleccionPersonajeSingle>(tamPersonajes-1);
+        else
+            tipoMenu = std::make_unique<SeleccionPersonajeSingle>(tamPersonajes - 1);
     }
-    else if (nombrePersonaje == "NombreFloppa") 
+    else if (nombrePersonaje == "NombreFloppa")
         tipoMenu = std::make_unique<VentanaJuego>(0);
     else if (nombrePersonaje == "NombreSogga")
         tipoMenu = std::make_unique<VentanaJuego>(1);
     else if (nombrePersonaje == "NombreJinx")
         tipoMenu = std::make_unique<VentanaJuego>(2);
     //////////////////////////////////
-    else if (nombre == "Multiplayer") 
-        tipoMenu = std::make_unique<SeleccionPersonajeMulti>(0,0);
+    else if (nombre == "Multiplayer")
+        tipoMenu = std::make_unique<SeleccionPersonajeMulti>(0, 0);
     else if (nombre == "Anterior1") {
         int id1 = tipoMenu->getIDPersonaje1();
         int id2 = tipoMenu->getIDPersonaje2();
 
-        if (id1 > 0 ) {
+        if (id1 > 0) {
             id1--;
             tipoMenu = std::make_unique<SeleccionPersonajeMulti>(id1, id2);
         }
@@ -104,32 +131,5 @@ void Viewer::updateMenu(sf::Vector2i coordMouse) {
             tipoMenu = std::make_unique<SeleccionPersonajeMulti>(id1, tamPersonajes - 1);
     }
     //////////////////////////////////
-}
-void Viewer::dibujarVentana() {
-    
-    while (ventana.isOpen()) {
-        sf::Event event;
-        while (ventana.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                ventana.close();
-            else if (event.type == sf::Event::MouseButtonPressed) {
-                if (event.mouseButton.button == sf::Mouse::Left) {
-                    sf::Vector2i coordMouse(event.mouseButton.x, event.mouseButton.y);
-                    updateMenu(coordMouse);
-                }
-            }
-            if (typeid(*tipoMenu) == typeid(VentanaJuego)) {
-                if (event.type == sf::Event::KeyPressed) {
-                    tipoMenu->eventoMovimientoPress(event.key);
-                }
-                else if (event.type == sf::Event::KeyReleased) {
-                    tipoMenu->eventoMovimientoRele(event.key);
-                }
-            }
-        }
-        ventana.clear();
-        tipoMenu->mostrarMenu(ventana);
-        ventana.display();
-    }
 }
 Viewer::~Viewer(){}

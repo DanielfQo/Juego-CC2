@@ -5,16 +5,12 @@
 
 class Controller{
 	private:
-		float posicionPersonaje;
-		std::string nombreMenu;
-		std::shared_ptr<Model> Modelo;
-		std::unique_ptr<Viewer> Vista;
+
+		std::unique_ptr<Model> Modelo = std::make_unique<Model>();
+		std::unique_ptr<Viewer> Vista = std::make_unique<Viewer>();
 		
 	public:
-		std::shared_ptr<Model> getModelo(){
-			return Modelo;
-		}
-		void cargarModel();
+		void cargarJuego();
 		/*
 		void verificarCambios();
 		void updateParaModelo();

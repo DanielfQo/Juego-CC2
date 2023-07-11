@@ -10,7 +10,6 @@ private:
 public:
 	Viewer();
 	~Viewer();
-	sf::RenderWindow& getVentana();
 	bool ventanaCerrada();
 	void updateMenu(sf::Vector2i);
 	void dibujarVentana();
