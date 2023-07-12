@@ -60,27 +60,21 @@ void MapaModel::generar_campo() {
 }
 
 void MapaModel::moverMapa(bool vector[4]) {
-    
-    bool arriba = vector[0];
-    bool abajo = vector[1];
-    bool izquierda = vector[2];
-    bool derecha = vector[3];
-
-
+   
     // Ajustar las velocidades en función de los flags
-    if (arriba)
+    if (vector[0])
         velocidadY += aceleracion;
-    if (abajo)
+    if (vector[1])
         velocidadY -= aceleracion;
-    if (izquierda)
+    if (vector[2])
         velocidadX += aceleracion;
-    if (derecha)
+    if (vector[3])
         velocidadX -= aceleracion;
 
     // Aplicar desaceleración
-    if (!arriba && !abajo)
+    if (!vector[0] && !vector[1])
         velocidadY -= (velocidadY * desaceleracion);
-    if (!izquierda && !derecha)
+    if (!vector[2] && !vector[3])
         velocidadX -= (velocidadX * desaceleracion);
 
     // Limitar la velocidad máxima
@@ -96,6 +90,5 @@ void MapaModel::moverMapa(bool vector[4]) {
     // Mover la posición en función de las velocidades
     posicionY += velocidadY;
     posicionX += velocidadX;
-
     
 }

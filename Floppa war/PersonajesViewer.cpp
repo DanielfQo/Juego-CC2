@@ -2,7 +2,7 @@
 #include <iostream> 
 #include <SFML/Graphics.hpp>
 PersonajesViewer::PersonajesViewer(std::string rutaImagen): EntidadViewer(rutaImagen), 
-actualFrame(0), totalFrames(4), duracionFrame(0.1f), ultimoFrame(0.0f), mueveDerecha(false) {
+actualFrame(0), totalFrames(4), duracionFrame(0.1f), ultimoFrame(0.0f){
 
     int anchoFrame = spriteTexture.getSize().x / totalFrames;//dividimos el spritesheet en 4
     int altoFrame = spriteTexture.getSize().y;

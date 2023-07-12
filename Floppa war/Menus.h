@@ -9,6 +9,9 @@
 
 class Menu {
 protected:
+    sf::Texture fondoTexture;
+    sf::Sprite fondoSprite;
+
     std::unique_ptr<EntidadViewer> Personaje;
     std::unique_ptr<MapaViewer> Mapa;
     std::vector<std::unique_ptr<Boton>> botones;
@@ -21,8 +24,16 @@ protected:
 public:
     virtual void mostrarMenu(sf::RenderWindow&) = 0;
     
-    bool* getDireccion() {
-        return direccion;
+    void actualizarDireccion() {
+        direccion[0] = Personaje->getMueveArriba();
+        direccion[1] = Personaje->getMueveAbajo();
+        direccion[2] = Personaje->getMueveIzquierda();
+        direccion[3] = Personaje->getMueveDerecha();
+    }
+    bool* getDireccion() {return direccion;}
+
+    void setPosicionMapa(float x, float y) {
+        Mapa->setPosicion(x, y);
     }
 
     void dibujarBotones(sf::RenderWindow& window) {

@@ -1,33 +1,26 @@
 #pragma once
 #include "EntidadModel.h"
 
-class EnemigoModel {
+class EnemigoModel : public EntidadModel {
 public:
-    virtual bool atacar(int, int, int, int) = 0;
+    virtual void moverse(float, float) = 0;
+    virtual void atacar() = 0;
 };
-
-// leaf
 
 class MeleeEnemigoModel : public EnemigoModel {
-private:
-    float radioAtack = 10;
 public:
-    bool atacar(int, int, int, int) override; //atack meele
+    void moverse(float, float) override;
+    void atacar() override;
 };
 
-
-class RangedEnemigoModel :public EnemigoModel { // atack large
-private:
-    float AtackMin = 30;
-    float AtackMax = 60;
+class RangedEnemigoModel : public EnemigoModel {
 public:
-    bool atacar(int, int, int, int) override;
+    void moverse(float, float) override;
+    void atacar() override;
 };
 
-
-class  BomberEnemigoModel :public EnemigoModel { //atack medium
-private:
-    float radioAtack = 30;
+class TanqueEnemigoModel : public EnemigoModel {
 public:
-    bool atacar(int, int, int, int) override;
+    void moverse(float, float) override;
+    void atacar() override;
 };

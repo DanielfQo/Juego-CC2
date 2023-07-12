@@ -11,6 +11,9 @@ class Controller{
 		
 	public:
 		void cargarVentana();
+		void actualizarModel();
+		void actualizarViewer();
+
 		/*
 		void verificarCambios();
 		void updateParaModelo();

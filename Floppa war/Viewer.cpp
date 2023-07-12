@@ -4,9 +4,9 @@
 
 const int tamPersonajes = 3;
 
-Viewer::Viewer() {
+Viewer::Viewer()  {
 	ventana.create(sf::VideoMode(1024, 640), "Floppa War");
-    ventana.setFramerateLimit(24);
+    ventana.setFramerateLimit(50);
 }
 
 bool Viewer::ventanaCerrada() {
@@ -42,9 +42,9 @@ void Viewer::manejarEventos() {
 }
 
 void Viewer::updateMenu(sf::Vector2i coordMouse) {
-    
     std::string nombre = tipoMenu->botonPresionado(coordMouse);
     std::string nombrePersonaje = tipoMenu->PersonajePresionado(coordMouse);
+
     if (nombre == "Regresar")
         tipoMenu = std::make_unique<MenuInicio>();
     else if (nombre == "Jugar")
@@ -55,81 +55,44 @@ void Viewer::updateMenu(sf::Vector2i coordMouse) {
         tipoMenu = std::make_unique<MenuTutorial>();
     else if (nombre == "Salir")
         ventana.close();
-    else if (nombre == "Singleplayer") {
-        tipoMenu = std::make_unique<SeleccionPersonajeSingle>(0);
-    }
-    //////////////////////////////////
-    else if (nombre == "Anterior") {
+    else if (nombre == "Singleplayer" || nombre == "Anterior" || nombre == "Siguiente") {
         int id = tipoMenu->getIDPersonaje1();
-        if (id > 0) {
+
+        if (nombre == "Anterior" && id > 0)
             id--;
-            tipoMenu = std::make_unique<SeleccionPersonajeSingle>(id);
-        }
-        else
-            tipoMenu = std::make_unique<SeleccionPersonajeSingle>(0);
-    }
-    else if (nombre == "Siguiente") {
-        int id = tipoMenu->getIDPersonaje1();
-        if (id < tamPersonajes-1) {
+        else if (nombre == "Siguiente" && id < tamPersonajes - 1)
             id++;
-            tipoMenu = std::make_unique<SeleccionPersonajeSingle>(id);
-        }
-        else 
-            tipoMenu = std::make_unique<SeleccionPersonajeSingle>(tamPersonajes-1);
+
+        tipoMenu = std::make_unique<SeleccionPersonajeSingle>(id);
     }
-    else if (nombrePersonaje == "NombreFloppa") 
-        tipoMenu = std::make_unique<VentanaJuego>(0);
-    else if (nombrePersonaje == "NombreSogga")
-        tipoMenu = std::make_unique<VentanaJuego>(1);
-    else if (nombrePersonaje == "NombreJinx")
-        tipoMenu = std::make_unique<VentanaJuego>(2);
-    //////////////////////////////////
-    else if (nombre == "Multiplayer") 
-        tipoMenu = std::make_unique<SeleccionPersonajeMulti>(0,0);
-    else if (nombre == "Anterior1") {
+    else if (nombrePersonaje == "NombreFloppa" || nombrePersonaje == "NombreSogga" || nombrePersonaje == "NombreJinx") {
+        int idPersonaje = 0;
+
+        if (nombrePersonaje == "NombreSogga")
+            idPersonaje = 1;
+        else if (nombrePersonaje == "NombreJinx")
+            idPersonaje = 2;
+
+        tipoMenu = std::make_unique<VentanaJuego>(idPersonaje);
+    }
+    else if (nombre == "Multiplayer" || nombre == "Anterior1" || nombre == "Siguiente1" || nombre == "Anterior2" || nombre == "Siguiente2") {
         int id1 = tipoMenu->getIDPersonaje1();
         int id2 = tipoMenu->getIDPersonaje2();
 
-        if (id1 > 0 ) {
+        if (nombre == "Anterior1" && id1 > 0)
             id1--;
-            tipoMenu = std::make_unique<SeleccionPersonajeMulti>(id1, id2);
-        }
-        else
-            tipoMenu = std::make_unique<SeleccionPersonajeMulti>(0, id2);
-    }
-    else if (nombre == "Siguiente1") {
-        int id1 = tipoMenu->getIDPersonaje1();
-        int id2 = tipoMenu->getIDPersonaje2();
-
-        if (id1 < tamPersonajes - 1) {
+        else if (nombre == "Siguiente1" && id1 < tamPersonajes - 1)
             id1++;
-            tipoMenu = std::make_unique<SeleccionPersonajeMulti>(id1, id2);
-        }
-        else
-            tipoMenu = std::make_unique<SeleccionPersonajeMulti>(tamPersonajes - 1, id2);
-    }
-    else if (nombre == "Anterior2") {
-        int id1 = tipoMenu->getIDPersonaje1();
-        int id2 = tipoMenu->getIDPersonaje2();
-
-        if (id2 > 0) {
+        else if (nombre == "Anterior2" && id2 > 0)
             id2--;
-            tipoMenu = std::make_unique<SeleccionPersonajeMulti>(id1, id2);
-        }
-        else
-            tipoMenu = std::make_unique<SeleccionPersonajeMulti>(id1, 0);
-    }
-    else if (nombre == "Siguiente2") {
-        int id1 = tipoMenu->getIDPersonaje1();
-        int id2 = tipoMenu->getIDPersonaje2();
-
-        if (id2 < tamPersonajes - 1) {
+        else if (nombre == "Siguiente2" && id2 < tamPersonajes - 1)
             id2++;
-            tipoMenu = std::make_unique<SeleccionPersonajeMulti>(id1, id2);
-        }
-        else
-            tipoMenu = std::make_unique<SeleccionPersonajeMulti>(id1, tamPersonajes - 1);
+
+        tipoMenu = std::make_unique<SeleccionPersonajeMulti>(id1, id2);
     }
-    //////////////////////////////////
 }
+void Viewer::actualizarMapa(float x, float y) {
+    tipoMenu->setPosicionMapa(x, y);
+}
+
 Viewer::~Viewer(){}

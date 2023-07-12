@@ -8,6 +8,9 @@
 const int cantidadPersonajes = 3;
 ///////////////////////////
 MenuInicio::MenuInicio() {
+	fondoTexture.loadFromFile("Imagenes/FondoJuego.png");
+	fondoSprite.setTexture(fondoTexture);
+
 	std::unique_ptr<Boton> jugar = std::make_unique<Boton>("Jugar", sf::Vector2f(144, 352), "Imagenes/BotonJugar.png");
 	std::unique_ptr<Boton> configuracion = std::make_unique<Boton>("Configuracion", sf::Vector2f(144, 496), "Imagenes/BotonConfiguracion.png");
 	std::unique_ptr<Boton> tutorial = std::make_unique<Boton>("Tutorial", sf::Vector2f(584, 352), "Imagenes/BotonTutorial.png");
@@ -18,10 +21,13 @@ MenuInicio::MenuInicio() {
 	botones.push_back(std::move(salir));
 }
 void MenuInicio::mostrarMenu(sf::RenderWindow& window) {
+	window.draw(fondoSprite);
 	dibujarBotones(window);
 }
 ///////////////////////////
 MenuJugar::MenuJugar() {
+	fondoTexture.loadFromFile("Imagenes/FondoJuego.png");
+	fondoSprite.setTexture(fondoTexture);
 	std::unique_ptr<Boton> singleplayer = std::make_unique<Boton>("Singleplayer", sf::Vector2f(364, 352), "Imagenes/BotonSingleplayer.png");
 	std::unique_ptr<Boton> multiplayer = std::make_unique<Boton>("Multiplayer", sf::Vector2f(364, 496), "Imagenes/BotonMultiplayer.png");
 	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
@@ -30,10 +36,13 @@ MenuJugar::MenuJugar() {
 	botones.push_back(std::move(regresar));
 }
 void MenuJugar::mostrarMenu(sf::RenderWindow& window) {
+	window.draw(fondoSprite);
 	dibujarBotones(window);
 }
 ///////////////////////////
 MenuConfiguraciones::MenuConfiguraciones() {
+	fondoTexture.loadFromFile("Imagenes/FondoJuego.png");
+	fondoSprite.setTexture(fondoTexture);
 	std::unique_ptr<Boton> cancelar = std::make_unique<Boton>("Cancelar", sf::Vector2f(144, 496), "Imagenes/BotonCancelar.png");
 	std::unique_ptr<Boton> aceptar = std::make_unique<Boton>("Aceptar", sf::Vector2f(584, 496), "Imagenes/BotonAceptar.png");
 	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
@@ -42,18 +51,24 @@ MenuConfiguraciones::MenuConfiguraciones() {
 	botones.push_back(std::move(regresar));
 }
 void MenuConfiguraciones::mostrarMenu(sf::RenderWindow& window) {
+	window.draw(fondoSprite);
 	dibujarBotones(window);
 }
 ///////////////////////////
 MenuTutorial::MenuTutorial() {
+	fondoTexture.loadFromFile("Imagenes/FondoJuego.png");
+	fondoSprite.setTexture(fondoTexture);
 	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
 	botones.push_back(std::move(regresar));
 }
 void MenuTutorial::mostrarMenu(sf::RenderWindow& window) {
+	window.draw(fondoSprite);
 	dibujarBotones(window);
 }
 ///////////////////////////
 SeleccionPersonajeSingle::SeleccionPersonajeSingle(int selecPersonaje) {
+	fondoTexture.loadFromFile("Imagenes/FondoJuego.png");
+	fondoSprite.setTexture(fondoTexture);
 	idPersonaje1 = selecPersonaje;
 
 	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
@@ -72,6 +87,7 @@ SeleccionPersonajeSingle::SeleccionPersonajeSingle(int selecPersonaje) {
 	seleccionPersonaje.push_back(std::move(NombreJinx));
 }
 void SeleccionPersonajeSingle::mostrarMenu(sf::RenderWindow& window) {
+	window.draw(fondoSprite);
 	dibujarBotones(window);
 	dibujarBotonSeleccionPersonaje(window);
 }
@@ -80,6 +96,8 @@ void SeleccionPersonajeSingle::dibujarBotonSeleccionPersonaje(sf::RenderWindow& 
 }
 ///////////////////////////
 SeleccionPersonajeMulti::SeleccionPersonajeMulti(int selecPersonaje1, int selecPersonaje2) {
+	fondoTexture.loadFromFile("Imagenes/FondoJuego.png");
+	fondoSprite.setTexture(fondoTexture);
 	idPersonaje1 = selecPersonaje1;
 	idPersonaje2 = selecPersonaje2;
 
@@ -114,6 +132,7 @@ SeleccionPersonajeMulti::SeleccionPersonajeMulti(int selecPersonaje1, int selecP
 	seleccionPersonaje.push_back(std::move(NombreJinx2));
 }
 void SeleccionPersonajeMulti::mostrarMenu(sf::RenderWindow& window) {
+	window.draw(fondoSprite);
 	dibujarBotones(window);
 	dibujarBotonSeleccionPersonaje(window);
 }
@@ -123,6 +142,10 @@ void SeleccionPersonajeMulti::dibujarBotonSeleccionPersonaje(sf::RenderWindow& w
 }
 ///////////////////////////
 VentanaJuego::VentanaJuego(int id) {
+	direccion[0] = false;
+	direccion[1] = false;
+	direccion[2] = false;
+	direccion[3] = false;
 	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
 	botones.push_back(std::move(regresar));
 	Mapa = std::make_unique<MapaViewer>("Imagenes/background.png");
@@ -139,9 +162,12 @@ VentanaJuego::VentanaJuego(int id) {
 		Personaje = std::move(Personaje3);
 	}
 }
-void VentanaJuego::mostrarMenu(sf::RenderWindow& window) {
+void VentanaJuego::mostrarMenu(sf::RenderWindow& window){
 	Mapa->mostrarMapa(window);
 	Personaje->dibujarEntidad(window);
 	dibujarBotones(window);
+	actualizarDireccion();
 }
+
+
 ///////////////////////////
