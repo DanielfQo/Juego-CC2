@@ -1,9 +1,26 @@
 #include "EnemigoModel.h"
-void MeleeEnemigoModel::moverse(float x, float y){}
-void MeleeEnemigoModel::atacar() {}
 
-void RangedEnemigoModel::moverse(float x, float y) {}
-void RangedEnemigoModel::atacar() {}
 
-void TanqueEnemigoModel::moverse(float x, float y) {}
-void TanqueEnemigoModel::atacar() {}
+bool MeleeEnemigoModel::atacar(int x, int y, int posX, int posY) {
+	float distancia = sqrt((posX - x) * (posX - x) + (posY - y) * (posY - y));
+	if (distancia <= radioAtack)
+		return true;
+	else
+		return false;
+}
+
+bool RangedEnemigoModel::atacar(int x, int y, int posX, int posY) {
+	float distancia = sqrt((posX - x) * (posX - x) + (posY - y) * (posY - y));
+	if (AtackMin <= distancia && distancia <= AtackMax)
+		return true;
+	else
+		return false;
+}
+
+bool BomberEnemigoModel::atacar(int x, int y, int posX, int posY) {
+	float distancia = sqrt((posX - x) * (posX - x) + (posY - y) * (posY - y));
+	if (distancia <= radioAtack)
+		return true;
+	else
+		return false;
+}
