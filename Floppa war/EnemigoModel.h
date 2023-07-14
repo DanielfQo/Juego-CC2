@@ -2,8 +2,11 @@
 #include "EntidadModel.h"
 
 class EnemigoModel {
+private:
+    float vel = 1;
 public:
     virtual bool atacar(int, int, int, int) = 0;
+    void seguir(float X, float Y);
 };
 
 // leaf
