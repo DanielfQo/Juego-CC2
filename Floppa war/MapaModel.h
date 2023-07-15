@@ -8,7 +8,7 @@ class MapaModel{
         int FILAS = 20;
         int COLUMNAS = 32;
         int GENERACIONES = 2;
-
+        int semilla = 0;
         //movimiento del mapa
         float velocidadX = 0.0f;
         float velocidadY = 0.0f;
@@ -17,12 +17,12 @@ class MapaModel{
         const float aceleracion = 0.50f;
         const float desaceleracion = 0.25f;
         const float velocidadMaxima = 5.00f;
-        std::vector<std::vector<int>> mapa;
+        std::vector<std::vector<int>> mapai;
         std::vector<std::vector<int>> cuartos;
-
+        std::vector<std::vector<int>> mapaCompleto;
     public:
         MapaModel();
-        std::vector<std::vector<int>> getMapa1(){return mapa;}
+        std::vector<std::vector<int>> getMapa1(){return mapaCompleto;}
         int getFilas(){return FILAS;}
         int getColumnas(){return COLUMNAS;}
         float getPosicionX() {return posicionX;}
@@ -32,5 +32,6 @@ class MapaModel{
         void aplicarReglas();
         void generar_campo();
         void generarCuartos();
+        void generarMapaCompleto();
         //void load_entidades();
 };

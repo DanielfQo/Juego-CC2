@@ -4,20 +4,20 @@
 #include "MapaModel.h"
 
 MapaModel::MapaModel(){
+    semilla = 0;
     posicionX = -100.00f;
     posicionY = -100.00f;
 }
 void MapaModel::imprimirMapa() {     //mostrar mapa  
-    for (int i = 0; i < FILAS; i++) {
-        for (int j = 0; j < COLUMNAS; j++) {
-            std::cout << mapa[i][j];
+    for (const auto& fila : mapai) {
+        for (int elemento : fila) {
+            std::cout << elemento << " ";
         }
         std::cout << std::endl;
     }
-    std::cout << std::endl;
 }
 void MapaModel::aplicarReglas(){ // Creador del mapa
-    std::vector<std::vector<int>> newMapa = mapa;
+    std::vector<std::vector<int>> newMapa = mapai;
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
             int caminosVecinos = 0; // Calcular caminos adyacentes
@@ -29,12 +29,12 @@ void MapaModel::aplicarReglas(){ // Creador del mapa
                     int nj = j + aux_y;
 
                     if (ni >= 0 && ni < FILAS && nj >= 0 && nj < COLUMNAS) { // limites
-                        caminosVecinos += mapa[ni][nj];
+                        caminosVecinos += mapai[ni][nj];
                     }
                 }
             }
             // reglas
-            if (mapa[i][j] == 1) {
+            if (mapai[i][j] == 1) {
                 if (caminosVecinos < 3) {
                     newMapa[i][j] = 0;
                 }
@@ -46,16 +46,24 @@ void MapaModel::aplicarReglas(){ // Creador del mapa
             }
         }
     }
-    mapa = newMapa;
+    //ponemos bordes al mapa
+    for (int i = 0; i < FILAS; i++) {
+        for (int j = 0; j < COLUMNAS; j++) {
+            if (i == 0 || i == FILAS - 1 || j == 0 || j == COLUMNAS - 1) {
+                newMapa[i][j] = 0;
+            }
+        }
+    }
+    mapai = newMapa;
 }
 
 void MapaModel::generar_campo() {
     std::vector<std::vector<int>> NewMapa(FILAS, std::vector<int>(COLUMNAS, 0));
-    mapa = NewMapa;
-    srand(time(NULL));
+    mapai = NewMapa;
+    std::srand(semilla);
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
-            mapa[i][j] = rand() % 2;
+            mapai[i][j] = std::rand() % 2;
         }
     }
 
@@ -73,7 +81,7 @@ void MapaModel::generarCuartos() {
     //generamos los cuartos de forma aleatoria
     int numCuartos = 4;
 
-    for (int i = 0;i < numCuartos;i++) {
+    for (int i = 0; i < numCuartos; i++) {
         if (posY1 != 3) {
             if (posicion2X == 0) {
                 int aux = std::rand() % 2;
@@ -114,19 +122,51 @@ void MapaModel::generarCuartos() {
             }
         }
     }
-    if (matriz[posY1][posicion2X + 1] == 0) {
+
+    if (posicion2X + 1 < 4 && matriz[posY1][posicion2X + 1] == 0) {
         matriz[posY1][posicion2X + 1] = 3;
     }
-    else if (matriz[posY1 + 1][posicion2X] == 0) {
+    else if (posY1 + 1 < 4 && matriz[posY1 + 1][posicion2X] == 0) {
         matriz[posY1 + 1][posicion2X] = 3;
     }
-    else if (matriz[posY1 - 1][posicion2X] == 0) {
+    else if (posY1 - 1 >= 0 && matriz[posY1 - 1][posicion2X] == 0) {
         matriz[posY1 - 1][posicion2X] = 3;
     }
-    else if (matriz[posY1][posicion2X - 1] == 0) {
+    else if (posicion2X - 1 >= 0 && matriz[posY1][posicion2X - 1] == 0) {
         matriz[posY1][posicion2X - 1] = 3;
     }
     cuartos = matriz;
+}
+
+void MapaModel::generarMapaCompleto() {
+
+
+    // Crear la matriz resultante
+    std::vector<std::vector<int>> matrizResultado(80, std::vector<int>(128, 0));
+    generarCuartos();
+    // Generar la matriz más grande
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            
+            if (cuartos[i][j] != 0) {
+                generar_campo();
+                semilla++;
+                for (int x = 0; x < FILAS; x++) {
+                    for (int y = 0; y < COLUMNAS; y++) {
+                        matrizResultado[i * FILAS + x][j * COLUMNAS + y] = mapai[x][y];
+                    }
+                }
+            }
+            else {
+                for (int x = 0; x < FILAS; x++) {
+                    for (int y = 0; y < COLUMNAS; y++) {
+                        matrizResultado[i * FILAS + x][j * COLUMNAS + y] = -1;
+                    }
+                }
+            }
+        }
+    }
+    mapaCompleto = matrizResultado;
 }
 
 void MapaModel::moverMapa(bool vector[4]) {

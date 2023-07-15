@@ -4,8 +4,8 @@
 class MapaViewer{
 	sf::Texture tilesetTexture;
 	sf::Sprite tileSprites[2];
-	int FILAS = 20;
-	int COLUM = 32;
+	int FILAS = 20*4;
+	int COLUM = 32*4;
 	float posicionX = -100.00f;
 	float posicionY = -100.00f;
 	std::vector<std::vector<int>> mapa;

@@ -8,7 +8,7 @@ actualFrame(0), totalFrames(4), duracionFrame(0.1f), ultimoFrame(0.0f){
     int altoFrame = spriteTexture.getSize().y;
     frameRect = sf::IntRect(0, 0, anchoFrame, altoFrame);//toma la forma del sprite
     sprite.setTextureRect(frameRect);
-    sprite.move(sf::Vector2f(512, 320));
+    sprite.move(sf::Vector2f(480,288));
 }
 
 void PersonajesViewer::dibujarEntidad(sf::RenderWindow& window) {
