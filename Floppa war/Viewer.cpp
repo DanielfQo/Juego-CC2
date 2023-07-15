@@ -5,7 +5,7 @@
 const int tamPersonajes = 3;
 
 Viewer::Viewer()  {
-	ventana.create(sf::VideoMode(1024, 640), "Floppa War");
+	ventana.create(sf::VideoMode(1024, 640), "Floppa War", sf::Style::Close);
     ventana.setFramerateLimit(50);
 }
 
@@ -24,6 +24,7 @@ void Viewer::manejarEventos() {
     while (ventana.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             ventana.close();
+        
         else if (event.type == sf::Event::MouseButtonPressed) {
             if (event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2i coordMouse(event.mouseButton.x, event.mouseButton.y);

@@ -2,9 +2,14 @@
 #include <vector>
 #include "Model.h"
 
-void Model::cargarMapa() {
-    
-    maparef->generar_campo();
+void Model::generarMapa() {
+
+    if (idmapa == 1) {
+        maparef = std::make_unique<MapaModel>();
+        maparef->generar_campo();
+        maparef->imprimirMapa();
+        idmapa++;
+    }
 }
 
 void Model::actualizarMapa(bool direccion[4]) { 

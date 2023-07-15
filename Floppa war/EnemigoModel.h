@@ -3,6 +3,8 @@
 
 class EnemigoModel {
 private:
+    float pX = 0;
+    float pY = 0;
     float vel = 1;
 public:
     virtual bool atacar(int, int, int, int) = 0;

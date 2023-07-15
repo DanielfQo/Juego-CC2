@@ -6,7 +6,7 @@ class Viewer{
 private:
 	sf::RenderWindow ventana;
 	std::unique_ptr<Menu> tipoMenu = std::make_unique<MenuInicio>();
-
+	std::vector<std::vector<int>> mapaGenerado;
 public:
 	Viewer();
 	~Viewer();
@@ -17,5 +17,6 @@ public:
 	void actualizarMapa(float, float);
 	const std::type_info& getTipo() {return typeid(*tipoMenu);}
 	bool* getDireccion() {return tipoMenu->getDireccion();}
+	void setMapaMenu(std::vector<std::vector<int>> m) { tipoMenu->setMapa(m); }
 };
 

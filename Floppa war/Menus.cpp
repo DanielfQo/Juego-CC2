@@ -70,7 +70,7 @@ SeleccionPersonajeSingle::SeleccionPersonajeSingle(int selecPersonaje) {
 	fondoTexture.loadFromFile("Imagenes/FondoJuego.png");
 	fondoSprite.setTexture(fondoTexture);
 	idPersonaje1 = selecPersonaje;
-
+	
 	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
 
 	std::unique_ptr<Boton> anterior = std::make_unique<Boton>("Anterior", sf::Vector2f(324, 516), "Imagenes/BotonAnterior.png");
@@ -146,9 +146,10 @@ VentanaJuego::VentanaJuego(int id) {
 	direccion[1] = false;
 	direccion[2] = false;
 	direccion[3] = false;
+	Mapa = std::make_unique<MapaViewer>("Imagenes/prueba.png", mapaGenerado);
 	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
 	botones.push_back(std::move(regresar));
-	Mapa = std::make_unique<MapaViewer>("Imagenes/background.png");
+	
 	if (id == 0) {
 		std::unique_ptr<EntidadViewer>Personaje1 = std::make_unique<PersonajesViewer>("Imagenes/FloppaSpriteSheet.png");
 		Personaje = std::move(Personaje1);
@@ -161,9 +162,12 @@ VentanaJuego::VentanaJuego(int id) {
 		std::unique_ptr<EntidadViewer>Personaje3 = std::make_unique<PersonajesViewer>("Imagenes/JinxSpriteSheet.png");
 		Personaje = std::move(Personaje3);
 	}
+	
+
 }
 void VentanaJuego::mostrarMenu(sf::RenderWindow& window){
 	Mapa->mostrarMapa(window);
+	//Mapa->imprimirMapa();
 	Personaje->dibujarEntidad(window);
 	dibujarBotones(window);
 	actualizarDireccion();

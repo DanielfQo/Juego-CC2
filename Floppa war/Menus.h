@@ -16,7 +16,7 @@ protected:
     std::unique_ptr<MapaViewer> Mapa;
     std::vector<std::unique_ptr<Boton>> botones;
     std::vector<std::unique_ptr<Boton>> seleccionPersonaje;
-
+    std::vector<std::vector<int>> mapaGenerado;
     bool direccion[4];
 
     int idPersonaje1 = 0;
@@ -70,6 +70,7 @@ public:
     void eventoMovimientoRele(const sf::Event::KeyEvent& keyevent) {
         Personaje->movimientoEntidadRele(keyevent);
     }
+    void setMapa(std::vector<std::vector<int>> m) { Mapa->setMapa(m); }
     int getIDPersonaje1() {return idPersonaje1;}
     int getIDPersonaje2() {return idPersonaje2;}
 };
