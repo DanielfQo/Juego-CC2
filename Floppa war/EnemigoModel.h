@@ -1,14 +1,13 @@
 #pragma once
 #include "EntidadModel.h"
 
-class EnemigoModel {
+class EnemigoModel :public EntidadModel{
 private:
-    float pX = 0;
-    float pY = 0;
-    float vel = 1;
+    float vel;
 public:
-    virtual bool atacar(int, int, int, int) = 0;
-    void seguir(float X, float Y);
+    EnemigoModel(float,float,int,int,int,float,float);
+    virtual bool atacar(float, float) = 0;
+    void seguir(float, float);
 };
 
 // leaf
@@ -17,7 +16,8 @@ class MeleeEnemigoModel : public EnemigoModel {
 private:
     float radioAtack = 10;
 public:
-    bool atacar(int, int, int, int) override; //atack meele
+    MeleeEnemigoModel();
+    bool atacar(float, float) override; //atack meele
 };
 
 
@@ -26,7 +26,8 @@ private:
     float AtackMin = 30;
     float AtackMax = 60;
 public:
-    bool atacar(int, int, int, int) override;
+    RangedEnemigoModel();
+    bool atacar(float, float) override;
 };
 
 
@@ -34,5 +35,6 @@ class  BomberEnemigoModel :public EnemigoModel { //atack medium
 private:
     float radioAtack = 30;
 public:
-    bool atacar(int, int, int, int) override;
+    BomberEnemigoModel();
+    bool atacar(float, float) override;
 };
