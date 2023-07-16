@@ -2,8 +2,6 @@
 #include "EntidadModel.h"
 
 class EnemigoModel :public EntidadModel{
-private:
-    float vel;
 public:
     EnemigoModel(float,float,int,int,int,float,float);
     virtual bool atacar(float, float) = 0;

@@ -1,5 +1,6 @@
 #include "EnemigoModel.h"
-EnemigoModel::EnemigoModel(float pX_,float pY_,int Vida_,int Ataque_,int Escudo_,float radio_,float vel_) : EntidadModel(pX_,pY_,Vida_,Ataque_,Escudo_,radio_,vel_){}
+
+EnemigoModel::EnemigoModel(float pX_, float pY_, int Vida_, int Ataque_, int Escudo_, float radio_, float vel_) : EntidadModel(pX_, pY_, Vida_, Ataque_, Escudo_, radio_, vel_) {}
 void EnemigoModel::seguir(float X, float Y) {
 	float distanciaX = (X - EntidadModel::getpX());
 	float distanciaY = (Y - EntidadModel::getpY());
