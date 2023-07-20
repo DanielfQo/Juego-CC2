@@ -6,8 +6,8 @@ class MapaViewer{
 	sf::Sprite tileSprites[2];
 	int FILAS = 20*4;
 	int COLUM = 32*4;
-	float posicionX = -100.00f;
-	float posicionY = -100.00f;
+	float posicionX;
+	float posicionY;
 	std::vector<std::vector<int>> mapa;
 
 public:

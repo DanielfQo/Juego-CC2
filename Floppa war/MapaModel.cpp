@@ -5,11 +5,11 @@
 
 MapaModel::MapaModel(){
     semilla = 0;
-    posicionX = -100.00f;
-    posicionY = -100.00f;
+    posicionX = 0.00f;
+    posicionY = 0.00f;
 }
 void MapaModel::imprimirMapa() {     //mostrar mapa  
-    for (const auto& fila : mapai) {
+    for (const auto& fila : cuartos) {
         for (int elemento : fila) {
             std::cout << elemento << " ";
         }
@@ -73,13 +73,19 @@ void MapaModel::generar_campo() {
 
 void MapaModel::generarCuartos() {
     std::vector<std::vector<int>> matriz(4, std::vector<int>(4, 0));
-
+    std::time_t currentTime = std::time(nullptr);
+    std::srand(static_cast<unsigned int>(currentTime));
     int posicion2X = std::rand() % 4;
     int posY1 = 1;
     matriz[0][posicion2X] = 2;
     matriz[posY1][posicion2X] = 1;
     //generamos los cuartos de forma aleatoria
     int numCuartos = 4;
+
+    posicionX = (posicion2X * -1024);
+    posicionY = 0;
+
+    std::cout << posicionX << " " << posicionY << "\n";
 
     for (int i = 0; i < numCuartos; i++) {
         if (posY1 != 3) {
@@ -166,6 +172,11 @@ void MapaModel::generarMapaCompleto() {
             }
         }
     }
+    //arreglamos la matriz
+
+
+
+
     mapaCompleto = matrizResultado;
 }
 

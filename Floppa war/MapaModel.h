@@ -12,8 +12,8 @@ class MapaModel{
         //movimiento del mapa
         float velocidadX = 0.0f;
         float velocidadY = 0.0f;
-        float posicionX = -100.00f;
-        float posicionY = -100.00f;
+        float posicionX = 0.00f;
+        float posicionY = 0.00f;
         const float aceleracion = 0.50f;
         const float desaceleracion = 0.25f;
         const float velocidadMaxima = 5.00f;
