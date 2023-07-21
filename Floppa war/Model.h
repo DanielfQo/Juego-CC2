@@ -11,7 +11,6 @@ public:
 
 	void setIdMapa(int x) { idmapa = x; }
 	int getIdMapa() { return idmapa; }
-	bool colisiones(int, int, int, int, int, int);
 	void generarMapa();
 	void actualizarMapa(bool[4]);
 	std::vector<std::vector<int>> getMapa1() { return maparef->getMapa1(); 
