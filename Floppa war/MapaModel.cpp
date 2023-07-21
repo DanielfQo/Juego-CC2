@@ -16,6 +16,24 @@ void MapaModel::imprimirMapa() {     //mostrar mapa
         std::cout << std::endl;
     }
 }
+//        colisionMapa(posicionX_entidad,posicionY_entidad,radio)
+bool MapaModel::colisionMapa(float X, float Y,float radius) {
+    float auX = X;
+    float auY = Y;
+    if (auX < posicionX)
+        auX = posicionX;
+    if (auX > posicionX + 32)
+        auX = posicionX + 32;
+    if (auY < posicionY)
+        auY = posicionY;
+    if (auY > posicionY + 32)
+        auY = posicionY + 32;
+    float distancia = sqrt((X - auX) * (X - auX) + (Y - auY) * (Y - auY));
+    if (distancia < radius)
+        return true;
+    else
+        return false;
+}
 void MapaModel::aplicarReglas(){ // Creador del mapa
     std::vector<std::vector<int>> newMapa = mapai;
     for (int i = 0; i < FILAS; i++) {
@@ -150,7 +168,7 @@ void MapaModel::generarMapaCompleto() {
     //pasto 1
     // Crear la matriz resultante
     std::vector<std::vector<int>> matrizResultado(80, std::vector<int>(128, 0));
-    // Generar la matriz m醩 grande
+    // Generar la matriz m谩s grande
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             
@@ -228,7 +246,7 @@ void MapaModel::generarMapaCompleto() {
 
 void MapaModel::moverMapa(bool vector[4]) {
 
-    // Ajustar las velocidades en funci髇 de los flags
+    // Ajustar las velocidades en funci贸n de los flags
     if (vector[0])
         velocidadY += aceleracion;
     if (vector[1])
@@ -238,13 +256,13 @@ void MapaModel::moverMapa(bool vector[4]) {
     if (vector[3])
         velocidadX -= aceleracion;
 
-    // Aplicar desaceleraci髇
+    // Aplicar desaceleraci贸n
     if (!vector[0] && !vector[1])
         velocidadY -= (velocidadY * desaceleracion);
     if (!vector[2] && !vector[3])
         velocidadX -= (velocidadX * desaceleracion);
 
-    // Limitar la velocidad m醲ima
+    // Limitar la velocidad m谩xima
     if (velocidadY > velocidadMaxima)
         velocidadY = velocidadMaxima;
     if (velocidadY < -velocidadMaxima)
@@ -254,7 +272,7 @@ void MapaModel::moverMapa(bool vector[4]) {
     if (velocidadX < -velocidadMaxima)
         velocidadX = -velocidadMaxima;
 
-    // Mover la posici髇 en funci髇 de las velocidades
+    // Mover la posici贸n en funci贸n de las velocidades
     posicionY += velocidadY;
     posicionX += velocidadX;
 }
