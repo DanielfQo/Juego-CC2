@@ -146,24 +146,74 @@ void MapaModel::generarCuartos() {
 
 void MapaModel::generarMapaCompleto() {
 
-
+    //piedra 0
+    //pasto 1
     // Crear la matriz resultante
     std::vector<std::vector<int>> matrizResultado(80, std::vector<int>(128, 0));
-    generarCuartos();
     // Generar la matriz más grande
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             
-            if (cuartos[i][j] != 0) {
+            if (cuartos[i][j] == 1 || cuartos[i][j] == 3) {
                 generar_campo();
                 semilla++;
                 for (int x = 0; x < FILAS; x++) {
                     for (int y = 0; y < COLUMNAS; y++) {
                         matrizResultado[i * FILAS + x][j * COLUMNAS + y] = mapai[x][y];
+                        //hacemos los caminos
+                        if (i != 0 ) {
+                            //arriba
+                            if (cuartos[i - 1][j] != 0) {
+                                if ((y >= 14 && y <= 17) && (x >= 0 && x <= 3)) {
+                                    matrizResultado[i * FILAS + x][j * COLUMNAS + y] = 1;
+                                }
+                            }
+                        }
+                        if (i != 3) {
+                            //abajo
+                            if (cuartos[i + 1][j] != 0) {
+                                if ((y >= 14 && y <= 17) && (x >= 16 && x <= 19)) {
+                                    matrizResultado[i * FILAS + x][j * COLUMNAS + y] = 1;
+                                }
+                            }
+                        }
+                        if (j != 3) {
+                            //derecha
+                            if (cuartos[i][j + 1] != 0) {
+                                if ((x >= 8 && x <= 11) && (y >= 28 && y <= 31)) {
+                                    matrizResultado[i * FILAS + x][j * COLUMNAS + y] = 1;
+                                }
+                            }
+                        }
+                        if (j != 0){
+                            //izquierda
+                            if (cuartos[i][j - 1] != 0) {
+                                if ((x >= 8 && x <= 11) && (y >= 0 && y <= 3)) {
+                                    matrizResultado[i * FILAS + x][j * COLUMNAS + y] = 1;
+                                }
+                            }
+                        } 
                     }
                 }
             }
-            else {
+            else if(cuartos[i][j] == 2) {
+                generar_campo();
+                semilla++;
+                for (int x = 0; x < FILAS; x++) {
+                    for (int y = 0; y < COLUMNAS; y++) {
+                        if (x == 0 || x == FILAS - 1 || y == 0 || y == COLUMNAS - 1) {
+                            matrizResultado[i * FILAS + x][j * COLUMNAS + y] = 0;
+                        }
+                        else {
+                            matrizResultado[i * FILAS + x][j * COLUMNAS + y] = 1;
+                        }
+                        if ((y >=14 && y <= 17) && x == 19) {
+                            matrizResultado[i * FILAS + x][j * COLUMNAS + y] = 1;
+                        }
+                    }
+                }
+            }
+            else if(cuartos[i][j] == 0){
                 for (int x = 0; x < FILAS; x++) {
                     for (int y = 0; y < COLUMNAS; y++) {
                         matrizResultado[i * FILAS + x][j * COLUMNAS + y] = -1;
@@ -173,10 +223,6 @@ void MapaModel::generarMapaCompleto() {
         }
     }
     //arreglamos la matriz
-
-
-
-
     mapaCompleto = matrizResultado;
 }
 

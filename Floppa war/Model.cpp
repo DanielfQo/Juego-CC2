@@ -6,6 +6,7 @@ void Model::generarMapa() {
 
     if (idmapa == 1) {
         maparef = std::make_unique<MapaModel>();
+        maparef->generarCuartos();
         maparef->generarMapaCompleto();
         maparef->imprimirMapa();
         idmapa++;
