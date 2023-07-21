@@ -29,6 +29,7 @@ class MapaModel{
         float getPosicionY() {return posicionY;}
         void moverMapa(bool[4]);
         void imprimirMapa();
+        bool colisionMapa(float, float, float);
         void aplicarReglas();
         void generar_campo();
         void generarCuartos();
