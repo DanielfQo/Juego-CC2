@@ -16,24 +16,25 @@ void MapaModel::imprimirMapa() {     //mostrar mapa
         std::cout << std::endl;
     }
 }
-//        colisionMapa(posicionX_entidad,posicionY_entidad,radio)
-bool MapaModel::colisionMapa(float X, float Y,float radius) {
+
+bool MapaModel::colisionMapa(float PosX,float PosY,float X, float Y,float radius) {
     float auX = X;
     float auY = Y;
-    if (auX < posicionX)
-        auX = posicionX;
-    if (auX > posicionX + 32)
-        auX = posicionX + 32;
-    if (auY < posicionY)
-        auY = posicionY;
-    if (auY > posicionY + 32)
-        auY = posicionY + 32;
+    if (auX < PosX)
+        auX = PosX;
+    if (auX > PosX + 32)
+        auX = PosX + 32;
+    if (auY < PosY)
+        auY = PosY;
+    if (auY > PosY + 32)
+        auY = PosY + 32;
     float distancia = sqrt((X - auX) * (X - auX) + (Y - auY) * (Y - auY));
     if (distancia < radius)
         return true;
     else
         return false;
 }
+
 void MapaModel::aplicarReglas(){ // Creador del mapa
     std::vector<std::vector<int>> newMapa = mapai;
     for (int i = 0; i < FILAS; i++) {
@@ -100,7 +101,7 @@ void MapaModel::generarCuartos() {
     //generamos los cuartos de forma aleatoria
     int numCuartos = 4;
 
-    posicionX = (posicion2X * -1024);
+    posicionX = (static_cast<float>(posicion2X * -1024));
     posicionY = 0;
 
     std::cout << posicionX << " " << posicionY << "\n";
@@ -246,33 +247,63 @@ void MapaModel::generarMapaCompleto() {
 
 void MapaModel::moverMapa(bool vector[4]) {
 
-    // Ajustar las velocidades en función de los flags
-    if (vector[0])
-        velocidadY += aceleracion;
-    if (vector[1])
-        velocidadY -= aceleracion;
-    if (vector[2])
-        velocidadX += aceleracion;
-    if (vector[3])
-        velocidadX -= aceleracion;
 
-    // Aplicar desaceleración
-    if (!vector[0] && !vector[1])
-        velocidadY -= (velocidadY * desaceleracion);
-    if (!vector[2] && !vector[3])
-        velocidadX -= (velocidadX * desaceleracion);
+    for (int y = 0; y < FILAS * 4; y++) {
+        for (int x = 0; x < COLUMNAS * 4; x++) {
+            float posX = x * 32 + posicionX;
+            float posY = y * 32 + posicionY;
+            if (posX >= -32 && posX <= 1056 && posY >= -32 && posY <= 672) {
+                if (colisionMapa(posX, posY, 512, 324, 32) == true && mapaCompleto[y][x] == 0) {
+                    std::cout << "colision" << std::endl;
 
-    // Limitar la velocidad máxima
-    if (velocidadY > velocidadMaxima)
-        velocidadY = velocidadMaxima;
-    if (velocidadY < -velocidadMaxima)
-        velocidadY = -velocidadMaxima;
-    if (velocidadX > velocidadMaxima)
-        velocidadX = velocidadMaxima;
-    if (velocidadX < -velocidadMaxima)
-        velocidadX = -velocidadMaxima;
+                    if (posX < 512 - 32) {
+                        velocidadX = 0;
+                        vector[2] = false;
+                    }
+                    if (posX + 32 > 512) {
+                        velocidadX = 0;
+                        vector[3] = false;
+                    }
+                    if (posY < 320 -32 ) {
+                        velocidadY = 0;
+                        vector[0] = false;
+                    }
+                    if (posY > 320){
+                        velocidadY = 0;
+                        vector[1] = false;
+                    }
+                }
+            }
+        }
+    }
 
-    // Mover la posición en función de las velocidades
-    posicionY += velocidadY;
-    posicionX += velocidadX;
+        // Ajustar las velocidades en función de los flags
+        if (vector[0])
+            velocidadY += aceleracion;
+        if (vector[1])
+            velocidadY -= aceleracion;
+        if (vector[2])
+            velocidadX += aceleracion;
+        if (vector[3])
+            velocidadX -= aceleracion;
+
+        // Aplicar desaceleración
+        if (!vector[0] && !vector[1])
+            velocidadY -= (velocidadY * desaceleracion);
+        if (!vector[2] && !vector[3])
+            velocidadX -= (velocidadX * desaceleracion);
+
+        // Limitar la velocidad máxima
+        if (velocidadY > velocidadMaxima)
+            velocidadY = velocidadMaxima;
+        if (velocidadY < -velocidadMaxima)
+            velocidadY = -velocidadMaxima;
+        if (velocidadX > velocidadMaxima)
+            velocidadX = velocidadMaxima;
+        if (velocidadX < -velocidadMaxima)
+            velocidadX = -velocidadMaxima;
+
+        // Mover la posición en función de las velocidades
+        posicionY += velocidadY;
+        posicionX += velocidadX;
 }
