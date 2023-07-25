@@ -16,5 +16,6 @@ public:
     void movimientoEntidadPress(const sf::Event::KeyEvent& keyevent);
     void movimientoEntidadRele(const sf::Event::KeyEvent& keyevent);
     sf::IntRect FragmentarSprite(int);
+    void setPosicion(float, float) override;
     
 };

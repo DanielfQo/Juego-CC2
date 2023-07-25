@@ -95,5 +95,6 @@ void Viewer::updateMenu(sf::Vector2i coordMouse) {
 void Viewer::actualizarMapa(float x, float y) {
     tipoMenu->setPosicionMapa(x, y);
 }
-
-Viewer::~Viewer(){}
+void Viewer::actualizarEnemigos(const std::vector<std::pair<float, float>>& posicion) {
+    tipoMenu->setPosicionEnemigos(posicion);
+}

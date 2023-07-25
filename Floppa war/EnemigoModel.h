@@ -5,7 +5,7 @@ class EnemigoModel :public EntidadModel{
 public:
     EnemigoModel(float,float,int,int,int,float,float);
     virtual bool atacar(float, float) = 0;
-    void seguir(float, float);
+    void moverse(float, float)override;
 };
 
 // leaf

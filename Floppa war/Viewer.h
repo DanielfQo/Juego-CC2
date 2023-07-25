@@ -9,9 +9,10 @@ private:
 	std::vector<std::vector<int>> mapaGenerado;
 public:
 	Viewer();
-	~Viewer();
+	~Viewer() = default;
 	bool ventanaCerrada();
 	void actualizarVentana();
+	void actualizarEnemigos(const std::vector<std::pair<float, float>>&);
 	void manejarEventos();
 	void updateMenu(sf::Vector2i);
 	void actualizarMapa(float, float);

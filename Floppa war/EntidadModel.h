@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <math.h>
 
@@ -32,5 +33,5 @@ public:
     void rebotar(float X, float Y);
 
     virtual void moverse(float, float) = 0;
-    virtual void atacar() = 0;
+    virtual bool atacar(float,float) = 0;
 };

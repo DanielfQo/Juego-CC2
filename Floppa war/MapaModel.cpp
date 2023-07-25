@@ -7,6 +7,12 @@ MapaModel::MapaModel(){
     semilla = 0;
     posicionX = 0.00f;
     posicionY = 0.00f;
+    for (int i = 0; i < cantEnemigos; ++i) {
+        enemigosMelee.push_back(std::make_unique<MeleeEnemigoModel>());
+    }
+    for (int i = 0; i < cantEnemigos; ++i) {
+        posicionEnemigosMelee.push_back(std::make_pair(0.00f, 0.00f));
+    }
 }
 void MapaModel::imprimirMapa() {     //mostrar mapa  
     for (const auto& fila : cuartos) {
@@ -16,25 +22,6 @@ void MapaModel::imprimirMapa() {     //mostrar mapa
         std::cout << std::endl;
     }
 }
-
-bool MapaModel::colisionMapa(float PosX,float PosY,float X, float Y,float radius) {
-    float auX = X;
-    float auY = Y;
-    if (auX < PosX)
-        auX = PosX;
-    if (auX > PosX + 32)
-        auX = PosX + 32;
-    if (auY < PosY)
-        auY = PosY;
-    if (auY > PosY + 32)
-        auY = PosY + 32;
-    float distancia = sqrt((X - auX) * (X - auX) + (Y - auY) * (Y - auY));
-    if (distancia < radius)
-        return true;
-    else
-        return false;
-}
-
 void MapaModel::aplicarReglas(){ // Creador del mapa
     std::vector<std::vector<int>> newMapa = mapai;
     for (int i = 0; i < FILAS; i++) {
@@ -101,7 +88,7 @@ void MapaModel::generarCuartos() {
     //generamos los cuartos de forma aleatoria
     int numCuartos = 4;
 
-    posicionX = (static_cast<float>(posicion2X * -1024));
+    posicionX = (posicion2X * -1024);
     posicionY = 0;
 
     std::cout << posicionX << " " << posicionY << "\n";
@@ -169,7 +156,7 @@ void MapaModel::generarMapaCompleto() {
     //pasto 1
     // Crear la matriz resultante
     std::vector<std::vector<int>> matrizResultado(80, std::vector<int>(128, 0));
-    // Generar la matriz m谩s grande
+    // Generar la matriz m醩 grande
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             
@@ -246,8 +233,6 @@ void MapaModel::generarMapaCompleto() {
 }
 
 void MapaModel::moverMapa(bool vector[4]) {
-
-
     for (int y = 0; y < FILAS * 4; y++) {
         for (int x = 0; x < COLUMNAS * 4; x++) {
             float posX = x * 32 + posicionX;
@@ -264,11 +249,11 @@ void MapaModel::moverMapa(bool vector[4]) {
                         velocidadX = 0;
                         vector[3] = false;
                     }
-                    if (posY < 320 -32 ) {
+                    if (posY < 320 - 32) {
                         velocidadY = 0;
                         vector[0] = false;
                     }
-                    if (posY > 320){
+                    if (posY > 320) {
                         velocidadY = 0;
                         vector[1] = false;
                     }
@@ -277,33 +262,89 @@ void MapaModel::moverMapa(bool vector[4]) {
         }
     }
 
-        // Ajustar las velocidades en funci贸n de los flags
-        if (vector[0])
-            velocidadY += aceleracion;
-        if (vector[1])
-            velocidadY -= aceleracion;
-        if (vector[2])
-            velocidadX += aceleracion;
-        if (vector[3])
-            velocidadX -= aceleracion;
+    // Ajustar las velocidades en funci髇 de los flags
+    if (vector[0])
+        velocidadY += aceleracion;
+    if (vector[1])
+        velocidadY -= aceleracion;
+    if (vector[2])
+        velocidadX += aceleracion;
+    if (vector[3])
+        velocidadX -= aceleracion;
 
-        // Aplicar desaceleraci贸n
-        if (!vector[0] && !vector[1])
-            velocidadY -= (velocidadY * desaceleracion);
-        if (!vector[2] && !vector[3])
-            velocidadX -= (velocidadX * desaceleracion);
+    // Aplicar desaceleraci髇
+    if (!vector[0] && !vector[1])
+        velocidadY -= (velocidadY * desaceleracion);
+    if (!vector[2] && !vector[3])
+        velocidadX -= (velocidadX * desaceleracion);
 
-        // Limitar la velocidad m谩xima
-        if (velocidadY > velocidadMaxima)
-            velocidadY = velocidadMaxima;
-        if (velocidadY < -velocidadMaxima)
-            velocidadY = -velocidadMaxima;
-        if (velocidadX > velocidadMaxima)
-            velocidadX = velocidadMaxima;
-        if (velocidadX < -velocidadMaxima)
-            velocidadX = -velocidadMaxima;
+    // Limitar la velocidad m醲ima
+    if (velocidadY > velocidadMaxima)
+        velocidadY = velocidadMaxima;
+    if (velocidadY < -velocidadMaxima)
+        velocidadY = -velocidadMaxima;
+    if (velocidadX > velocidadMaxima)
+        velocidadX = velocidadMaxima;
+    if (velocidadX < -velocidadMaxima)
+        velocidadX = -velocidadMaxima;
 
-        // Mover la posici贸n en funci贸n de las velocidades
-        posicionY += velocidadY;
-        posicionX += velocidadX;
+    // Mover la posici髇 en funci髇 de las velocidades
+    posicionY += velocidadY;
+    posicionX += velocidadX;
+
+    for (auto &enem : enemigosMelee) {
+        enem->setPosX(enem->getpX() + velocidadX);
+        enem->setPosY(enem->getpY() + velocidadY);
+    }
+}
+
+bool MapaModel::colisionMapa(float PosX, float PosY, float X, float Y, float radius) {
+
+    float auX = X;
+    float auY = Y;
+    if (auX < PosX)
+        auX = PosX;
+    if (auX > PosX + 32)
+        auX = PosX + 32;
+    if (auY < PosY)
+        auY = PosY;
+    if (auY > PosY + 32)
+        auY = PosY + 32;
+    float distancia = sqrt((X - auX) * (X - auX) + (Y - auY) * (Y - auY));
+    if (distancia < radius)
+        return true;
+    else
+        return false;
+}
+
+void MapaModel::generar_entidades(){
+    
+    for (int i = 0; i < cantEnemigos;i++) {
+        enemigosMelee[i]->setPosX(i*100.00f);
+        enemigosMelee[i]->setPosY(i*1.00f);
+    }
+}
+void MapaModel::movimientoEnemigosPersonaje() {
+    for (int i = 0;i < cantEnemigos;i++) {
+        if (enemigosMelee[i]->colision(480, 288, 32)) {
+            enemigosMelee[i]->rebotar(480, 288);
+        }
+        else {
+            enemigosMelee[i]->moverse(480, 288);
+        }
+        posicionEnemigosMelee[i].first = enemigosMelee[i]->getpX();
+        posicionEnemigosMelee[i].second = enemigosMelee[i]->getpY();
+    }
+    
+}
+void MapaModel::movimientoEnemigosEnemigos() {
+    for (int i = 0;i < cantEnemigos;i++) {
+        for (int j = 0;j < cantEnemigos;j++) {
+            if (i != j && enemigosMelee[i]->colision(enemigosMelee[j]->getpX(), enemigosMelee[j]->getpY(), enemigosMelee[j]->getRadio())) {
+                enemigosMelee[i]->rebotar(enemigosMelee[j]->getpX(), enemigosMelee[j]->getpY());
+            }
+            posicionEnemigosMelee[i].first = enemigosMelee[i]->getpX();
+            posicionEnemigosMelee[i].second = enemigosMelee[i]->getpY();
+        }
+    }
 }

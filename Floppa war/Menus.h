@@ -13,10 +13,14 @@ protected:
     sf::Sprite fondoSprite;
 
     std::unique_ptr<EntidadViewer> Personaje;
+    std::vector<std::unique_ptr<EntidadViewer>> enemigosMelee;
+    //std::vector<std::unique_ptr<EntidadViewer>> enemigosDistancia;
+    //std::vector<std::unique_ptr<EntidadViewer>> enemigosBomber;
     std::unique_ptr<MapaViewer> Mapa;
     std::vector<std::unique_ptr<Boton>> botones;
     std::vector<std::unique_ptr<Boton>> seleccionPersonaje;
     std::vector<std::vector<int>> mapaGenerado;
+    
     bool direccion[4];
 
     int idPersonaje1 = 0;
@@ -34,6 +38,12 @@ public:
 
     void setPosicionMapa(float x, float y) {
         Mapa->setPosicion(x, y);
+    }
+
+    void setPosicionEnemigos(const std::vector<std::pair<float, float>>& posicion) {
+        for (int i = 0;i < 5;i++) {
+            enemigosMelee[i]->setPosicion(posicion[i].first, posicion[i].second);
+        }
     }
 
     void dibujarBotones(sf::RenderWindow& window) {

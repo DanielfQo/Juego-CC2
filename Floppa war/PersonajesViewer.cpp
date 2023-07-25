@@ -101,3 +101,5 @@ sf::IntRect PersonajesViewer::FragmentarSprite(int i) {
     }
     return frameRect;
 }
+
+void PersonajesViewer::setPosicion(float, float){}

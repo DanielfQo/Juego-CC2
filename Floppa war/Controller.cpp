@@ -1,4 +1,5 @@
 #include "Controller.h"
+Controller::Controller() {}
 void Controller::cargarVentana() {
 	while (Vista->ventanaCerrada()) {
 		Vista->manejarEventos();
@@ -12,6 +13,7 @@ void Controller::cargarVentana() {
 void Controller::actualizarModel() {
 	if (Vista->getTipo() == typeid(VentanaJuego)) {
 		Modelo->actualizarMapa(Vista->getDireccion());
+		Modelo->actualizarPosicionEnemigos();
 		if (Modelo->getIdMapa() == 2) {//con idmapa hacemos que solo se genere una vez 
 			Vista->setMapaMenu(Modelo->getMapa1());
 			Modelo->setIdMapa(3);
@@ -27,5 +29,6 @@ void Controller::actualizarModel() {
 void Controller::actualizarViewer() {
 	if (Vista->getTipo() == typeid(VentanaJuego)) {
 		Vista->actualizarMapa(Modelo->getPosicionMapaX(), Modelo->getPosicionMapaY());
+		Vista->actualizarEnemigos(Modelo->getPosicionEnemigosXY());
 	}
 }

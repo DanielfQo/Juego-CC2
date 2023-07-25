@@ -1,10 +1,11 @@
 #include <iostream>
 #include <vector>
 #include "EntidadModel.h"
+#include "EnemigoModel.h"
 
 class MapaModel{
     private:
-
+        //generacion mapa
         int FILAS = 20;
         int COLUMNAS = 32;
         int GENERACIONES = 2;
@@ -17,9 +18,14 @@ class MapaModel{
         const float aceleracion = 0.50f;
         const float desaceleracion = 0.25f;
         const float velocidadMaxima = 5.00f;
+        
         std::vector<std::vector<int>> mapai;
         std::vector<std::vector<int>> cuartos;
         std::vector<std::vector<int>> mapaCompleto;
+        int cantEnemigos = 5;
+        std::vector<std::unique_ptr<EntidadModel>> enemigosMelee;
+        std::vector<std::pair<float,float>> posicionEnemigosMelee;
+
     public:
         MapaModel();
         std::vector<std::vector<int>> getMapa1(){return mapaCompleto;}
@@ -27,12 +33,15 @@ class MapaModel{
         int getColumnas(){return COLUMNAS;}
         float getPosicionX() {return posicionX;}
         float getPosicionY() {return posicionY;}
+        std::vector<std::pair<float, float>> getPosicionEnemigoXY() { return posicionEnemigosMelee; }
         void moverMapa(bool[4]);
         void imprimirMapa();
-        bool colisionMapa(float , float,float, float, float);
         void aplicarReglas();
+        bool colisionMapa(float, float, float, float, float);
         void generar_campo();
         void generarCuartos();
         void generarMapaCompleto();
-        //void load_entidades();
+        void generar_entidades();
+        void movimientoEnemigosPersonaje();
+        void movimientoEnemigosEnemigos();
 };

@@ -1,6 +1,7 @@
 #include "Menus.h"
 #include "Boton.h"
 #include "EntidadViewer.h"
+#include "EnemigoViewer.h"
 #include "MapaViewer.h"
 #include "PersonajesViewer.h"
 #include <SFML/Graphics.hpp>
@@ -19,6 +20,7 @@ MenuInicio::MenuInicio() {
 	botones.push_back(std::move(configuracion));
 	botones.push_back(std::move(tutorial));
 	botones.push_back(std::move(salir));
+
 }
 void MenuInicio::mostrarMenu(sf::RenderWindow& window) {
 	window.draw(fondoSprite);
@@ -162,13 +164,19 @@ VentanaJuego::VentanaJuego(int id) {
 		std::unique_ptr<EntidadViewer>Personaje3 = std::make_unique<PersonajesViewer>("Imagenes/JinxSpriteSheet.png");
 		Personaje = std::move(Personaje3);
 	}
-	
+
+	for (int i = 0; i < 5; ++i) {
+		enemigosMelee.push_back(std::make_unique<MeleeEnemigoViewer>());
+	}
 
 }
 void VentanaJuego::mostrarMenu(sf::RenderWindow& window){
 	Mapa->mostrarMapa(window);
 	//Mapa->imprimirMapa();
 	Personaje->dibujarEntidad(window);
+	for (int i = 0;i < 5;i++) {
+		enemigosMelee[i]->dibujarEntidad(window);
+	}
 	dibujarBotones(window);
 	actualizarDireccion();
 }
