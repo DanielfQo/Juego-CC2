@@ -1,15 +1,15 @@
 #pragma once
 #include "EntidadViewer.h"
 #include <SFML/Graphics.hpp>
-
+#include "ArmasViewer.h"
+#include <iostream>
 
 class PersonajesViewer : public EntidadViewer {
 private:
     sf::IntRect frameRect;
     int actualFrame, totalFrames;
     float duracionFrame, ultimoFrame;
-    
-    
+    std::unique_ptr<ArmasViewer> arma;
 public:
     PersonajesViewer(std::string rutaImagen);
     void dibujarEntidad(sf::RenderWindow& window) override;

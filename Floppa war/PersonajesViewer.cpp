@@ -3,16 +3,18 @@
 #include <SFML/Graphics.hpp>
 PersonajesViewer::PersonajesViewer(std::string rutaImagen): EntidadViewer(rutaImagen), 
 actualFrame(0), totalFrames(4), duracionFrame(0.1f), ultimoFrame(0.0f){
-
+    
     int anchoFrame = spriteTexture.getSize().x / totalFrames;//dividimos el spritesheet en 4
     int altoFrame = spriteTexture.getSize().y;
     frameRect = sf::IntRect(0, 0, anchoFrame, altoFrame);//toma la forma del sprite
     sprite.setTextureRect(frameRect);
     sprite.move(sf::Vector2f(480,288));
+    arma = std::make_unique<ArmasViewer>("Imagenes/Arma.png", 512.0f, 320.0f);
 }
 
 void PersonajesViewer::dibujarEntidad(sf::RenderWindow& window) {
     window.draw(sprite);
+    arma->dibujarArma(window);
 }
 
 void PersonajesViewer::movimientoEntidadPress(const sf::Event::KeyEvent& keyevent) {
