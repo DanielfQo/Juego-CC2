@@ -153,16 +153,16 @@ VentanaJuego::VentanaJuego(int id) {
 	botones.push_back(std::move(regresar));
 	
 	if (id == 0) {
-		std::unique_ptr<EntidadViewer>Personaje1 = std::make_unique<PersonajesViewer>("Imagenes/FloppaSpriteSheet.png");
-		Personaje = std::move(Personaje1);
+		std::unique_ptr<EntidadViewer>Personaje0 = std::make_unique<PersonajesViewer>("Imagenes/FloppaSpriteSheet.png");
+		Personaje1 = std::move(Personaje0);
 	}
 	else if (id == 1) {
 		std::unique_ptr<EntidadViewer>Personaje2 = std::make_unique<PersonajesViewer>("Imagenes/SoggaSpriteSheet.png");
-		Personaje = std::move(Personaje2);
+		Personaje1 = std::move(Personaje2);
 	}
 	else if (id == 2) {
 		std::unique_ptr<EntidadViewer>Personaje3 = std::make_unique<PersonajesViewer>("Imagenes/JinxSpriteSheet.png");
-		Personaje = std::move(Personaje3);
+		Personaje1 = std::move(Personaje3);
 	}
 
 	for (int i = 0; i < 5; ++i) {
@@ -173,7 +173,7 @@ VentanaJuego::VentanaJuego(int id) {
 void VentanaJuego::mostrarMenu(sf::RenderWindow& window){
 	Mapa->mostrarMapa(window);
 	//Mapa->imprimirMapa();
-	Personaje->dibujarEntidad(window);
+	Personaje1->dibujarEntidad(window);
 	for (int i = 0;i < 5;i++) {
 		enemigosMelee[i]->dibujarEntidad(window);
 	}

@@ -17,7 +17,6 @@ void Viewer::actualizarVentana() {
     ventana.clear();
     tipoMenu->mostrarMenu(ventana);
     ventana.display();
-    
 }
 void Viewer::manejarEventos() {
     sf::Event event;
@@ -28,7 +27,12 @@ void Viewer::manejarEventos() {
         else if (event.type == sf::Event::MouseButtonPressed) {
             if (event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2i coordMouse(event.mouseButton.x, event.mouseButton.y);
+                if (typeid(*tipoMenu) == typeid(VentanaJuego)) {
+                    updateJuego(coordMouse);
+                }
+                
                 updateMenu(coordMouse);
+                
             }
         }
         if (typeid(*tipoMenu) == typeid(VentanaJuego)) {
@@ -91,6 +95,11 @@ void Viewer::updateMenu(sf::Vector2i coordMouse) {
 
         tipoMenu = std::make_unique<SeleccionPersonajeMulti>(id1, id2);
     }
+}
+void Viewer::updateJuego(sf::Vector2i coordMouse) {
+    float x = static_cast<float>(coordMouse.x);
+    float y = static_cast<float>(coordMouse.y);
+    tipoMenu->PersonajeAtaque(x,y);
 }
 void Viewer::actualizarMapa(float x, float y) {
     tipoMenu->setPosicionMapa(x, y);

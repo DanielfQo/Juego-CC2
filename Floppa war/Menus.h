@@ -12,7 +12,7 @@ protected:
     sf::Texture fondoTexture;
     sf::Sprite fondoSprite;
 
-    std::unique_ptr<EntidadViewer> Personaje;
+    std::unique_ptr<EntidadViewer> Personaje1;
     std::vector<std::unique_ptr<EntidadViewer>> enemigosMelee;
     //std::vector<std::unique_ptr<EntidadViewer>> enemigosDistancia;
     //std::vector<std::unique_ptr<EntidadViewer>> enemigosBomber;
@@ -29,10 +29,10 @@ public:
     virtual void mostrarMenu(sf::RenderWindow&) = 0;
     
     void actualizarDireccion() {
-        direccion[0] = Personaje->getMueveArriba();
-        direccion[1] = Personaje->getMueveAbajo();
-        direccion[2] = Personaje->getMueveIzquierda();
-        direccion[3] = Personaje->getMueveDerecha();
+        direccion[0] = Personaje1->getMueveArriba();
+        direccion[1] = Personaje1->getMueveAbajo();
+        direccion[2] = Personaje1->getMueveIzquierda();
+        direccion[3] = Personaje1->getMueveDerecha();
     }
     bool* getDireccion() {return direccion;}
 
@@ -51,7 +51,6 @@ public:
             boton->dibujarBoton(window);  
         }
     }
-
     std::string botonPresionado(sf::Vector2i coordMouse) {
         for (const auto& boton : botones) {
             boton->estaPresionado(coordMouse);  
@@ -75,11 +74,16 @@ public:
     }
 
     void eventoMovimientoPress(const sf::Event::KeyEvent& keyevent) {
-        Personaje->movimientoEntidadPress(keyevent);
+        Personaje1->movimientoEntidadPress(keyevent);
     }
     void eventoMovimientoRele(const sf::Event::KeyEvent& keyevent) {
-        Personaje->movimientoEntidadRele(keyevent);
+        Personaje1->movimientoEntidadRele(keyevent);
     }
+
+    void PersonajeAtaque(float x , float y) {
+        Personaje1->Atacar(x, y);
+    }
+
     void setMapa(std::vector<std::vector<int>> m) { Mapa->setMapa(m); }
     int getIDPersonaje1() {return idPersonaje1;}
     int getIDPersonaje2() {return idPersonaje2;}

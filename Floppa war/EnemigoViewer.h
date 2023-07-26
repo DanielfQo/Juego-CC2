@@ -12,6 +12,7 @@ public:
 	void setPosicion(float,float)override;
 	void movimientoEntidadPress(const sf::Event::KeyEvent& keyevent) override;
 	void movimientoEntidadRele(const sf::Event::KeyEvent& keyevent) override;
+	void Atacar(float x, float y) {}
 };
 
 // leaf

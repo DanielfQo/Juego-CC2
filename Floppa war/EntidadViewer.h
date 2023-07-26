@@ -22,5 +22,6 @@ public:
 	bool getMueveIzquierda() { return mueveIzquierda; }
 	bool getMueveDerecha() { return mueveDerecha; }
 	virtual void setPosicion(float, float) = 0;
+	virtual void Atacar(float, float) = 0;
 };
 

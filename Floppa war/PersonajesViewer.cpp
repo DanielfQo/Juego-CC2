@@ -9,12 +9,13 @@ actualFrame(0), totalFrames(4), duracionFrame(0.1f), ultimoFrame(0.0f){
     frameRect = sf::IntRect(0, 0, anchoFrame, altoFrame);//toma la forma del sprite
     sprite.setTextureRect(frameRect);
     sprite.move(sf::Vector2f(480,288));
-    arma = std::make_unique<ArmasViewer>("Imagenes/Arma.png", 512.0f, 320.0f);
+    arma = std::make_unique<ArmaDistancia>("Imagenes/Arma.png", 512.0f, 320.0f);
 }
 
 void PersonajesViewer::dibujarEntidad(sf::RenderWindow& window) {
     window.draw(sprite);
     arma->dibujarArma(window);
+    arma->mostrarAtaque(window);
 }
 
 void PersonajesViewer::movimientoEntidadPress(const sf::Event::KeyEvent& keyevent) {
@@ -104,4 +105,6 @@ sf::IntRect PersonajesViewer::FragmentarSprite(int i) {
     return frameRect;
 }
 
-void PersonajesViewer::setPosicion(float, float){}
+void PersonajesViewer::Atacar(float x, float y) {
+    arma->usarArma(x, y);
+}
