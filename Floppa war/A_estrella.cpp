@@ -1,3 +1,4 @@
+#include ""
 #include <iostream>
 #include <vector>
 #include <math.h>
@@ -377,6 +378,9 @@ void buscador_Aestrella(std::vector<std::vector<int>> mapa,int posX, int posY,in
     if (Destino_encontrado == false)
 		std::cout << "No se encontro la celda destino" << std::endl;
 }
+
+//            <-----------PRUEBA DEL ALGORITMO----------->
+/*
 int main (){
 
     int M [FILAS][COLUMNAS] = {  { 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
@@ -405,3 +409,4 @@ int main (){
     buscador_Aestrella(Matriz,9,0,0,0);
     return 0;
 }
+*/

@@ -3,6 +3,7 @@
 #include<time.h>
 #include "MapaModel.h"
 
+
 MapaModel::MapaModel(){
     semilla = 0;
     posicionX = 0.00f;
