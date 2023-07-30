@@ -3,7 +3,6 @@
 #include<time.h>
 #include "MapaModel.h"
 
-
 MapaModel::MapaModel(){
     semilla = 0;
     posicionX = 0.00f;
@@ -240,23 +239,27 @@ void MapaModel::moverMapa(bool vector[4]) {
             float posY = y * 32 + posicionY;
             if (posX >= -32 && posX <= 1056 && posY >= -32 && posY <= 672) {
                 if (colisionMapa(posX, posY,480, 292,64,64) == true && mapaCompleto[y][x] == 0) {
-                    std::cout << "colision" << std::endl;
 
-                    if (posX < 512 - 32) {
+                    if (!(posX + 22 > 480 + 64 || posX + 32 < 480 || posY + 10 > 288 + 64 || posY + 22 < 288)) {
                         velocidadX = 0;
                         vector[2] = false;
+                        posicionX -= (posX + 32 - 480);
+
                     }
-                    if (posX + 32 > 512) {
+                    if (!(posX - 10 > 480 + 64 || posX < 480 || posY + 10 > 288 + 64 || posY + 22 < 288)) {
                         velocidadX = 0;
                         vector[3] = false;
+                        posicionX += ( 480 + 64 - posX);
                     }
-                    if (posY < 320 - 32) {
+                    if (!(posX + 10 > 480 + 64 || posX + 22 < 480 || posY + 22 > 288 + 64 || posY + 32 < 288)) {
                         velocidadY = 0;
                         vector[0] = false;
+                        posicionY -= (posY + 32 - 292);
                     }
-                    if (posY > 320) {
+                    if (!(posX + 10 > 480 + 64 || posX + 22 < 480 || posY > 292 + 64 || posY + 10 < 292)) {
                         velocidadY = 0;
                         vector[1] = false;
+                        posicionY += (292 +64 - posY);
                     }
                 }
             }
@@ -321,11 +324,11 @@ void MapaModel::generar_entidades(){
 }
 void MapaModel::movimientoEnemigosPersonaje() {
     for (int i = 0;i < cantEnemigos;i++) {
-        if (enemigosMelee[i]->colision(480, 292,64,64)) {
-            enemigosMelee[i]->rebotar(480, 292);
+        if (enemigosMelee[i]->colision(480, 288,64,64)) {
+            enemigosMelee[i]->rebotar(480, 288);
         }
         else {
-            enemigosMelee[i]->moverse(480, 292);
+            enemigosMelee[i]->moverse(480, 288);
         }
         posicionEnemigosMelee[i].first = enemigosMelee[i]->getpX();
         posicionEnemigosMelee[i].second = enemigosMelee[i]->getpY();
