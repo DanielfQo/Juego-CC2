@@ -6,10 +6,10 @@ class EntidadModel {
 protected:
     float pX, pY;
     int Vida, Ataque, Escudo;
-    float radio;
+    float width,height;
     float vel;
 public:
-    EntidadModel(float,float,int,int,int,float,float);
+    EntidadModel(float,float,int,int,int,float,float,float);
     float getpX();
     float getpY();
     void setPosX(float);
@@ -24,12 +24,14 @@ public:
     void setEscudo(int);
 
     float getVel();
-    float getRadio();
+    float getWidth();
+    float getHeight();
 
     void setVel(float);
-    void setRadio(float);
+    void setWidth(float);
+    void setHeight(float);
 
-    bool colision(float, float, float);
+    bool colision(float, float, float,float);
     void rebotar(float X, float Y);
 
     virtual void moverse(float, float) = 0;

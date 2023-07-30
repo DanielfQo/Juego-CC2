@@ -23,6 +23,7 @@ void Model::actualizarMapa(bool direccion[4]) {
 void Model::actualizarPosicionEnemigos() {
     maparef->movimientoEnemigosPersonaje();
     maparef->movimientoEnemigosEnemigos();
+    maparef->colisionEnemigo();
 
 }
 

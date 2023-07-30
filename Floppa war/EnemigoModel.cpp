@@ -1,6 +1,6 @@
 #include "EnemigoModel.h"
 
-EnemigoModel::EnemigoModel(float pX_, float pY_, int Vida_, int Ataque_, int Escudo_, float radio_, float vel_) : EntidadModel(pX_, pY_, Vida_, Ataque_, Escudo_, radio_, vel_) {}
+EnemigoModel::EnemigoModel(float pX_, float pY_, int Vida_, int Ataque_, int Escudo_, float width_, float height_, float vel_) : EntidadModel(pX_, pY_, Vida_, Ataque_, Escudo_, width_, height_, vel_) {}
 
 void EnemigoModel::moverse(float X, float Y) {
 	float distanciaX = (X - EntidadModel::getpX());
@@ -10,8 +10,8 @@ void EnemigoModel::moverse(float X, float Y) {
 	pY += (distanciaY / norma) * vel;
 }
 
-//						EnemigoModel(posicionX,posicionY,vida,ataque,escudo,radio,velocidad)
-MeleeEnemigoModel::MeleeEnemigoModel(): EnemigoModel(0, 0, 100, 5, 50, 30, 2){}
+//						EnemigoModel(posicionX,posicionY,vida,ataque,escudo,ancho,alto,velocidad)
+MeleeEnemigoModel::MeleeEnemigoModel(): EnemigoModel(0, 0, 100, 5, 50, 64 , 64, 2){}
 
 bool MeleeEnemigoModel::atacar(float posX,float posY) {
 	float distancia = sqrt((posX - EntidadModel::getpX()) * (posX - EntidadModel::getpX()) + (posY - EntidadModel::getpY()) * (posY - EntidadModel::getpY()));
@@ -20,8 +20,8 @@ bool MeleeEnemigoModel::atacar(float posX,float posY) {
 	else
 		return false;
 }
-//						EnemigoModel(posicionX,posicionY,vida,ataque,escudo,radio,velocidad)
-RangedEnemigoModel::RangedEnemigoModel() : EnemigoModel(0, 0, 100, 5, 50, 30, 2) {}
+//						EnemigoModel(posicionX,posicionY,vida,ataque,escudo,ancho,alto,velocidad)
+RangedEnemigoModel::RangedEnemigoModel() : EnemigoModel(0, 0, 100, 5, 50, 64, 64, 2) {}
 
 bool RangedEnemigoModel::atacar(float posX,float posY) {
 	float distancia = sqrt((posX - EntidadModel::getpX()) * (posX - EntidadModel::getpX()) + (posY - EntidadModel::getpY()) * (posY - EntidadModel::getpY()));
@@ -30,8 +30,8 @@ bool RangedEnemigoModel::atacar(float posX,float posY) {
 	else
 		return false;
 }
-//						EnemigoModel(posicionX,posicionY,vida,ataque,escudo,radio,velocidad)
-BomberEnemigoModel::BomberEnemigoModel() : EnemigoModel(0, 0, 70, 30, 20, 30, 5) {}
+//						EnemigoModel(posicionX,posicionY,vida,ataque,escudo,ancho,alto,velocidad)
+BomberEnemigoModel::BomberEnemigoModel() : EnemigoModel(0, 0, 70, 30, 20, 64, 64, 5) {}
 
 bool BomberEnemigoModel::atacar(float posX, float posY) {
 	float distancia = sqrt((posX - EntidadModel::getpX()) * (posX - EntidadModel::getpX()) + (posY - EntidadModel::getpY()) * (posY - EntidadModel::getpY()));

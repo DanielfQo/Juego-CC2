@@ -238,7 +238,7 @@ void MapaModel::moverMapa(bool vector[4]) {
             float posX = x * 32 + posicionX;
             float posY = y * 32 + posicionY;
             if (posX >= -32 && posX <= 1056 && posY >= -32 && posY <= 672) {
-                if (colisionMapa(posX, posY, 512, 324, 32) == true && mapaCompleto[y][x] == 0) {
+                if (colisionMapa(posX, posY,480, 292,64,64) == true && mapaCompleto[y][x] == 0) {
                     std::cout << "colision" << std::endl;
 
                     if (posX < 512 - 32) {
@@ -298,23 +298,17 @@ void MapaModel::moverMapa(bool vector[4]) {
     }
 }
 
-bool MapaModel::colisionMapa(float PosX, float PosY, float X, float Y, float radius) {
-
-    float auX = X;
-    float auY = Y;
-    if (auX < PosX)
-        auX = PosX;
-    if (auX > PosX + 32)
-        auX = PosX + 32;
-    if (auY < PosY)
-        auY = PosY;
-    if (auY > PosY + 32)
-        auY = PosY + 32;
-    float distancia = sqrt((X - auX) * (X - auX) + (Y - auY) * (Y - auY));
-    if (distancia < radius)
-        return true;
-    else
+bool MapaModel::colisionMapa(float PosX, float PosY, float X, float Y, float width,float height) {
+    if (PosX > X + width)
         return false;
+    else if (PosX + 32 < X)
+        return false;
+    else if (PosY > Y + height)
+        return false;
+    else if (PosY + 32 < Y)
+        return false;
+    else
+        return true;
 }
 
 void MapaModel::generar_entidades(){
@@ -326,11 +320,11 @@ void MapaModel::generar_entidades(){
 }
 void MapaModel::movimientoEnemigosPersonaje() {
     for (int i = 0;i < cantEnemigos;i++) {
-        if (enemigosMelee[i]->colision(480, 288, 32)) {
-            enemigosMelee[i]->rebotar(480, 288);
+        if (enemigosMelee[i]->colision(480, 292,64,64)) {
+            enemigosMelee[i]->rebotar(480, 292);
         }
         else {
-            enemigosMelee[i]->moverse(480, 288);
+            enemigosMelee[i]->moverse(480, 292);
         }
         posicionEnemigosMelee[i].first = enemigosMelee[i]->getpX();
         posicionEnemigosMelee[i].second = enemigosMelee[i]->getpY();
@@ -340,11 +334,25 @@ void MapaModel::movimientoEnemigosPersonaje() {
 void MapaModel::movimientoEnemigosEnemigos() {
     for (int i = 0;i < cantEnemigos;i++) {
         for (int j = 0;j < cantEnemigos;j++) {
-            if (i != j && enemigosMelee[i]->colision(enemigosMelee[j]->getpX(), enemigosMelee[j]->getpY(), enemigosMelee[j]->getRadio())) {
+            if (i != j && enemigosMelee[i]->colision(enemigosMelee[j]->getpX(), enemigosMelee[j]->getpY() + 4, enemigosMelee[j]->getWidth(), enemigosMelee[j]->getHeight())) {
                 enemigosMelee[i]->rebotar(enemigosMelee[j]->getpX(), enemigosMelee[j]->getpY());
             }
             posicionEnemigosMelee[i].first = enemigosMelee[i]->getpX();
             posicionEnemigosMelee[i].second = enemigosMelee[i]->getpY();
+        }
+    }
+}
+void MapaModel::colisionEnemigo() {
+    for (int y = 0; y < FILAS * 4; y++) {
+        for (int x = 0; x < COLUMNAS * 4; x++) {
+            float posX = x * 32 + posicionX;
+            float posY = y * 32 + posicionY;
+            for (int p = 0; p < cantEnemigos; p++) {
+                if (colisionMapa(posX, posY, enemigosMelee[p]->getpX(), enemigosMelee[p]->getpY()+4, 64,64) == true && mapaCompleto[y][x] == 0) {
+                        enemigosMelee[p]->rebotar(posX, posY);
+                }
+            
+            }
         }
     }
 }
