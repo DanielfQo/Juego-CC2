@@ -238,29 +238,31 @@ void MapaModel::moverMapa(bool vector[4]) {
             float posX = x * 32 + posicionX;
             float posY = y * 32 + posicionY;
             if (posX >= -32 && posX <= 1056 && posY >= -32 && posY <= 672) {
-                if (colisionMapa(posX, posY,480, 292,64,64) == true && mapaCompleto[y][x] == 0) {
-
-                    if (!(posX + 22 > 480 + 64 || posX + 32 < 480 || posY + 10 > 288 + 64 || posY + 22 < 288)) {
+                if ( mapaCompleto[y][x] == 0) {
+                    //std::cout << "colsion" << std::endl;
+                    if (colisionMapa(posX + 22, posY + 10, 10, 12, 480, 292, 64, 64)) {
                         velocidadX = 0;
                         vector[2] = false;
                         posicionX -= (posX + 32 - 480);
 
                     }
-                    if (!(posX - 10 > 480 + 64 || posX < 480 || posY + 10 > 288 + 64 || posY + 22 < 288)) {
+                    if (colisionMapa(posX, posY + 10, 10, 12, 480, 292, 64, 64)) {
                         velocidadX = 0;
                         vector[3] = false;
                         posicionX += ( 480 + 64 - posX);
                     }
-                    if (!(posX + 10 > 480 + 64 || posX + 22 < 480 || posY + 22 > 288 + 64 || posY + 32 < 288)) {
+                    if (colisionMapa(posX + 10, posY + 22, 12, 10, 480, 292, 64, 64)) {
                         velocidadY = 0;
                         vector[0] = false;
                         posicionY -= (posY + 32 - 292);
                     }
-                    if (!(posX + 10 > 480 + 64 || posX + 22 < 480 || posY > 292 + 64 || posY + 10 < 292)) {
+                    if (colisionMapa(posX + 10, posY, 12, 10, 480, 292, 64, 64)) {
                         velocidadY = 0;
                         vector[1] = false;
                         posicionY += (292 +64 - posY);
                     }
+
+
                 }
             }
         }
@@ -302,14 +304,8 @@ void MapaModel::moverMapa(bool vector[4]) {
     }
 }
 
-bool MapaModel::colisionMapa(float PosX, float PosY, float X, float Y, float width,float height) {
-    if (PosX > X + width)
-        return false;
-    else if (PosX + 32 < X)
-        return false;
-    else if (PosY > Y + height)
-        return false;
-    else if (PosY + 32 < Y)
+bool MapaModel::colisionMapa(float PosX, float PosY,float w, float h, float X, float Y, float width,float height) {
+    if (PosX > X + width || PosX + w < X || PosY > Y + height || PosY + h < Y)
         return false;
     else
         return true;
@@ -352,7 +348,7 @@ void MapaModel::colisionEnemigo() {
             float posX = x * 32 + posicionX;
             float posY = y * 32 + posicionY;
             for (int p = 0; p < cantEnemigos; p++) {
-                if (colisionMapa(posX, posY, enemigosMelee[p]->getpX(), enemigosMelee[p]->getpY()+4, 64,64) == true && mapaCompleto[y][x] == 0) {
+                if (colisionMapa(posX, posY,32,32, enemigosMelee[p]->getpX(), enemigosMelee[p]->getpY()+4, 64,64) == true && mapaCompleto[y][x] == 0) {
                         enemigosMelee[p]->rebotar(posX, posY);
                 }
             

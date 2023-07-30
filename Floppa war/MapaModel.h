@@ -40,7 +40,7 @@ class MapaModel{
         void moverMapa(bool[4]);
         void imprimirMapa();
         void aplicarReglas();
-        bool colisionMapa(float, float,float, float, float, float);
+        bool colisionMapa(float, float, float, float, float, float, float, float);
         void generar_campo();
         void generarCuartos();
         void generarMapaCompleto();
