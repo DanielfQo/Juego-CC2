@@ -7,6 +7,7 @@ protected:
 	sf::Texture spriteTexture;
 	sf::Sprite sprite;
 	std::string rutaImagen;
+	float rotation = 0;
 	float x;
 	float y;
 public:
@@ -20,9 +21,7 @@ public:
 
 class ArmaDistancia: public ArmasViewer {
 private:
-	int disparado = 0;
-	int municion = 30;
-	std::vector<BalaViewer> proyectiles;
+	std::unique_ptr<TipoProyectil < BalaViewer, 30>> balas;
 public:
 	ArmaDistancia(std::string, float, float);
 	~ArmaDistancia() = default;

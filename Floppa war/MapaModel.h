@@ -2,9 +2,6 @@
 #include <vector>
 #include "EntidadModel.h"
 #include "EnemigoModel.h"
-#include "A_estrella.cpp"
-
-
 
 class MapaModel{
     private:

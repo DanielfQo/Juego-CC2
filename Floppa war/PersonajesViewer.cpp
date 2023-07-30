@@ -13,9 +13,10 @@ actualFrame(0), totalFrames(4), duracionFrame(0.1f), ultimoFrame(0.0f){
 }
 
 void PersonajesViewer::dibujarEntidad(sf::RenderWindow& window) {
+    arma->mostrarAtaque(window);
     window.draw(sprite);
     arma->dibujarArma(window);
-    arma->mostrarAtaque(window);
+    
 }
 
 void PersonajesViewer::movimientoEntidadPress(const sf::Event::KeyEvent& keyevent) {
