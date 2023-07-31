@@ -156,7 +156,7 @@ void MapaModel::generarMapaCompleto() {
     //pasto 1
     // Crear la matriz resultante
     std::vector<std::vector<int>> matrizResultado(80, std::vector<int>(128, 0));
-    // Generar la matriz m醩 grande
+    // Generar la matriz m谩s grande
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             
@@ -240,23 +240,23 @@ void MapaModel::moverMapa(bool vector[4]) {
             if (posX >= -64 && posX <= 1088 && posY >= -64 && posY <= 704) {
                 if ( mapaCompleto[y][x] == 0) {
                     
-                    if (colisionMapa(posX + 22, posY + 10, 10, 12, 480, 292, 64, 64)) {
+                    if (colisionMapa(posX + 54, posY + 10, 10, 44, 480, 292, 64, 64)) {
                         velocidadX = 0;
                         vector[2] = false;
                         posicionX -= (posX + 64 - 480);
 
                     }
-                    if (colisionMapa(posX, posY + 10, 10, 12, 480, 292, 64, 64)) {
+                    if (colisionMapa(posX, posY + 10, 10, 44, 480, 292, 64, 64)) {
                         velocidadX = 0;
                         vector[3] = false;
                         posicionX += ( 480 + 64 - posX);
                     }
-                    if (colisionMapa(posX + 10, posY + 22, 12, 10, 480, 292, 64, 64)) {
+                    if (colisionMapa(posX + 10, posY + 54, 44, 10, 480, 292, 64, 64)) {
                         velocidadY = 0;
                         vector[0] = false;
                         posicionY -= (posY + 64 - 292);
                     }
-                    if (colisionMapa(posX + 10, posY, 12, 10, 480, 292, 64, 64)) {
+                    if (colisionMapa(posX + 10, posY, 44, 10, 480, 292, 64, 64)) {
                         velocidadY = 0;
                         vector[1] = false;
                         posicionY += (292 +64 - posY);
@@ -268,7 +268,7 @@ void MapaModel::moverMapa(bool vector[4]) {
         }
     }
 
-    // Ajustar las velocidades en funci髇 de los flags
+    // Ajustar las velocidades en funci贸n de los flags
     if (vector[0])
         velocidadY += aceleracion;
     if (vector[1])
@@ -278,13 +278,13 @@ void MapaModel::moverMapa(bool vector[4]) {
     if (vector[3])
         velocidadX -= aceleracion;
 
-    // Aplicar desaceleraci髇
+    // Aplicar desaceleraci贸n
     if (!vector[0] && !vector[1])
         velocidadY -= (velocidadY * desaceleracion);
     if (!vector[2] && !vector[3])
         velocidadX -= (velocidadX * desaceleracion);
 
-    // Limitar la velocidad m醲ima
+    // Limitar la velocidad m谩xima
     if (velocidadY > velocidadMaxima)
         velocidadY = velocidadMaxima;
     if (velocidadY < -velocidadMaxima)
@@ -294,7 +294,7 @@ void MapaModel::moverMapa(bool vector[4]) {
     if (velocidadX < -velocidadMaxima)
         velocidadX = -velocidadMaxima;
 
-    // Mover la posici髇 en funci髇 de las velocidades
+    // Mover la posici贸n en funci贸n de las velocidades
     posicionY += velocidadY;
     posicionX += velocidadX;
 
