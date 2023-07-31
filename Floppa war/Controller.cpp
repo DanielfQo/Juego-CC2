@@ -30,7 +30,7 @@ void Controller::actualizarViewer() {
 	if (Vista->getTipo() == typeid(VentanaJuego)) {
 		Vista->actualizarMapa(Modelo->getPosicionMapaX(), Modelo->getPosicionMapaY());
 		Vista->actualizarEnemigosMelee(Modelo->getPosicionEnemigosMelee());
-		//Vista->actualizarEnemigosRanged(Modelo->getPosicionEnemigosRanged());
-		//Vista->actualizarEnemigosBomber(Modelo->getPosicionEnemigosBomber());
+		Vista->actualizarEnemigosRanged(Modelo->getPosicionEnemigosRanged());
+		Vista->actualizarEnemigosBomber(Modelo->getPosicionEnemigosBomber());
 	}
 }

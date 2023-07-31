@@ -103,11 +103,11 @@ void Viewer::actualizarMapa(float x, float y) {
     tipoMenu->setPosicionMapa(x, y);
 }
 void Viewer::actualizarEnemigosMelee(const std::vector<std::pair<float, float>>& posicion) {
-    tipoMenu->setPosicionEnemigos(posicion);
+    tipoMenu->setPosicionEnemigosMelee(posicion);
 }
 void Viewer::actualizarEnemigosRanged(const std::vector<std::pair<float, float>>& posicion) {
-    
+    tipoMenu->setPosicionEnemigosRanged(posicion);
 }
 void Viewer::actualizarEnemigosBomber(const std::vector<std::pair<float, float>>& posicion) {
-    
+    tipoMenu->setPosicionEnemigosBomber(posicion);
 }

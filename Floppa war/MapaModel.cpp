@@ -327,19 +327,19 @@ bool MapaModel::colisionMapa(float PosX, float PosY,float w, float h, float X, f
 void MapaModel::generar_entidades(){
     //////
     for (int i = 0; i < enemigosMelee.size();i++) {
-        enemigosMelee[i]->setPosX(i * 200.00f);
-        enemigosMelee[i]->setPosY(i * 1.00f);
+        enemigosMelee[i]->setPosX(i * 200.00f + 60);
+        enemigosMelee[i]->setPosY(i * 100.00f);
     }
     //////
     
     for (int i = 0; i < enemigosRanged.size();i++) {
-        enemigosRanged[i]->setPosX(posicionX);
-        enemigosRanged[i]->setPosY(posicionY);
+        enemigosRanged[i]->setPosX(i * 200.00f + 60);
+        enemigosRanged[i]->setPosY(i * 100.00f);
     }
     //////
     for (int i = 0; i < enemigosBomber.size();i++) {
-        enemigosBomber[i]->setPosX(posicionX);
-        enemigosBomber[i]->setPosY(posicionY);
+        enemigosBomber[i]->setPosX(i * 200.00f + 60);
+        enemigosBomber[i]->setPosY(i * 100.00f);
     }
     
 }
@@ -429,7 +429,7 @@ void MapaModel::movimientoEnemigosEnemigos() {
         posicionEnemigosRanged[i].first = enemigosRanged[i]->getpX();
         posicionEnemigosRanged[i].second = enemigosRanged[i]->getpY();
     }
-    /*
+    
     for (int i = 0;i < enemigosBomber.size();i++) {
         for (int j = 0;j < enemigosBomber.size();j++) {
             if (i != j && enemigosBomber[i]->colision(*enemigosBomber[j])) {
@@ -449,7 +449,7 @@ void MapaModel::movimientoEnemigosEnemigos() {
         posicionEnemigosBomber[i].first = enemigosBomber[i]->getpX();
         posicionEnemigosBomber[i].second = enemigosBomber[i]->getpY();
     }
-    */
+    
 }
 void MapaModel::colisionEnemigo() {
     for (int y = 0; y < FILAS * 4; y++) {

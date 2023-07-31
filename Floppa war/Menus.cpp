@@ -167,6 +167,8 @@ VentanaJuego::VentanaJuego(int id) {
 
 	for (int i = 0; i < 5; ++i) {
 		enemigosMelee.push_back(std::make_unique<MeleeEnemigoViewer>());
+		enemigosRanged.push_back(std::make_unique<RangedEnemigoViewer>());
+		enemigosBomber.push_back(std::make_unique<BomberEnemigoViewer>());
 	}
 
 }
@@ -176,6 +178,8 @@ void VentanaJuego::mostrarMenu(sf::RenderWindow& window){
 	Personaje1->dibujarEntidad(window);
 	for (int i = 0;i < 5;i++) {
 		enemigosMelee[i]->dibujarEntidad(window);
+		enemigosRanged[i]->dibujarEntidad(window);
+		enemigosBomber[i]->dibujarEntidad(window);
 	}
 	dibujarBotones(window);
 	actualizarDireccion();

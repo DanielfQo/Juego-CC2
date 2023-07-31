@@ -14,8 +14,8 @@ protected:
 
     std::unique_ptr<EntidadViewer> Personaje1;
     std::vector<std::unique_ptr<EntidadViewer>> enemigosMelee;
-    //std::vector<std::unique_ptr<EntidadViewer>> enemigosDistancia;
-    //std::vector<std::unique_ptr<EntidadViewer>> enemigosBomber;
+    std::vector<std::unique_ptr<EntidadViewer>> enemigosRanged;
+    std::vector<std::unique_ptr<EntidadViewer>> enemigosBomber;
     std::unique_ptr<MapaViewer> Mapa;
     std::vector<std::unique_ptr<Boton>> botones;
     std::vector<std::unique_ptr<Boton>> seleccionPersonaje;
@@ -40,9 +40,19 @@ public:
         Mapa->setPosicion(x, y);
     }
 
-    void setPosicionEnemigos(const std::vector<std::pair<float, float>>& posicion) {
-        for (int i = 0;i < 5;i++) {
+    void setPosicionEnemigosMelee(const std::vector<std::pair<float, float>>& posicion) {
+        for (int i = 0;i < posicion.size();i++) {
             enemigosMelee[i]->setPosicion(posicion[i].first, posicion[i].second);
+        }
+    }
+    void setPosicionEnemigosRanged(const std::vector<std::pair<float, float>>& posicion) {
+        for (int i = 0;i < posicion.size();i++) {
+            enemigosRanged[i]->setPosicion(posicion[i].first, posicion[i].second);
+        }
+    }
+    void setPosicionEnemigosBomber(const std::vector<std::pair<float, float>>& posicion) {
+        for (int i = 0;i < posicion.size();i++) {
+            enemigosBomber[i]->setPosicion(posicion[i].first, posicion[i].second);
         }
     }
 
