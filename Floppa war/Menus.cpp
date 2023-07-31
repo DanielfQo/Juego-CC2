@@ -148,7 +148,7 @@ VentanaJuego::VentanaJuego(int id) {
 	direccion[1] = false;
 	direccion[2] = false;
 	direccion[3] = false;
-	Mapa = std::make_unique<MapaViewer>("Imagenes/prueba.png", mapaGenerado);
+	Mapa = std::make_unique<MapaViewer>("Imagenes/TileSetMapa.png", mapaGenerado);
 	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
 	botones.push_back(std::move(regresar));
 	

@@ -88,7 +88,7 @@ void MapaModel::generarCuartos() {
     //generamos los cuartos de forma aleatoria
     int numCuartos = 4;
 
-    posicionX = (posicion2X * -1024);
+    posicionX = (posicion2X * -2048);
     posicionY = 0;
 
     std::cout << posicionX << " " << posicionY << "\n";
@@ -235,15 +235,15 @@ void MapaModel::generarMapaCompleto() {
 void MapaModel::moverMapa(bool vector[4]) {
     for (int y = 0; y < FILAS * 4; y++) {
         for (int x = 0; x < COLUMNAS * 4; x++) {
-            float posX = x * 32 + posicionX;
-            float posY = y * 32 + posicionY;
-            if (posX >= -32 && posX <= 1056 && posY >= -32 && posY <= 672) {
+            float posX = x * 64 + posicionX;
+            float posY = y * 64 + posicionY;
+            if (posX >= -64 && posX <= 1088 && posY >= -64 && posY <= 704) {
                 if ( mapaCompleto[y][x] == 0) {
-                    //std::cout << "colsion" << std::endl;
+                    
                     if (colisionMapa(posX + 22, posY + 10, 10, 12, 480, 292, 64, 64)) {
                         velocidadX = 0;
                         vector[2] = false;
-                        posicionX -= (posX + 32 - 480);
+                        posicionX -= (posX + 64 - 480);
 
                     }
                     if (colisionMapa(posX, posY + 10, 10, 12, 480, 292, 64, 64)) {
@@ -254,7 +254,7 @@ void MapaModel::moverMapa(bool vector[4]) {
                     if (colisionMapa(posX + 10, posY + 22, 12, 10, 480, 292, 64, 64)) {
                         velocidadY = 0;
                         vector[0] = false;
-                        posicionY -= (posY + 32 - 292);
+                        posicionY -= (posY + 64 - 292);
                     }
                     if (colisionMapa(posX + 10, posY, 12, 10, 480, 292, 64, 64)) {
                         velocidadY = 0;
@@ -345,10 +345,10 @@ void MapaModel::movimientoEnemigosEnemigos() {
 void MapaModel::colisionEnemigo() {
     for (int y = 0; y < FILAS * 4; y++) {
         for (int x = 0; x < COLUMNAS * 4; x++) {
-            float posX = x * 32 + posicionX;
-            float posY = y * 32 + posicionY;
+            float posX = x * 64 + posicionX;
+            float posY = y * 64 + posicionY;
             for (int p = 0; p < cantEnemigos; p++) {
-                if (colisionMapa(posX, posY,32,32, enemigosMelee[p]->getpX(), enemigosMelee[p]->getpY()+4, 64,64) == true && mapaCompleto[y][x] == 0) {
+                if (colisionMapa(posX, posY,64,64, enemigosMelee[p]->getpX(), enemigosMelee[p]->getpY()+4, 64,64) == true && mapaCompleto[y][x] == 0) {
                         enemigosMelee[p]->rebotar(posX, posY);
                 }
             
