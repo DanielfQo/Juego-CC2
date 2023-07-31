@@ -16,7 +16,7 @@ void MapaViewer::mostrarMapa(sf::RenderWindow& window) {
             float posX = x * 64 + posicionX;
             float posY = y * 64 + posicionY;
             // verificar si el tile está dentro de la ventana visible
-            if (posX >= -64 && posX <= 1088 && posY >= -64 && posY <= 704) {
+            if (posX >= -64 && posX <= 1088 && posY >= -64 && posY <= 704) {//-64 1088 -64 704
                 int indice = mapa[y][x];
                 if (indice == 0 || indice == 1) {
                     sf::Sprite& tileSprite = tileSprites[indice];

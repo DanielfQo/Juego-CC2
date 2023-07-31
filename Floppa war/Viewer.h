@@ -12,7 +12,9 @@ public:
 	~Viewer() = default;
 	bool ventanaCerrada();
 	void actualizarVentana();
-	void actualizarEnemigos(const std::vector<std::pair<float, float>>&);
+	void actualizarEnemigosMelee(const std::vector<std::pair<float, float>>&);
+	void actualizarEnemigosRanged(const std::vector<std::pair<float, float>>&);
+	void actualizarEnemigosBomber(const std::vector<std::pair<float, float>>&);
 	void manejarEventos();
 	void updateMenu(sf::Vector2i);
 	void updateJuego(sf::Vector2i);

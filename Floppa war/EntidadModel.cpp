@@ -30,22 +30,34 @@ void EntidadModel::setVel(float vel_) { this->vel = vel_; }
 void EntidadModel::setWidth(float width_) { this->width = width_; }
 void EntidadModel::setHeight(float height_) { this->height = height_; }
 
-bool EntidadModel::colision(float posX, float posY, float w,float h) {
-    if (pX > posX + w)
+bool EntidadModel::colision(EntidadModel &entidad) { //(float posX, float posY, float w,float h) 
+    if (this->pX > entidad.pX + entidad.width)
         return false;
-    else if (pX + width < posX)
+    else if (this->pX + this->width < entidad.pX)
         return false;
-    else if (pY > posY + h)
+    else if (this->pY > entidad.pY + entidad.height)
         return false;
-    else if (pY + height < posY)
+    else if (this->pY + this->height < entidad.pY)
         return false;
     else
         return true;
 }
-void EntidadModel::rebotar(float X, float Y) {
-    float distanciaX = (X - pX);
-    float distanciaY = (Y - pY);
-    float norma = sqrt((distanciaX * distanciaX) + (distanciaY * distanciaY));
-    pX -= (distanciaX / norma) * 5;
-    pY -= (distanciaY / norma) * 5;
+void EntidadModel::rebotar(EntidadModel& entidad) {
+    float distanciaX = (entidad.pX - this->pX);
+    float distanciaY = (entidad.pY - this->pY);
+    float norma = sqrt(abs((distanciaX * distanciaX) + (distanciaY * distanciaY)));
+    if (norma != 0) {
+        this->pX -= (distanciaX / norma) * 5;
+        this->pY -= (distanciaY / norma) * 5;
+    }
+    
+}
+void EntidadModel::rebotarPared(float x, float y) {
+    float distanciaX = (x - this->pX);
+    float distanciaY = (y - this->pY);
+    float norma = sqrt(abs((distanciaX * distanciaX) + (distanciaY * distanciaY)));
+    if (norma != 0) {
+        this->pX -= (distanciaX / norma) * 5;
+        this->pY -= (distanciaY / norma) * 5;
+    }
 }

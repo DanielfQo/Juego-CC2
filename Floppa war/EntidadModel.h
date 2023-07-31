@@ -31,9 +31,10 @@ public:
     void setWidth(float);
     void setHeight(float);
 
-    bool colision(float, float, float,float);
-    void rebotar(float X, float Y);
+    bool colision(EntidadModel &);
+    void rebotar(EntidadModel&);
+    void rebotarPared(float,float);
 
-    virtual void moverse(float, float) = 0;
+    virtual void moverse(EntidadModel&) = 0;
     virtual bool atacar(float,float) = 0;
 };

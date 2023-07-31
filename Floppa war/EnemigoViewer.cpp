@@ -22,7 +22,7 @@ void EnemigoViewer::movimientoEntidadRele(const sf::Event::KeyEvent& keyevent){}
 //////////////////////////////////////////////////////////////////////
 
 MeleeEnemigoViewer::MeleeEnemigoViewer() : EnemigoViewer("Imagenes/Enemigo1SpriteSheet.png") {
-    std::cout << "Se creo el objeto";
+
 }
 
 RangedEnemigoViewer::RangedEnemigoViewer() : EnemigoViewer("Imagenes/Enemigo2SpriteSheet.png") {}

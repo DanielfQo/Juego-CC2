@@ -29,10 +29,8 @@ void Viewer::manejarEventos() {
                 sf::Vector2i coordMouse(event.mouseButton.x, event.mouseButton.y);
                 if (typeid(*tipoMenu) == typeid(VentanaJuego)) {
                     updateJuego(coordMouse);
-                }
-                
+                }  
                 updateMenu(coordMouse);
-                
             }
         }
         if (typeid(*tipoMenu) == typeid(VentanaJuego)) {
@@ -104,6 +102,12 @@ void Viewer::updateJuego(sf::Vector2i coordMouse) {
 void Viewer::actualizarMapa(float x, float y) {
     tipoMenu->setPosicionMapa(x, y);
 }
-void Viewer::actualizarEnemigos(const std::vector<std::pair<float, float>>& posicion) {
+void Viewer::actualizarEnemigosMelee(const std::vector<std::pair<float, float>>& posicion) {
     tipoMenu->setPosicionEnemigos(posicion);
+}
+void Viewer::actualizarEnemigosRanged(const std::vector<std::pair<float, float>>& posicion) {
+    
+}
+void Viewer::actualizarEnemigosBomber(const std::vector<std::pair<float, float>>& posicion) {
+    
 }
