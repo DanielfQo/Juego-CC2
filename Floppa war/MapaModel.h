@@ -57,4 +57,5 @@ class MapaModel{
         void movimientoEnemigosPersonaje();
         void movimientoEnemigosEnemigos();
         void colisionEnemigo();
+        void colisionProyectilEnemigo(const std::vector<std::tuple<float, float, bool>>&);
 };

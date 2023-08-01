@@ -17,6 +17,8 @@ public:
 	
 	virtual void usarArma(float, float)=0;
 	virtual void mostrarAtaque(sf::RenderWindow&) = 0;
+	virtual void verificarColisionEnemigo(EntidadViewer&) = 0;
+	virtual std::vector<std::tuple<float,float,bool>> getPosicionProyectiles() = 0;
 };
 
 class ArmaDistancia: public ArmasViewer {
@@ -27,4 +29,6 @@ public:
 	~ArmaDistancia() = default;
 	void usarArma(float, float)override;
 	void mostrarAtaque(sf::RenderWindow&)override;
+	void verificarColisionEnemigo(EntidadViewer&)override;
+	std::vector<std::tuple<float, float, bool>> getPosicionProyectiles()override { return balas->obtenerPosiciones(); };
 };

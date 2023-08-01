@@ -1,6 +1,7 @@
 #pragma once
 #include<stdlib.h>
 #include<time.h>
+#include <tuple>
 #include "MapaModel.h"
 
 MapaModel::MapaModel(){
@@ -346,108 +347,115 @@ void MapaModel::generar_entidades(){
 void MapaModel::movimientoEnemigosPersonaje() {
 
     for (int i = 0;i < enemigosMelee.size();i++) {
-        if (enemigosMelee[i]->colision(*Personaje1)) {
-            enemigosMelee[i]->rebotar(*Personaje1);
+        if (enemigosMelee[i]->getVivo()) {
+            if (enemigosMelee[i]->colision(*Personaje1)) {
+                enemigosMelee[i]->rebotar(*Personaje1);
+            }
+            else {
+                enemigosMelee[i]->moverse(*Personaje1);
+            }
+            posicionEnemigosMelee[i].first = enemigosMelee[i]->getpX();
+            posicionEnemigosMelee[i].second = enemigosMelee[i]->getpY();
         }
-        else {
-            enemigosMelee[i]->moverse(*Personaje1);
-        }
-        posicionEnemigosMelee[i].first = enemigosMelee[i]->getpX();
-        posicionEnemigosMelee[i].second = enemigosMelee[i]->getpY();
     }
     //////
     
     for (int i = 0;i < enemigosRanged.size();i++) {
-        if (enemigosRanged[i]->colision(*Personaje1)) {
-            enemigosRanged[i]->rebotar(*Personaje1);
+        if (enemigosRanged[i]->getVivo()) {
+            if (enemigosRanged[i]->colision(*Personaje1)) {
+                enemigosRanged[i]->rebotar(*Personaje1);
+            }
+            else {
+                enemigosRanged[i]->moverse(*Personaje1);
+            }
+            posicionEnemigosRanged[i].first = enemigosRanged[i]->getpX();
+            posicionEnemigosRanged[i].second = enemigosRanged[i]->getpY();
         }
-        else {
-            enemigosRanged[i]->moverse(*Personaje1);
-        }
-        posicionEnemigosRanged[i].first = enemigosRanged[i]->getpX();
-        posicionEnemigosRanged[i].second = enemigosRanged[i]->getpY();
     }
     //////
     for (int i = 0;i < enemigosBomber.size();i++) {
-        if (enemigosBomber[i]->colision(*Personaje1)) {
-            enemigosBomber[i]->rebotar(*Personaje1);
+        if (enemigosBomber[i]->getVivo()) {
+            if (enemigosBomber[i]->colision(*Personaje1)) {
+                enemigosBomber[i]->rebotar(*Personaje1);
+            }
+            else {
+                enemigosBomber[i]->moverse(*Personaje1);
+            }
+            //////
+            posicionEnemigosBomber[i].first = enemigosBomber[i]->getpX();
+            posicionEnemigosBomber[i].second = enemigosBomber[i]->getpY();
         }
-        else {
-            enemigosBomber[i]->moverse(*Personaje1);
-        }
-        //////
-        posicionEnemigosBomber[i].first = enemigosBomber[i]->getpX();
-        posicionEnemigosBomber[i].second = enemigosBomber[i]->getpY();
     }
     
 }
 void MapaModel::movimientoEnemigosEnemigos() {
     for (int i = 0;i < enemigosMelee.size();i++) {
-        for (int j = 0;j < enemigosMelee.size();j++) {
-            //std::cout << enemigosMelee[i]->getpX() << " " << enemigosMelee[i]->getpY()<<" ";
-            if (i != j && enemigosMelee[i]->colision(*enemigosMelee[j])) {
-                enemigosMelee[i]->rebotar(*enemigosMelee[j]);
+        if (enemigosMelee[i]->getVivo()) {
+            for (int j = 0;j < enemigosMelee.size();j++) {
+                //std::cout << enemigosMelee[i]->getpX() << " " << enemigosMelee[i]->getpY()<<" ";
+                if (i != j && enemigosMelee[i]->colision(*enemigosMelee[j])) {
+                    enemigosMelee[i]->rebotar(*enemigosMelee[j]);
+                }
             }
-
-        }
-        
-        for (int j = 0;j < enemigosBomber.size();j++) {
-            if (enemigosMelee[i]->colision(*enemigosBomber[j])) {
-                enemigosMelee[i]->rebotar(*enemigosBomber[j]);
+            for (int j = 0;j < enemigosBomber.size();j++) {
+                if (enemigosMelee[i]->colision(*enemigosBomber[j])) {
+                    enemigosMelee[i]->rebotar(*enemigosBomber[j]);
+                }
             }
-        }
-        for (int j = 0;j < enemigosRanged.size();j++) {
-            if (enemigosMelee[i]->colision(*enemigosRanged[j])) {
-                enemigosMelee[i]->rebotar(*enemigosRanged[j]);
+            for (int j = 0;j < enemigosRanged.size();j++) {
+                if (enemigosMelee[i]->colision(*enemigosRanged[j])) {
+                    enemigosMelee[i]->rebotar(*enemigosRanged[j]);
+                }
             }
+            posicionEnemigosMelee[i].first = enemigosMelee[i]->getpX();
+            posicionEnemigosMelee[i].second = enemigosMelee[i]->getpY();
         }
-        
-        posicionEnemigosMelee[i].first = enemigosMelee[i]->getpX();
-        posicionEnemigosMelee[i].second = enemigosMelee[i]->getpY();
-        
     }
     
     for (int i = 0;i < enemigosRanged.size();i++) {
-
-        for (int j = 0;j < enemigosRanged.size();j++) {
-            if (i != j && enemigosRanged[i]->colision(*enemigosRanged[j])) {
-                enemigosRanged[i]->rebotar(*enemigosRanged[j]);
+        if (enemigosRanged[i]->getVivo()) {
+            for (int j = 0;j < enemigosRanged.size();j++) {
+                if (i != j && enemigosRanged[i]->colision(*enemigosRanged[j])) {
+                    enemigosRanged[i]->rebotar(*enemigosRanged[j]);
+                }
             }
-        }
 
-        for (int j = 0;j < enemigosMelee.size();j++) {
-            if (enemigosRanged[i]->colision(*enemigosMelee[j])) {
-                enemigosRanged[i]->rebotar(*enemigosMelee[j]);
+            for (int j = 0;j < enemigosMelee.size();j++) {
+                if (enemigosRanged[i]->colision(*enemigosMelee[j])) {
+                    enemigosRanged[i]->rebotar(*enemigosMelee[j]);
+                }
             }
-        }
 
-        for (int j = 0;j < enemigosBomber.size();j++) {
-            if (enemigosRanged[i]->colision(*enemigosBomber[j])) {
-                enemigosRanged[i]->rebotar(*enemigosBomber[j]);
+            for (int j = 0;j < enemigosBomber.size();j++) {
+                if (enemigosRanged[i]->colision(*enemigosBomber[j])) {
+                    enemigosRanged[i]->rebotar(*enemigosBomber[j]);
+                }
             }
+            posicionEnemigosRanged[i].first = enemigosRanged[i]->getpX();
+            posicionEnemigosRanged[i].second = enemigosRanged[i]->getpY();
         }
-        posicionEnemigosRanged[i].first = enemigosRanged[i]->getpX();
-        posicionEnemigosRanged[i].second = enemigosRanged[i]->getpY();
     }
     
     for (int i = 0;i < enemigosBomber.size();i++) {
-        for (int j = 0;j < enemigosBomber.size();j++) {
-            if (i != j && enemigosBomber[i]->colision(*enemigosBomber[j])) {
-                enemigosBomber[i]->rebotar(*enemigosBomber[j]);
+        if (enemigosBomber[i]->getVivo()) {
+            for (int j = 0;j < enemigosBomber.size();j++) {
+                if (i != j && enemigosBomber[i]->colision(*enemigosBomber[j])) {
+                    enemigosBomber[i]->rebotar(*enemigosBomber[j]);
+                }
             }
-        }
-        for (int j = 0;j < enemigosMelee.size();j++) {
-            if (enemigosBomber[i]->colision(*enemigosMelee[j])) {
-                enemigosBomber[i]->rebotar(*enemigosMelee[j]);
+            for (int j = 0;j < enemigosMelee.size();j++) {
+                if (enemigosBomber[i]->colision(*enemigosMelee[j])) {
+                    enemigosBomber[i]->rebotar(*enemigosMelee[j]);
+                }
             }
-        }
-        for (int j = 0;j < enemigosRanged.size();j++) {
-            if (enemigosBomber[i]->colision(*enemigosRanged[j])) {
-                enemigosBomber[i]->rebotar(*enemigosRanged[j]);
+            for (int j = 0;j < enemigosRanged.size();j++) {
+                if (enemigosBomber[i]->colision(*enemigosRanged[j])) {
+                    enemigosBomber[i]->rebotar(*enemigosRanged[j]);
+                }
             }
+            posicionEnemigosBomber[i].first = enemigosBomber[i]->getpX();
+            posicionEnemigosBomber[i].second = enemigosBomber[i]->getpY();
         }
-        posicionEnemigosBomber[i].first = enemigosBomber[i]->getpX();
-        posicionEnemigosBomber[i].second = enemigosBomber[i]->getpY();
     }
     
 }
@@ -473,6 +481,29 @@ void MapaModel::colisionEnemigo() {
                 }
             }
             
+        }
+    }
+}
+void MapaModel::colisionProyectilEnemigo(const std::vector<std::tuple<float, float, bool>>& posiciones) {
+    for (const auto& posicion : posiciones) {
+        {
+            for (size_t j = 0; j < enemigosMelee.size(); j++) {
+                enemigosMelee[j]->colisionProyectil(std::get<0>(posicion), std::get<1>(posicion));
+            }
+        }
+    }
+    for (const auto& posicion : posiciones) {
+        if (std::get<2>(posicion) == true) {
+            for (size_t j = 0; j < enemigosRanged.size(); j++) {
+                enemigosRanged[j]->colisionProyectil(std::get<0>(posicion), std::get<1>(posicion));
+            }
+        }
+    }
+    for (const auto& posicion : posiciones) {
+        if (std::get<2>(posicion) == true) {
+            for (size_t j = 0; j < enemigosBomber.size(); j++) {
+                enemigosBomber[j]->colisionProyectil(std::get<0>(posicion), std::get<1>(posicion));
+            }
         }
     }
 }

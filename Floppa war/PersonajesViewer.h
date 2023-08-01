@@ -19,4 +19,6 @@ public:
     sf::IntRect FragmentarSprite(int);
     void setPosicion(float, float) override {};
     void Atacar(float, float);
+    void verificarAtaqueToEnemigo(EntidadViewer& enemigo)override;
+    std::vector<std::tuple<float, float, bool>> getPosicionesProyectiles()override { return arma->getPosicionProyectiles(); }
 };

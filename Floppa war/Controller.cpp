@@ -13,6 +13,7 @@ void Controller::cargarVentana() {
 void Controller::actualizarModel() {
 	if (Vista->getTipo() == typeid(VentanaJuego)) {
 		Modelo->actualizarMapa(Vista->getDireccion());
+		Modelo->actualizarPosicionProyectiles(Vista->getPosicionesProyectiles());
 		Modelo->actualizarPosicionEnemigos();
 		if (Modelo->getIdMapa() == 2) {//con idmapa hacemos que solo se genere una vez 
 			Vista->setMapaMenu(Modelo->getMapa1());

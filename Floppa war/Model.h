@@ -21,9 +21,6 @@ public:
 	std::vector<std::pair<float, float>> getPosicionEnemigosRanged() { return maparef->getPosicionEnemigoRanged(); }
 	std::vector<std::pair<float, float>> getPosicionEnemigosBomber() { return maparef->getPosicionEnemigoBomber(); }
 	void actualizarPosicionEnemigos();
-    //std::vector<std::vector<int>> getMapa();
-	//void getposiciones();
-	//void updateposicion();
-
+	void actualizarPosicionProyectiles(const std::vector<std::tuple<float, float, bool>>&);
 };
 

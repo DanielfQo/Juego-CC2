@@ -109,3 +109,6 @@ sf::IntRect PersonajesViewer::FragmentarSprite(int i) {
 void PersonajesViewer::Atacar(float x, float y) {
     arma->usarArma(x, y);
 }
+void PersonajesViewer::verificarAtaqueToEnemigo(EntidadViewer& enemigo) {
+    arma->verificarColisionEnemigo(enemigo);
+}

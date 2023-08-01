@@ -10,7 +10,10 @@ EnemigoViewer::EnemigoViewer(std::string rutaImagen) : EntidadViewer(rutaImagen)
 }
 void EnemigoViewer::dibujarEntidad(sf::RenderWindow& window) {
     sprite.setPosition(posX, posY);
-    window.draw(sprite);
+    if (posX >= -64 && posX <= 1088 && posY >= -64 && posY <= 704) {
+        window.draw(sprite);
+    }
+    
 }
 void EnemigoViewer::setPosicion(float x, float y) {
     this->posX = x;

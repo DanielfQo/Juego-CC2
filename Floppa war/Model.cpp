@@ -24,6 +24,9 @@ void Model::actualizarPosicionEnemigos() {
     maparef->movimientoEnemigosPersonaje();
     maparef->movimientoEnemigosEnemigos();
     maparef->colisionEnemigo();
+}
 
+void Model::actualizarPosicionProyectiles(const std::vector<std::tuple<float, float, bool>>& posicionesProyectil){
+    maparef->colisionProyectilEnemigo(posicionesProyectil);
 }
 

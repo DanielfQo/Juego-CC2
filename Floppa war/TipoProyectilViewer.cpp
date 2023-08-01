@@ -1,5 +1,6 @@
 #include "TipoProyectilViewer.h"
 #include <iostream>
+#include <tuple>
 BalaViewer::BalaViewer() {
     x = 512;
     y = 320;
@@ -9,15 +10,34 @@ BalaViewer::BalaViewer() {
 }
 
 void BalaViewer::dibujar(sf::RenderWindow& window) {
+
+    if (balaActiva) {
+        //formula de la recta
+        Px = x + (vectordx) * vel;
+        Py = y + (vectordy) * vel;
+        vel += 4;
+
+        sprite.setPosition(Px, Py);
+        sprite.setRotation(rotation);
+        window.draw(sprite);
+    }
+    //si sale del mapa
+    if (Px <= -64 || Px >= 1088 || Py <= -64 || Py >= 704) {
+        balaActiva = false;
+    }
+}
+void BalaViewer::calcularVectorDirector() {
     float distanciaX = (xM - x);
     float distanciaY = (yM - y);
     float norma = sqrt((distanciaX * distanciaX) + (distanciaY * distanciaY));
-    //ecuacion de la recta
-    Px = x +(distanciaX / norma) * vel;
-    Py = y + (distanciaY / norma) * vel;
-    vel+=5;
+    vectordx = distanciaX / norma;
+    vectordy = distanciaY / norma;
+}
 
-    sprite.setPosition(Px, Py);
-    sprite.setRotation(rotation);
-    window.draw(sprite);
+void BalaViewer::colisionEnemigo(EntidadViewer& enemigo) {
+    if (balaActiva) {
+        if (Px >= enemigo.getPosicionX() && Px <= enemigo.getPosicionX() + 64 && Py >= enemigo.getPosicionY() && Py <= enemigo.getPosicionY() + 64) {
+            balaActiva = false;
+        }
+    }
 }

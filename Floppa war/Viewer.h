@@ -21,6 +21,7 @@ public:
 	void actualizarMapa(float, float);
 	const std::type_info& getTipo() {return typeid(*tipoMenu);}
 	bool* getDireccion() {return tipoMenu->getDireccion();}
+	std::vector<std::tuple<float, float, bool>> getPosicionesProyectiles() { return tipoMenu->getPosicionesProyectiles(); }
 	void setMapaMenu(std::vector<std::vector<int>> m) { tipoMenu->setMapa(m); }
 };
 

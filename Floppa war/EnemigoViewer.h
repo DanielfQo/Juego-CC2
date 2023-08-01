@@ -4,8 +4,7 @@
 class EnemigoViewer :public EntidadViewer {
 protected:
 	sf::IntRect frameRect;
-	float posX = 0;
-	float posY = 0;
+	std::vector<std::tuple<float, float, bool>> a;
 public:
 	EnemigoViewer(std::string);
 	void dibujarEntidad(sf::RenderWindow&)override;
@@ -13,6 +12,8 @@ public:
 	void movimientoEntidadPress(const sf::Event::KeyEvent& keyevent) override;
 	void movimientoEntidadRele(const sf::Event::KeyEvent& keyevent) override;
 	void Atacar(float x, float y) {}
+	void verificarAtaqueToEnemigo(EntidadViewer& enemigo) override {};
+	std::vector<std::tuple<float, float, bool>> getPosicionesProyectiles()override { return a; };
 };
 
 // leaf

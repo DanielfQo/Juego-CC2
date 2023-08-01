@@ -32,3 +32,6 @@ void ArmaDistancia::usarArma(float xM, float yM) {
 void ArmaDistancia::mostrarAtaque(sf::RenderWindow& window) {
     balas->dibujarProyectil(window);
 }
+void ArmaDistancia::verificarColisionEnemigo(EntidadViewer& enemigo) {
+    balas->verificarColisionEnemigo(enemigo);
+}

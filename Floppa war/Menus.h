@@ -89,9 +89,11 @@ public:
     void eventoMovimientoRele(const sf::Event::KeyEvent& keyevent) {
         Personaje1->movimientoEntidadRele(keyevent);
     }
-
     void PersonajeAtaque(float x , float y) {
         Personaje1->Atacar(x, y);
+    }
+    std::vector<std::tuple<float, float, bool>> getPosicionesProyectiles() {
+        return Personaje1->getPosicionesProyectiles();
     }
 
     void setMapa(std::vector<std::vector<int>> m) { Mapa->setMapa(m); }

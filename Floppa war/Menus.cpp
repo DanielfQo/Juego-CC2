@@ -181,6 +181,11 @@ void VentanaJuego::mostrarMenu(sf::RenderWindow& window){
 		enemigosRanged[i]->dibujarEntidad(window);
 		enemigosBomber[i]->dibujarEntidad(window);
 	}
+	for (int i = 0;i < 5;i++) {
+		Personaje1->verificarAtaqueToEnemigo(*enemigosMelee[i]);
+		Personaje1->verificarAtaqueToEnemigo(*enemigosRanged[i]);
+		Personaje1->verificarAtaqueToEnemigo(*enemigosBomber[i]);
+	}
 	dibujarBotones(window);
 	actualizarDireccion();
 }
