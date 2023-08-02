@@ -19,6 +19,7 @@ public:
 	void updateMenu(sf::Vector2i);
 	void updateJuego(sf::Vector2i);
 	void actualizarMapa(float, float);
+	void actualizarVidaPersonaje1(float);
 	const std::type_info& getTipo() {return typeid(*tipoMenu);}
 	bool* getDireccion() {return tipoMenu->getDireccion();}
 	std::vector<std::tuple<float, float, bool>> getPosicionesProyectiles() { return tipoMenu->getPosicionesProyectiles(); }

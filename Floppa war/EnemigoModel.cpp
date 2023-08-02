@@ -11,7 +11,6 @@ void EnemigoModel::moverse(EntidadModel &entidad) {
 		pX += (distanciaX / norma) * vel;
 		pY += (distanciaY / norma) * vel;
 	}
-	
 }
 
 //						EnemigoModel(posicionX,posicionY,vida,ataque,escudo,ancho,alto,velocidad)
@@ -25,7 +24,7 @@ bool MeleeEnemigoModel::atacar(float posX,float posY) {
 		return false;
 }
 //						EnemigoModel(posicionX,posicionY,vida,ataque,escudo,ancho,alto,velocidad)
-RangedEnemigoModel::RangedEnemigoModel() : EnemigoModel(0.00f, 0.00f, 100, 10, 50, 64, 64, 2) {}
+RangedEnemigoModel::RangedEnemigoModel() : EnemigoModel(0.00f, 0.00f, 100, 1, 50, 64, 64, 2) {}
 
 bool RangedEnemigoModel::atacar(float posX,float posY) {
 	float distancia = sqrt((posX - EntidadModel::getpX()) * (posX - EntidadModel::getpX()) + (posY - EntidadModel::getpY()) * (posY - EntidadModel::getpY()));
@@ -35,7 +34,7 @@ bool RangedEnemigoModel::atacar(float posX,float posY) {
 		return false;
 }
 //						EnemigoModel(posicionX,posicionY,vida,ataque,escudo,ancho,alto,velocidad)
-BomberEnemigoModel::BomberEnemigoModel() : EnemigoModel(0.00f, 0.00f, 70, 30, 20, 64, 64, 3) {}
+BomberEnemigoModel::BomberEnemigoModel() : EnemigoModel(0.00f, 0.00f, 70, 1, 20, 64, 64, 3) {}
 
 bool BomberEnemigoModel::atacar(float posX, float posY) {
 	float distancia = sqrt((posX - EntidadModel::getpX()) * (posX - EntidadModel::getpX()) + (posY - EntidadModel::getpY()) * (posY - EntidadModel::getpY()));

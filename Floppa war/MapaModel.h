@@ -43,6 +43,7 @@ class MapaModel{
         int getColumnas(){return COLUMNAS;}
         float getPosicionX() {return posicionX;}
         float getPosicionY() {return posicionY;}
+        float getVidaPersonaje1() { return Personaje1->getVida(); }
         std::vector<std::pair<float, float>> getPosicionEnemigoMelee() { return posicionEnemigosMelee; }
         std::vector<std::pair<float, float>> getPosicionEnemigoRanged() { return posicionEnemigosRanged; }
         std::vector<std::pair<float, float>> getPosicionEnemigoBomber() { return posicionEnemigosBomber; }

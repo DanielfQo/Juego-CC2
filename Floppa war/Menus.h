@@ -13,6 +13,7 @@ protected:
     sf::Sprite fondoSprite;
 
     std::unique_ptr<EntidadViewer> Personaje1;
+    std::unique_ptr<EntidadViewer> Personaje2;
     std::vector<std::unique_ptr<EntidadViewer>> enemigosMelee;
     std::vector<std::unique_ptr<EntidadViewer>> enemigosRanged;
     std::vector<std::unique_ptr<EntidadViewer>> enemigosBomber;
@@ -94,11 +95,17 @@ public:
         return "";
     }
 
-    void eventoMovimientoPress(const sf::Event::KeyEvent& keyevent) {
-        Personaje1->movimientoEntidadPress(keyevent);
+    void eventoMovimientoPress1(bool arriba, bool izquierda, bool abajo, bool derecha) {
+        Personaje1->movimientoEntidadPress(arriba, izquierda, abajo, derecha);
     }
-    void eventoMovimientoRele(const sf::Event::KeyEvent& keyevent) {
-        Personaje1->movimientoEntidadRele(keyevent);
+    void eventoMovimientoRele1(bool arriba, bool izquierda, bool abajo, bool derecha) {
+        Personaje1->movimientoEntidadRele(arriba, izquierda, abajo, derecha);
+    }
+    void eventoMovimientoPress2(bool arriba, bool izquierda, bool abajo, bool derecha) {
+        Personaje2->movimientoEntidadPress2(arriba, izquierda, abajo, derecha);
+    }
+    void eventoMovimientoRele2(bool arriba, bool izquierda, bool abajo, bool derecha) {
+        Personaje2->movimientoEntidadRele2(arriba, izquierda, abajo, derecha);
     }
     void PersonajeAtaque(float x , float y) {
         Personaje1->Atacar(x, y);
@@ -106,10 +113,15 @@ public:
     std::vector<std::tuple<float, float, bool>> getPosicionesProyectiles() {
         return Personaje1->getPosicionesProyectiles();
     }
+    void setVidaPersonaje1(int a) {
+        Personaje1->setVida(a);
+    }
 
     void setMapa(std::vector<std::vector<int>> m) { Mapa->setMapa(m); }
     int getIDPersonaje1() {return idPersonaje1;}
     int getIDPersonaje2() {return idPersonaje2;}
+    void setIDPersonaje1(int id) { idPersonaje1 = id; }
+    void setIDPersonaje2(int id) { idPersonaje2 = id; }
 };
 
 class MenuInicio:public Menu{
@@ -167,4 +179,10 @@ public:
     void mostrarMenu(sf::RenderWindow&) override;
 };
 
+class VentanaJuegoMulti :public Menu {
+public:
+    VentanaJuegoMulti(int,int);
+    ~VentanaJuegoMulti() = default;
+    void mostrarMenu(sf::RenderWindow&) override;
+};
 

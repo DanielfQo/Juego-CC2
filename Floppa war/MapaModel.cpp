@@ -330,23 +330,38 @@ bool MapaModel::colision(float PosX, float PosY, float w, float h, EntidadModel&
         return true;
 }
 void MapaModel::generar_entidades() {
-    //////
-    for (int i = 0; i < enemigosMelee.size();i++) {
-        enemigosMelee[i]->setPosX(i * 200.00f + 60);
-        enemigosMelee[i]->setPosY(i * 100.00f);
-    }
-    //////
 
-    for (int i = 0; i < enemigosRanged.size();i++) {
-        enemigosRanged[i]->setPosX(i * 200.00f + 60);
-        enemigosRanged[i]->setPosY(i * 100.00f);
-    }
-    //////
-    for (int i = 0; i < enemigosBomber.size();i++) {
-        enemigosBomber[i]->setPosX(i * 200.00f + 60);
-        enemigosBomber[i]->setPosY(i * 100.00f);
-    }
+    std::time_t currentTime = std::time(nullptr);
+    std::srand(static_cast<unsigned int>(currentTime));
+    int count1 = 0;
+    int count2 = 0;
+    int count3 = 0;
+    std::cout << (80 * 64) + posicionX << " : " << (80 * 64) + posicionY << std::endl;
 
+    for (int i = 1; i < FILAS * 4 - 1; i++) {
+        for (int j = 1; j < COLUMNAS * 4 - 1; j++) {
+            int auxiliar = std::rand() % 50 + 1;
+            if (mapaCompleto[i][j] == 1) {
+                if (mapaCompleto[i - 1][j - 1] == 1 && mapaCompleto[i - 1][j] == 1 && mapaCompleto[i - 1][j + 1] == 1 && mapaCompleto[i][j - 1] == 1 && mapaCompleto[i][j + 1] == 1 && mapaCompleto[i + 1][j - 1] == 1 && mapaCompleto[i + 1][j] == 1 && mapaCompleto[i + 1][j + 1] == 1) {
+                    if (count1 < cantEnemigos && auxiliar == 2 && enemigosMelee[count1]) {
+                        enemigosMelee[count1]->setPosX((i * 64) + posicionX);
+                        enemigosMelee[count1]->setPosY((j * 64) + posicionY);
+                        ++count1;
+                    }
+                    if (count2 < cantEnemigos && auxiliar == 10 && enemigosRanged[count2]) {
+                        enemigosRanged[count2]->setPosX((i * 64) + posicionX);
+                        enemigosRanged[count2]->setPosY((j * 64) + posicionY);
+                        ++count2;
+                    }
+                    if (count3 < cantEnemigos && auxiliar == 20 && enemigosBomber[count3]) {
+                        enemigosBomber[count3]->setPosX((i * 64) + posicionX);
+                        enemigosBomber[count3]->setPosY((j * 64) + posicionY);
+                        ++count3;
+                    }
+                }
+            }
+        }
+    }
 }
 void MapaModel::movimientoEnemigosPersonaje() {
 
@@ -463,7 +478,6 @@ void MapaModel::movimientoEnemigosEnemigos() {
                 if (i != j && enemigosMelee[i]->colision(*enemigosMelee[j])) {
                     enemigosMelee[i]->rebotar(*enemigosMelee[j]);
                 }
-
             }
 
             for (int j = 0;j < enemigosBomber.size();j++) {

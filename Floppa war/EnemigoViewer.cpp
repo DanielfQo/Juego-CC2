@@ -19,8 +19,10 @@ void EnemigoViewer::setPosicion(float x, float y) {
     this->posX = x;
     this->posY = y;
 }
-void EnemigoViewer::movimientoEntidadPress(const sf::Event::KeyEvent& keyevent){}
-void EnemigoViewer::movimientoEntidadRele(const sf::Event::KeyEvent& keyevent){}
+void EnemigoViewer::movimientoEntidadPress(bool arriba ,bool izquierda,bool abajo,bool derecha){}
+void EnemigoViewer::movimientoEntidadRele(bool arriba, bool izquierda, bool abajo, bool derecha){}
+void EnemigoViewer::movimientoEntidadPress2(bool arriba, bool izquierda, bool abajo, bool derecha) {}
+void EnemigoViewer::movimientoEntidadRele2(bool arriba, bool izquierda, bool abajo, bool derecha) {}
 
 //////////////////////////////////////////////////////////////////////
 

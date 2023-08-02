@@ -17,6 +17,7 @@ public:
 	std::vector<std::vector<int>> getMapa1() { return maparef->getMapa1(); }
 	float getPosicionMapaX() { return maparef->getPosicionX(); }
 	float getPosicionMapaY() { return maparef->getPosicionY(); }
+	float getVidaPersonaje1() { return maparef->getVidaPersonaje1(); }
 	std::vector<std::pair<float, float>> getPosicionEnemigosMelee() { return maparef->getPosicionEnemigoMelee(); }
 	std::vector<std::pair<float, float>> getPosicionEnemigosRanged() { return maparef->getPosicionEnemigoRanged(); }
 	std::vector<std::pair<float, float>> getPosicionEnemigosBomber() { return maparef->getPosicionEnemigoBomber(); }

@@ -3,7 +3,7 @@
 #include <vector> 
 #include <SFML/Graphics.hpp>
 #include "EntidadViewer.h"
-
+//object pool
 template<class T, size_t municion>
 class TipoProyectil {
 private:

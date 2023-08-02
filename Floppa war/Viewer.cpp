@@ -1,4 +1,6 @@
 #include "Viewer.h"
+#include <thread>
+#include <future>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
@@ -29,21 +31,100 @@ void Viewer::manejarEventos() {
                 sf::Vector2i coordMouse(event.mouseButton.x, event.mouseButton.y);
                 if (typeid(*tipoMenu) == typeid(VentanaJuego)) {
                     updateJuego(coordMouse);
-                }  
+                }
+                
+                if (typeid(*tipoMenu) == typeid(VentanaJuegoMulti)) {
+                    updateJuego(coordMouse);
+                }
                 updateMenu(coordMouse);
             }
         }
         if (typeid(*tipoMenu) == typeid(VentanaJuego)) {
-            if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::C) {
+            bool arriba = false, abajo = false, izquierda = false, derecha = false;
+            if (event.type == sf::Event::KeyPressed) {   
+                if (event.key.code == sf::Keyboard::C)
                     tipoMenu->cambiarArma();
-                }
-                tipoMenu->eventoMovimientoPress(event.key);
+                if (event.key.code == sf::Keyboard::W)
+                    arriba = true;
+                else if (event.key.code == sf::Keyboard::S)
+                    abajo = true;
+                if (event.key.code == sf::Keyboard::A)
+                    izquierda = true;
+                else if (event.key.code == sf::Keyboard::D)
+                    derecha = true;
+                tipoMenu->eventoMovimientoPress1(arriba, izquierda,abajo,derecha);
             }
             else if (event.type == sf::Event::KeyReleased) {
-                tipoMenu->eventoMovimientoRele(event.key);
+                
+                if (event.key.code == sf::Keyboard::W)
+                    arriba = true;
+                else if (event.key.code == sf::Keyboard::S)
+                    abajo = true;
+                if (event.key.code == sf::Keyboard::A)
+                    izquierda = true;
+                else if (event.key.code == sf::Keyboard::D)
+                    derecha = true;
+                tipoMenu->eventoMovimientoRele1(arriba, izquierda, abajo, derecha);
             }
         }
+        
+        if (typeid(*tipoMenu) == typeid(VentanaJuegoMulti)) {
+            std::future<void> future1 = std::async(std::launch::async, [&]() {
+                bool arriba = false, abajo = false, izquierda = false, derecha = false;
+                if (event.type == sf::Event::KeyPressed) {
+                    if (event.key.code == sf::Keyboard::C)
+                        tipoMenu->cambiarArma();
+                    if (event.key.code == sf::Keyboard::W)
+                        arriba = true;
+                    else if (event.key.code == sf::Keyboard::S)
+                        abajo = true;
+                    if (event.key.code == sf::Keyboard::A)
+                        izquierda = true;
+                    else if (event.key.code == sf::Keyboard::D)
+                        derecha = true;
+                    tipoMenu->eventoMovimientoPress1(arriba, izquierda, abajo, derecha);
+                }
+                else if (event.type == sf::Event::KeyReleased) {
+                    if (event.key.code == sf::Keyboard::W)
+                        arriba = true;
+                    else if (event.key.code == sf::Keyboard::S)
+                        abajo = true;
+                    if (event.key.code == sf::Keyboard::A)
+                        izquierda = true;
+                    else if (event.key.code == sf::Keyboard::D)
+                        derecha = true;
+                    tipoMenu->eventoMovimientoRele1(arriba, izquierda, abajo, derecha);
+                }
+                });
+            std::future<void> future2 = std::async(std::launch::async, [&]() {
+                bool arriba2 = false, abajo2 = false, izquierda2 = false, derecha2 = false;
+                if (event.type == sf::Event::KeyPressed) {
+                    if (event.key.code == sf::Keyboard::Up)
+                        arriba2 = true;
+                    else if (event.key.code == sf::Keyboard::Left)
+                        izquierda2 = true;
+                    if (event.key.code == sf::Keyboard::Down)
+                        abajo2 = true;
+                    else if (event.key.code == sf::Keyboard::Right)
+                        derecha2 = true;
+                    tipoMenu->eventoMovimientoPress2(arriba2, izquierda2, abajo2, derecha2);
+                }
+                else if (event.type == sf::Event::KeyReleased) {
+                    if (event.key.code == sf::Keyboard::Up)
+                        arriba2 = true;
+                    else if (event.key.code == sf::Keyboard::Left)
+                        izquierda2 = true;
+                    if (event.key.code == sf::Keyboard::Down)
+                        abajo2 = true;
+                    else if (event.key.code == sf::Keyboard::Right)
+                        derecha2 = true;
+                    tipoMenu->eventoMovimientoRele2(arriba2, izquierda2, abajo2, derecha2);
+                }
+            });
+            future1.get();
+            future2.get();
+        }
+        
     }
 }
 
@@ -85,16 +166,28 @@ void Viewer::updateMenu(sf::Vector2i coordMouse) {
         int id1 = tipoMenu->getIDPersonaje1();
         int id2 = tipoMenu->getIDPersonaje2();
 
-        if (nombre == "Anterior1" && id1 > 0)
+        if (nombre == "Anterior1" && id1 > 0) {
             id1--;
-        else if (nombre == "Siguiente1" && id1 < tamPersonajes - 1)
+            tipoMenu->setIDPersonaje1(id1);
+        }
+        else if (nombre == "Siguiente1" && id1 < tamPersonajes - 1) {
             id1++;
-        else if (nombre == "Anterior2" && id2 > 0)
+            tipoMenu->setIDPersonaje1(id1);
+        }
+        else if (nombre == "Anterior2" && id2 > 0) {
             id2--;
-        else if (nombre == "Siguiente2" && id2 < tamPersonajes - 1)
+            tipoMenu->setIDPersonaje2(id2);
+        }
+        else if (nombre == "Siguiente2" && id2 < tamPersonajes - 1) {
             id2++;
-
+            tipoMenu->setIDPersonaje2(id2);
+        }   
         tipoMenu = std::make_unique<SeleccionPersonajeMulti>(id1, id2);
+    }
+    else if (nombrePersonaje == "NombreFloppa1" || nombrePersonaje == "NombreSogga1" || nombrePersonaje == "NombreJinx1" 
+             || nombrePersonaje == "NombreFloppa2" || nombrePersonaje == "NombreSogga2" || nombrePersonaje == "NombreJinx2") {
+
+        tipoMenu = std::make_unique<VentanaJuegoMulti>(tipoMenu->getIDPersonaje1(), tipoMenu->getIDPersonaje2());
     }
 }
 void Viewer::updateJuego(sf::Vector2i coordMouse) {
@@ -113,4 +206,7 @@ void Viewer::actualizarEnemigosRanged(const std::vector<std::pair<float, float>>
 }
 void Viewer::actualizarEnemigosBomber(const std::vector<std::pair<float, float>>& posicion) {
     tipoMenu->setPosicionEnemigosBomber(posicion);
+}
+void Viewer::actualizarVidaPersonaje1(float vida) {
+    tipoMenu->setVidaPersonaje1(static_cast<int>(vida));
 }

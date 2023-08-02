@@ -9,8 +9,10 @@ public:
 	EnemigoViewer(std::string);
 	void dibujarEntidad(sf::RenderWindow&)override;
 	void setPosicion(float,float)override;
-	void movimientoEntidadPress(const sf::Event::KeyEvent& keyevent) override;
-	void movimientoEntidadRele(const sf::Event::KeyEvent& keyevent) override;
+	void movimientoEntidadPress(bool,bool,bool,bool) override;
+	void movimientoEntidadRele(bool, bool, bool, bool) override;
+	void movimientoEntidadPress2(bool, bool, bool, bool)override;
+	void movimientoEntidadRele2(bool, bool, bool, bool)override;
 	void Atacar(float x, float y) {}
 	void verificarAtaqueToEnemigo(EntidadViewer& enemigo) override {};
 	std::vector<std::tuple<float, float, bool>> getPosicionesProyectiles()override { return a; };

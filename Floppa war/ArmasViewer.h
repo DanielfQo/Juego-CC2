@@ -13,6 +13,9 @@ protected:
 public:
 	ArmasViewer(std::string,float,float);
 	~ArmasViewer() = default;
+
+	void setPosicionArma(float, float);
+
 	void dibujarArma(sf::RenderWindow&);
 	
 	virtual void usarArma(float, float)=0;

@@ -189,6 +189,64 @@ void VentanaJuego::mostrarMenu(sf::RenderWindow& window){
 	dibujarBotones(window);
 	actualizarDireccion();
 }
-
-
 ///////////////////////////
+VentanaJuegoMulti::VentanaJuegoMulti(int id1, int id2) {
+	direccion[0] = false;
+	direccion[1] = false;
+	direccion[2] = false;
+	direccion[3] = false;
+	Mapa = std::make_unique<MapaViewer>("Imagenes/TileSetMapa.png", mapaGenerado);
+	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
+	botones.push_back(std::move(regresar));
+
+	if (id1 == 0) {
+		std::unique_ptr<EntidadViewer>floppa = std::make_unique<PersonajesViewer>("Imagenes/FloppaSpriteSheet.png");
+		Personaje1 = std::move(floppa);
+	}
+	else if (id1 == 1) {
+		std::unique_ptr<EntidadViewer>sogga = std::make_unique<PersonajesViewer>("Imagenes/SoggaSpriteSheet.png");
+		Personaje1 = std::move(sogga);
+	}
+	else if (id1 == 2) {
+		std::unique_ptr<EntidadViewer>jinx = std::make_unique<PersonajesViewer>("Imagenes/JinxSpriteSheet.png");
+		Personaje1 = std::move(jinx);
+	}
+	
+	if (id2 == 0) {
+		std::unique_ptr<EntidadViewer>floppa = std::make_unique<PersonajesViewer>("Imagenes/FloppaSpriteSheet.png");
+		Personaje2 = std::move(floppa);
+	}
+	else if (id2 == 1) {
+		std::unique_ptr<EntidadViewer>sogga = std::make_unique<PersonajesViewer>("Imagenes/SoggaSpriteSheet.png");
+		Personaje2 = std::move(sogga);
+	}
+	else if (id2 == 2) {
+		std::unique_ptr<EntidadViewer>jinx = std::make_unique<PersonajesViewer>("Imagenes/JinxSpriteSheet.png");
+		Personaje2 = std::move(jinx);
+	}
+	
+	for (int i = 0; i < cantEnemigos; ++i) {
+		enemigosMelee.push_back(std::make_unique<MeleeEnemigoViewer>());
+		enemigosRanged.push_back(std::make_unique<RangedEnemigoViewer>());
+		enemigosBomber.push_back(std::make_unique<BomberEnemigoViewer>());
+	}
+	Personaje2->setPosicion(100, 500);
+}
+void VentanaJuegoMulti::mostrarMenu(sf::RenderWindow& window) {
+	Mapa->mostrarMapa(window);
+	//Mapa->imprimirMapa();
+	Personaje1->dibujarEntidad(window);
+	Personaje2->dibujarEntidad(window);
+	for (int i = 0;i < cantEnemigos;i++) {
+		enemigosMelee[i]->dibujarEntidad(window);
+		enemigosRanged[i]->dibujarEntidad(window);
+		enemigosBomber[i]->dibujarEntidad(window);
+	}
+	for (int i = 0;i < cantEnemigos;i++) {
+		Personaje1->verificarAtaqueToEnemigo(*enemigosMelee[i]);
+		Personaje1->verificarAtaqueToEnemigo(*enemigosRanged[i]);
+		Personaje1->verificarAtaqueToEnemigo(*enemigosBomber[i]);
+	}
+	dibujarBotones(window);
+	actualizarDireccion();
+}

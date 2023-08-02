@@ -12,6 +12,7 @@ ArmasViewer::ArmasViewer(std::string rutaImagen, float x, float y){
 }
 
 void ArmasViewer::dibujarArma(sf::RenderWindow& window) {
+    sprite.setPosition(x, y);
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     float dx = static_cast<float>(mousePosition.x) - this->x;
     float dy = static_cast<float>(mousePosition.y) - this->y;
@@ -20,7 +21,11 @@ void ArmasViewer::dibujarArma(sf::RenderWindow& window) {
     sprite.setRotation(rotation);
     window.draw(sprite);
 }
-
+void ArmasViewer::setPosicionArma(float x, float y) {
+    this->x = x;
+    this->y = y;
+}
+///////////////////////////////////
 ArmaDistancia::ArmaDistancia(std::string rutaImagen_, float x, float y) : ArmasViewer(rutaImagen_, x, y) {
     balas = std::make_unique<TipoProyectil<BalaViewer, 30>>();
 }
