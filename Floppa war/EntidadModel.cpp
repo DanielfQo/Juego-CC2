@@ -1,5 +1,6 @@
+#include <chrono>
 #include "EntidadModel.h"
-EntidadModel::EntidadModel(float pX_, float pY_, int Vida_, int Ataque_, int Escudo_, float width_,float height_,float vel_) {
+EntidadModel::EntidadModel(float pX_, float pY_, float Vida_, float Ataque_, float Escudo_, float width_,float height_,float vel_) {
     this->pX = pX_;
     this->pY = pY_;
     this->Vida = Vida_;
@@ -16,12 +17,17 @@ float EntidadModel::getpY() { return pY; }
 void EntidadModel::setPosX(float x) { this->pX = x; }
 void EntidadModel::setPosY(float  y) { this->pY = y; }
 
-int EntidadModel::getVida() { return Vida; }
-int EntidadModel::getAtaque() { return Ataque; }
-int EntidadModel::getEscudo() { return Escudo; }
-void EntidadModel::setVida(int vida_) { this->Vida = vida_; }
-void EntidadModel::setAtaque(int ataque_) { this->Ataque = ataque_; }
-void EntidadModel::setEscudo(int escudo_) { this->Escudo = escudo_; }
+void EntidadModel::sumarPosX(float sumar_) { this->pX += sumar_; }
+void EntidadModel::sumarPosY(float sumar_) { this->pY += sumar_; }
+void EntidadModel::restarPosX(float restar_) { this->pX -= restar_; }
+void EntidadModel::restarPosY(float restar_) { this->pY -= restar_; }
+
+float EntidadModel::getVida() { return Vida; }
+float EntidadModel::getAtaque() { return Ataque; }
+float EntidadModel::getEscudo() { return Escudo; }
+void EntidadModel::setVida(float vida_) { this->Vida = vida_; }
+void EntidadModel::setAtaque(float ataque_) { this->Ataque = ataque_; }
+void EntidadModel::setEscudo(float escudo_) { this->Escudo = escudo_; }
 
 float EntidadModel::getVel() { return vel; }
 float EntidadModel::getWidth() { return width; }
@@ -71,5 +77,16 @@ void EntidadModel::colisionProyectil(float x, float y) {
     }
     if (Vida <= 0) {
         vivo = false;
+    }
+}
+void EntidadModel::Recibir_Daño(EntidadModel& entidad) {
+
+    if (this->vivo == true && this->Vida > 0 ) {
+        this->Vida -= entidad.getAtaque();
+        std::cout << this->Vida << std::endl;
+ 
+    }
+    else {
+        this->vivo = false;
     }
 }

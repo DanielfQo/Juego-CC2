@@ -5,24 +5,28 @@
 class EntidadModel {
 protected:
     float pX, pY;
-    int Vida, Ataque, Escudo;
+    float Vida, Ataque, Escudo;
     float width,height;
     float vel;
     bool vivo;
 public:
-    EntidadModel(float,float,int,int,int,float,float,float);
+    EntidadModel(float,float, float, float, float,float,float,float);
     float getpX();
     float getpY();
     void setPosX(float);
     void setPosY(float);
+    void sumarPosX(float);
+    void sumarPosY(float);
+    void restarPosX(float);
+    void restarPosY(float);
 
-    int getVida();
-    int getAtaque();
-    int getEscudo();
+    float getVida();
+    float getAtaque();
+    float getEscudo();
     
-    void setVida(int);
-    void setAtaque(int);
-    void setEscudo(int);
+    void setVida(float);
+    void setAtaque(float);
+    void setEscudo(float);
 
     float getVel();
     float getWidth();
@@ -39,6 +43,7 @@ public:
     void rebotar(EntidadModel&);
     void rebotarPared(float,float);
     void colisionProyectil(float, float);
+    void Recibir_Daño(EntidadModel&);
 
     virtual void moverse(EntidadModel&) = 0;
     virtual bool atacar(float,float) = 0;

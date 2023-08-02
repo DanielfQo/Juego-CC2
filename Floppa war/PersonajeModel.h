@@ -1,13 +1,14 @@
 #include "EntidadModel.h"
 class PersonajeModel: public EntidadModel {
 public:
-    PersonajeModel(float, float, int, int, int, float, float, float);
+    PersonajeModel(float, float, float, float,float, float, float, float);
     virtual bool atacar(int, int,int, int) = 0;
     virtual void SpecialAbility() = 0;
     void moverse(EntidadModel&) {}
     bool atacar(float, float) { return true; }
 };
 // leaf
+
 
 class FloppaModel : public PersonajeModel {
 private:

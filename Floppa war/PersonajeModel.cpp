@@ -1,7 +1,9 @@
 #include<cmath>
+#include<thread>
 #include "PersonajeModel.h"
 
-PersonajeModel::PersonajeModel(float pX_, float pY_, int Vida_, int Ataque_, int Escudo_, float width_, float height_, float vel_) : EntidadModel(pX_, pY_, Vida_, Ataque_, Escudo_, width_, height_, vel_) {}
+PersonajeModel::PersonajeModel(float pX_, float pY_, float Vida_, float Ataque_, float Escudo_, float width_, float height_, float vel_) : EntidadModel(pX_, pY_, Vida_, Ataque_, Escudo_, width_, height_, vel_) {}
+
                    //(posicionX, posicionY, vida, ataque, escudo, ancho, alto, velocidad)
 FloppaModel::FloppaModel() : PersonajeModel(480, 288, 100, 20, 50, 64, 64, 2) {}
 bool FloppaModel::atacar(int x, int y,int posX, int posY) {
