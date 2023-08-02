@@ -23,7 +23,7 @@ class MapaModel{
         std::vector<std::vector<int>> mapai;
         std::vector<std::vector<int>> cuartos;
         std::vector<std::vector<int>> mapaCompleto;
-        int cantEnemigos = 2;
+        int cantEnemigos = 3;
 
         std::unique_ptr<EntidadModel> Personaje1;
 

@@ -48,7 +48,7 @@ MacheteViewer::MacheteViewer() {
     x = 512;
     y = 320;
     Px = 0; Py = 0; xM = 0; yM = 0;
-    spriteTexture.loadFromFile("Imagenes/Machete.png");
+    spriteTexture.loadFromFile("Imagenes/BalaMachete.png");
     sprite.setTexture(spriteTexture);
 }
 void MacheteViewer::dibujar(sf::RenderWindow& window) {
