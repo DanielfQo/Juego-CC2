@@ -35,6 +35,9 @@ void Viewer::manejarEventos() {
         }
         if (typeid(*tipoMenu) == typeid(VentanaJuego)) {
             if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::C) {
+                    tipoMenu->cambiarArma();
+                }
                 tipoMenu->eventoMovimientoPress(event.key);
             }
             else if (event.type == sf::Event::KeyReleased) {

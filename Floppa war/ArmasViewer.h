@@ -32,3 +32,15 @@ public:
 	void verificarColisionEnemigo(EntidadViewer&)override;
 	std::vector<std::tuple<float, float, bool>> getPosicionProyectiles()override { return balas->obtenerPosiciones(); };
 };
+
+class ArmaMelee : public ArmasViewer {
+private:
+	std::unique_ptr<TipoProyectil < MacheteViewer, 30>> machete;
+public:
+	ArmaMelee(std::string, float, float);
+	~ArmaMelee() = default;
+	void usarArma(float, float)override;
+	void mostrarAtaque(sf::RenderWindow&)override;
+	void verificarColisionEnemigo(EntidadViewer&)override;
+	std::vector<std::tuple<float, float, bool>> getPosicionProyectiles()override { return machete->obtenerPosiciones(); };
+};

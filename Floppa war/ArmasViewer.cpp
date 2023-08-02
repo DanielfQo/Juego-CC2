@@ -35,3 +35,17 @@ void ArmaDistancia::mostrarAtaque(sf::RenderWindow& window) {
 void ArmaDistancia::verificarColisionEnemigo(EntidadViewer& enemigo) {
     balas->verificarColisionEnemigo(enemigo);
 }
+////////////////////////////////////////////////////////////////////
+ArmaMelee::ArmaMelee(std::string rutaImagen_, float x, float y) : ArmasViewer(rutaImagen_, x, y) {
+    machete = std::make_unique<TipoProyectil<MacheteViewer, 30>>();
+}
+void ArmaMelee::usarArma(float xM, float yM) {
+    machete->dispararProyectil(xM, yM, rotation);
+}
+
+void ArmaMelee::mostrarAtaque(sf::RenderWindow& window) {
+    machete->dibujarProyectil(window);
+}
+void ArmaMelee::verificarColisionEnemigo(EntidadViewer& enemigo) {
+    machete->verificarColisionEnemigo(enemigo);
+}

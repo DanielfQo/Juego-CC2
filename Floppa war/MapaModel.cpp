@@ -248,23 +248,23 @@ void MapaModel::moverMapa(bool vector[4]) {
             if (posX >= -64 && posX <= 1088 && posY >= -64 && posY <= 704) {
                 if ( mapaCompleto[y][x] == 0) {
                     
-                    if (colisionMapa(posX + 54, posY + 10, 10, 44, 480, 292, 64, 64)) {
+                    if (colision(posX + 54, posY + 10, 10, 44, 480, 292, 64, 64)) {
                         velocidadX = 0;
                         vector[2] = false;
                         posicionX -= (posX + 64 - 480);
 
                     }
-                    if (colisionMapa(posX, posY + 10, 10, 44, 480, 292, 64, 64)) {
+                    if (colision(posX, posY + 10, 10, 44, 480, 292, 64, 64)) {
                         velocidadX = 0;
                         vector[3] = false;
                         posicionX += (480 + 64 - posX);
                     }
-                    if (colisionMapa(posX + 10, posY + 54, 44, 10, 480, 292, 64, 64)) {
+                    if (colision(posX + 10, posY + 54, 44, 10, 480, 292, 64, 64)) {
                         velocidadY = 0;
                         vector[0] = false;
                         posicionY -= (posY + 64 - 292);
                     }
-                    if (colisionMapa(posX + 10, posY, 44, 10, 480, 292, 64, 64)) {
+                    if (colision(posX + 10, posY, 44, 10, 480, 292, 64, 64)) {
                         velocidadY = 0;
                         vector[1] = false;
                         posicionY += (292 + 64 - posY);
@@ -317,22 +317,26 @@ void MapaModel::moverMapa(bool vector[4]) {
         enem->setPosY(enem->getpY() + velocidadY);
     }
 }
-
-bool MapaModel::colisionMapa(float PosX, float PosY,float w, float h, float X, float Y, float width,float height) {
+bool MapaModel::colision(float PosX, float PosY, float w, float h, float X, float Y, float width, float height) {
     if (PosX > X + width || PosX + w < X || PosY > Y + height || PosY + h < Y)
         return false;
     else
         return true;
 }
-
-void MapaModel::generar_entidades(){
+bool MapaModel::colision(float PosX, float PosY, float w, float h, EntidadModel& entidad) {
+    if (PosX > entidad.getpX() + entidad.getWidth() || PosX + w < entidad.getpX() || PosY > entidad.getpY() + 4 + entidad.getHeight() || PosY + h < entidad.getpY() + 4)
+        return false;
+    else
+        return true;
+}
+void MapaModel::generar_entidades() {
     //////
     for (int i = 0; i < enemigosMelee.size();i++) {
         enemigosMelee[i]->setPosX(i * 200.00f + 60);
         enemigosMelee[i]->setPosY(i * 100.00f);
     }
     //////
-    
+
     for (int i = 0; i < enemigosRanged.size();i++) {
         enemigosRanged[i]->setPosX(i * 200.00f + 60);
         enemigosRanged[i]->setPosY(i * 100.00f);
@@ -342,51 +346,114 @@ void MapaModel::generar_entidades(){
         enemigosBomber[i]->setPosX(i * 200.00f + 60);
         enemigosBomber[i]->setPosY(i * 100.00f);
     }
-    
+
 }
 void MapaModel::movimientoEnemigosPersonaje() {
 
     for (int i = 0;i < enemigosMelee.size();i++) {
         if (enemigosMelee[i]->getVivo()) {
-            if (enemigosMelee[i]->colision(*Personaje1)) {
-                enemigosMelee[i]->rebotar(*Personaje1);
+            if (colision(enemigosMelee[i]->getpX() + 54, enemigosMelee[i]->getpY() + 10, 10, 44, 480, 292, 64, 64)) {
+                enemigosMelee[i]->setPosX(416);
+                enemigosMelee[i]->moverse(*Personaje1);
+                Personaje1->Recibir_Daño(*enemigosMelee[i]);
+            }
+            else if (colision(enemigosMelee[i]->getpX(), enemigosMelee[i]->getpY() + 4, 4, 44, 480, 292, 64, 64)) {
+                enemigosMelee[i]->setPosX(544);
+                enemigosMelee[i]->moverse(*Personaje1);
+                Personaje1->Recibir_Daño(*enemigosMelee[i]);
+            }
+            else if (colision(enemigosMelee[i]->getpX() + 10, enemigosMelee[i]->getpY() + 54, 44, 10, 480, 292, 64, 64)) {
+                enemigosMelee[i]->setPosY(228);
+                enemigosMelee[i]->moverse(*Personaje1);
+                Personaje1->Recibir_Daño(*enemigosMelee[i]);
+            }
+            else if (colision(enemigosMelee[i]->getpX() + 10, enemigosMelee[i]->getpY(), 44, 10, 480, 292, 64, 64)) {
+                enemigosMelee[i]->setPosY(356);
+                enemigosMelee[i]->moverse(*Personaje1);
+                Personaje1->Recibir_Daño(*enemigosMelee[i]);
             }
             else {
                 enemigosMelee[i]->moverse(*Personaje1);
             }
-            posicionEnemigosMelee[i].first = enemigosMelee[i]->getpX();
-            posicionEnemigosMelee[i].second = enemigosMelee[i]->getpY();
         }
+        else {
+            enemigosMelee[i]->setPosX(-3000.00f);
+            enemigosMelee[i]->setPosY(-3000.00f);
+        }
+        posicionEnemigosMelee[i].first = enemigosMelee[i]->getpX();
+        posicionEnemigosMelee[i].second = enemigosMelee[i]->getpY();
+        
     }
     //////
-    
+
     for (int i = 0;i < enemigosRanged.size();i++) {
         if (enemigosRanged[i]->getVivo()) {
-            if (enemigosRanged[i]->colision(*Personaje1)) {
-                enemigosRanged[i]->rebotar(*Personaje1);
+            if (colision(enemigosRanged[i]->getpX() + 54, enemigosRanged[i]->getpY() + 14, 10, 44, 480, 292, 64, 64)) {
+                enemigosRanged[i]->setPosX(416);
+                enemigosRanged[i]->moverse(*Personaje1);
+                Personaje1->Recibir_Daño(*enemigosRanged[i]);
+            }
+            else if (colision(enemigosRanged[i]->getpX(), enemigosRanged[i]->getpY() + 4, 10, 44, 480, 292, 64, 64)) {
+                enemigosRanged[i]->setPosX(544);
+                enemigosRanged[i]->moverse(*Personaje1);
+                Personaje1->Recibir_Daño(*enemigosRanged[i]);
+            }
+            else if (colision(enemigosRanged[i]->getpX() + 10, enemigosRanged[i]->getpY() + 54, 44, 10, 480, 292, 64, 64)) {
+                enemigosRanged[i]->setPosY(228);
+                enemigosRanged[i]->moverse(*Personaje1);
+                Personaje1->Recibir_Daño(*enemigosRanged[i]);
+            }
+            else if (colision(enemigosRanged[i]->getpX() + 10, enemigosRanged[i]->getpY(), 44, 10, 480, 292, 64, 64)) {
+                enemigosRanged[i]->setPosY(356);
+                enemigosRanged[i]->moverse(*Personaje1);
+                Personaje1->Recibir_Daño(*enemigosRanged[i]);
             }
             else {
                 enemigosRanged[i]->moverse(*Personaje1);
             }
-            posicionEnemigosRanged[i].first = enemigosRanged[i]->getpX();
-            posicionEnemigosRanged[i].second = enemigosRanged[i]->getpY();
         }
+        else {
+            enemigosRanged[i]->setPosX(-3000.00f);
+            enemigosRanged[i]->setPosY(-3000.00f);
+        }
+        posicionEnemigosRanged[i].first = enemigosRanged[i]->getpX();
+        posicionEnemigosRanged[i].second = enemigosRanged[i]->getpY();
     }
     //////
     for (int i = 0;i < enemigosBomber.size();i++) {
         if (enemigosBomber[i]->getVivo()) {
-            if (enemigosBomber[i]->colision(*Personaje1)) {
-                enemigosBomber[i]->rebotar(*Personaje1);
+            if (colision(enemigosBomber[i]->getpX() + 54, enemigosBomber[i]->getpY() + 10, 10, 44, 480, 292, 64, 64)) {
+                enemigosBomber[i]->setPosX(416);
+                enemigosBomber[i]->moverse(*Personaje1);
+                Personaje1->Recibir_Daño(*enemigosBomber[i]);
+            }
+            else if (colision(enemigosBomber[i]->getpX(), enemigosBomber[i]->getpY() + 10, 10, 44, 480, 292, 64, 64)) {
+                enemigosBomber[i]->setPosX(544);
+                enemigosBomber[i]->moverse(*Personaje1);
+                Personaje1->Recibir_Daño(*enemigosBomber[i]);
+            }
+            else if (colision(enemigosBomber[i]->getpX() + 10, enemigosBomber[i]->getpY() + 54, 44, 10, 480, 292, 64, 64)) {
+                enemigosBomber[i]->setPosY(228);
+                enemigosBomber[i]->moverse(*Personaje1);
+                Personaje1->Recibir_Daño(*enemigosBomber[i]);
+            }
+            else if (colision(enemigosBomber[i]->getpX() + 10, enemigosBomber[i]->getpY(), 44, 10, 480, 292, 64, 64)) {
+                enemigosBomber[i]->setPosY(356);
+                enemigosBomber[i]->moverse(*Personaje1);
+                Personaje1->Recibir_Daño(*enemigosBomber[i]);
             }
             else {
                 enemigosBomber[i]->moverse(*Personaje1);
             }
-            //////
-            posicionEnemigosBomber[i].first = enemigosBomber[i]->getpX();
-            posicionEnemigosBomber[i].second = enemigosBomber[i]->getpY();
         }
+        else {
+            enemigosBomber[i]->setPosX(-3000.00f);
+            enemigosBomber[i]->setPosY(-3000.00f);
+        }
+        posicionEnemigosBomber[i].first = enemigosBomber[i]->getpX();
+        posicionEnemigosBomber[i].second = enemigosBomber[i]->getpY();
     }
-    
+
 }
 void MapaModel::movimientoEnemigosEnemigos() {
     for (int i = 0;i < enemigosMelee.size();i++) {
@@ -396,7 +463,9 @@ void MapaModel::movimientoEnemigosEnemigos() {
                 if (i != j && enemigosMelee[i]->colision(*enemigosMelee[j])) {
                     enemigosMelee[i]->rebotar(*enemigosMelee[j]);
                 }
+
             }
+
             for (int j = 0;j < enemigosBomber.size();j++) {
                 if (enemigosMelee[i]->colision(*enemigosBomber[j])) {
                     enemigosMelee[i]->rebotar(*enemigosBomber[j]);
@@ -407,11 +476,9 @@ void MapaModel::movimientoEnemigosEnemigos() {
                     enemigosMelee[i]->rebotar(*enemigosRanged[j]);
                 }
             }
-            posicionEnemigosMelee[i].first = enemigosMelee[i]->getpX();
-            posicionEnemigosMelee[i].second = enemigosMelee[i]->getpY();
         }
     }
-    
+
     for (int i = 0;i < enemigosRanged.size();i++) {
         if (enemigosRanged[i]->getVivo()) {
             for (int j = 0;j < enemigosRanged.size();j++) {
@@ -431,11 +498,9 @@ void MapaModel::movimientoEnemigosEnemigos() {
                     enemigosRanged[i]->rebotar(*enemigosBomber[j]);
                 }
             }
-            posicionEnemigosRanged[i].first = enemigosRanged[i]->getpX();
-            posicionEnemigosRanged[i].second = enemigosRanged[i]->getpY();
         }
     }
-    
+
     for (int i = 0;i < enemigosBomber.size();i++) {
         if (enemigosBomber[i]->getVivo()) {
             for (int j = 0;j < enemigosBomber.size();j++) {
@@ -453,11 +518,8 @@ void MapaModel::movimientoEnemigosEnemigos() {
                     enemigosBomber[i]->rebotar(*enemigosRanged[j]);
                 }
             }
-            posicionEnemigosBomber[i].first = enemigosBomber[i]->getpX();
-            posicionEnemigosBomber[i].second = enemigosBomber[i]->getpY();
         }
     }
-    
 }
 void MapaModel::colisionEnemigo() {
     for (int y = 0; y < FILAS * 4; y++) {
@@ -465,22 +527,67 @@ void MapaModel::colisionEnemigo() {
             float posX = x * 64 + posicionX;
             float posY = y * 64 + posicionY;
             for (int p = 0; p < enemigosMelee.size(); p++) {
-                if (colisionMapa(posX, posY,64,64, enemigosMelee[p]->getpX(), enemigosMelee[p]->getpY()+4, 64,64) == true && mapaCompleto[y][x] == 0) {
-                        enemigosMelee[p]->rebotarPared(posX, posY);
+                if (enemigosMelee[p]->getVivo()) {
+                    if (mapaCompleto[y][x] == 0) {
+
+                        if (colision(posX + 54, posY + 10, 10, 44, *enemigosMelee[p])) {
+                            enemigosMelee[p]->sumarPosX(posX + 64 - enemigosMelee[p]->getpX());
+                        }
+
+
+                        if (colision(posX, posY + 10, 10, 44, *enemigosMelee[p])) {
+                            enemigosMelee[p]->restarPosX(enemigosMelee[p]->getpX() + 64 - posX);
+                        }
+
+                        if (colision(posX + 10, posY + 54, 44, 10, *enemigosMelee[p])) {
+                            enemigosMelee[p]->sumarPosY(posY + 60 - enemigosMelee[p]->getpY());
+                        }
+
+                        if (colision(posX + 10, posY, 44, 10, *enemigosMelee[p])) {
+                            enemigosMelee[p]->restarPosY(enemigosMelee[p]->getpY() + 4 + 64 - posY);
+                        }
+
+                    }
                 }
             }
-            
+
             for (int p = 0; p < enemigosRanged.size(); p++) {
-                if (colisionMapa(posX, posY, 64, 64, enemigosRanged[p]->getpX(), enemigosRanged[p]->getpY() + 4, 64, 64) == true && mapaCompleto[y][x] == 0) {
-                    enemigosRanged[p]->rebotarPared(posX, posY);
+                if (enemigosRanged[p]->getVivo()) {
+                    if (mapaCompleto[y][x] == 0) {
+                        if (colision(posX + 54, posY + 10, 10, 44, *enemigosRanged[p])) {
+                            enemigosRanged[p]->sumarPosX(posX + 64 - enemigosRanged[p]->getpX());
+                        }
+                        if (colision(posX, posY + 10, 10, 44, *enemigosRanged[p])) {
+                            enemigosRanged[p]->restarPosX(enemigosRanged[p]->getpX() + 64 - posX);
+                        }
+                        if (colision(posX + 10, posY + 54, 44, 10, *enemigosRanged[p])) {
+                            enemigosRanged[p]->sumarPosY(posY + 60 - enemigosRanged[p]->getpY());
+                        }
+                        if (colision(posX + 10, posY, 44, 10, *enemigosRanged[p])) {
+                            enemigosRanged[p]->restarPosY(enemigosRanged[p]->getpY() + 4 + 64 - posY);
+                        }
+                    }
                 }
             }
             for (int p = 0; p < enemigosBomber.size(); p++) {
-                if (colisionMapa(posX, posY, 64, 64, enemigosBomber[p]->getpX(), enemigosBomber[p]->getpY() + 4, 64, 64) == true && mapaCompleto[y][x] == 0) {
-                    enemigosBomber[p]->rebotarPared(posX, posY);
+                if (enemigosBomber[p]->getVivo()) {
+                    if (mapaCompleto[y][x] == 0) {
+                        if (colision(posX + 54, posY + 10, 10, 44, *enemigosBomber[p])) {
+                            enemigosBomber[p]->sumarPosX(posX + 64 - enemigosBomber[p]->getpX());
+                        }
+                        if (colision(posX, posY + 10, 10, 54, *enemigosBomber[p])) {
+                            enemigosBomber[p]->restarPosX(enemigosBomber[p]->getpX() + 64 - posX);
+                        }
+                        if (colision(posX + 10, posY + 54, 44, 10, *enemigosBomber[p])) {
+                            enemigosBomber[p]->sumarPosY(posY + 60 - enemigosBomber[p]->getpY());
+                        }
+                        if (colision(posX + 10, posY, 44, 10, *enemigosBomber[p])) {
+                            enemigosBomber[p]->restarPosY(enemigosBomber[p]->getpY() + 4 + 64 - posY);
+                        }
+                    }
                 }
             }
-            
+
         }
     }
 }
@@ -493,14 +600,16 @@ void MapaModel::colisionProyectilEnemigo(const std::vector<std::tuple<float, flo
         }
     }
     for (const auto& posicion : posiciones) {
-        if (std::get<2>(posicion) == true) {
+        //if (std::get<2>(posicion) == true) 
+        {
             for (size_t j = 0; j < enemigosRanged.size(); j++) {
                 enemigosRanged[j]->colisionProyectil(std::get<0>(posicion), std::get<1>(posicion));
             }
         }
     }
     for (const auto& posicion : posiciones) {
-        if (std::get<2>(posicion) == true) {
+        //if (std::get<2>(posicion) == true) 
+        {
             for (size_t j = 0; j < enemigosBomber.size(); j++) {
                 enemigosBomber[j]->colisionProyectil(std::get<0>(posicion), std::get<1>(posicion));
             }

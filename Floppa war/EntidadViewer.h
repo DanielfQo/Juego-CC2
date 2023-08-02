@@ -6,6 +6,7 @@ protected:
 	sf::Sprite sprite;
 	std::string rutaImagen;
 	sf::Vector2f velocidad;
+	int armaCambiar = 0;
 	bool mueveArriba = false, mueveAbajo = false, mueveDerecha = false, mueveIzquierda = false;
 	float posX = 0;
 	float posY = 0;
@@ -24,6 +25,8 @@ public:
 	bool getMueveDerecha() { return mueveDerecha; }
 	float getPosicionX() { return posX; }
 	float getPosicionY() { return posY; }
+	int getCambiarArma() { return armaCambiar; }
+	void setCambiarArma(int a) { armaCambiar = a; }
 	virtual void setPosicion(float, float) = 0;
 	virtual void Atacar(float, float) = 0;
 	virtual void verificarAtaqueToEnemigo(EntidadViewer& enemigo) = 0;

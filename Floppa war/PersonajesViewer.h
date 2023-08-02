@@ -9,7 +9,7 @@ private:
     sf::IntRect frameRect;
     int actualFrame, totalFrames;
     float duracionFrame, ultimoFrame;
-    std::unique_ptr<ArmasViewer> arma;
+    std::vector<std::unique_ptr<ArmasViewer>> armas;
 
 public:
     PersonajesViewer(std::string rutaImagen);
@@ -20,5 +20,5 @@ public:
     void setPosicion(float, float) override {};
     void Atacar(float, float);
     void verificarAtaqueToEnemigo(EntidadViewer& enemigo)override;
-    std::vector<std::tuple<float, float, bool>> getPosicionesProyectiles()override { return arma->getPosicionProyectiles(); }
+    std::vector<std::tuple<float, float, bool>> getPosicionesProyectiles()override { return armas[armaCambiar]->getPosicionProyectiles(); }
 };

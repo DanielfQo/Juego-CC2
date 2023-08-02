@@ -25,7 +25,7 @@ protected:
 
     int idPersonaje1 = 0;
     int idPersonaje2 = 1;
-    int cantEnemigos = 5;
+    int cantEnemigos = 2;
 public:
     virtual void mostrarMenu(sf::RenderWindow&) = 0;
     
@@ -36,6 +36,15 @@ public:
         direccion[3] = Personaje1->getMueveDerecha();
     }
     bool* getDireccion() {return direccion;}
+
+    void cambiarArma() {
+        if (Personaje1->getCambiarArma() == 0) {
+            Personaje1->setCambiarArma(1);
+        }
+        else {
+            Personaje1->setCambiarArma(0);
+        }
+    }
 
     void setPosicionMapa(float x, float y) {
         Mapa->setPosicion(x, y);

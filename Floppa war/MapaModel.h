@@ -23,7 +23,7 @@ class MapaModel{
         std::vector<std::vector<int>> mapai;
         std::vector<std::vector<int>> cuartos;
         std::vector<std::vector<int>> mapaCompleto;
-        int cantEnemigos = 5;
+        int cantEnemigos = 2;
 
         std::unique_ptr<EntidadModel> Personaje1;
 
@@ -49,7 +49,8 @@ class MapaModel{
         void moverMapa(bool[4]);
         void imprimirMapa();
         void aplicarReglas();
-        bool colisionMapa(float, float, float, float, float, float, float, float);
+        bool colision(float, float, float, float, float, float, float, float);
+        bool colision(float, float, float, float, EntidadModel& entidad);
         void generar_campo();
         void generarCuartos();
         void generarMapaCompleto();

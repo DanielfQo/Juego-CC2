@@ -45,10 +45,22 @@ public:
         }
         return posicionProyectiles;
     }
+};
+class ProyectilesAbstract {
 
+public:
+    virtual void setPosicionMouse(float,float) = 0;
+    virtual void setRotation(float) = 0;
+    virtual void calcularVectorDirector() = 0;
+    virtual void setActivo(bool) = 0;
+    virtual void dibujar(sf::RenderWindow &) = 0;
+    virtual void colisionEnemigo(EntidadViewer&) = 0;
+    virtual float getPosicionX() = 0;
+    virtual float getPosicionY() = 0;
+    virtual bool getActivo() = 0;
 };
 
-class BalaViewer {
+class BalaViewer:ProyectilesAbstract {
     bool balaActiva = false;
     sf::Texture spriteTexture;
     sf::Sprite sprite;
@@ -57,7 +69,7 @@ class BalaViewer {
     float x, y;
     float Px, Py;
     float rotation = 0;
-    float vel = 4;
+    float vel = 6;
 
     float vectordx;
     float vectordy;
@@ -74,4 +86,33 @@ public:
     void calcularVectorDirector();
     void dibujar(sf::RenderWindow&);
     void colisionEnemigo(EntidadViewer&);
+};
+
+class MacheteViewer :ProyectilesAbstract {
+    bool balaActiva = false;
+    sf::Texture spriteTexture;
+    sf::Sprite sprite;
+    std::string rutaImagen;
+    float xM, yM;//pos mouse
+    float x, y;
+    float Px, Py;
+    float rotation = 0;
+    float vel = 6;
+
+    float vectordx;
+    float vectordy;
+public:
+    MacheteViewer();
+    ~MacheteViewer() = default;
+    float getPosicionX() { return Px; }
+    float getPosicionY() { return Py; }
+    bool getActivo() { return balaActiva; }
+    void setActivo(bool a) { this->balaActiva = a; }
+    void setPosicion(float x, float y) { this->x = x; this->y = y; }
+    void setPosicionMouse(float xM, float yM) { this->xM = xM; this->yM = yM; }
+    void setRotation(float rotation) { this->rotation = rotation; }
+
+    void calcularVectorDirector()override;
+    void dibujar(sf::RenderWindow&)override;
+    void colisionEnemigo(EntidadViewer&)override;
 };
