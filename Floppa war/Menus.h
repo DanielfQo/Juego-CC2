@@ -25,6 +25,7 @@ protected:
 
     int idPersonaje1 = 0;
     int idPersonaje2 = 1;
+    const int cantEnemigos = 5;
 public:
     virtual void mostrarMenu(sf::RenderWindow&) = 0;
     
