@@ -45,6 +45,7 @@ void MenuJugar::mostrarMenu(sf::RenderWindow& window) {
 MenuConfiguraciones::MenuConfiguraciones() {
 	fondoTexture.loadFromFile("Imagenes/FondoJuego.png");
 	fondoSprite.setTexture(fondoTexture);
+
 	std::unique_ptr<Boton> cancelar = std::make_unique<Boton>("Cancelar", sf::Vector2f(144, 496), "Imagenes/BotonCancelar.png");
 	std::unique_ptr<Boton> aceptar = std::make_unique<Boton>("Aceptar", sf::Vector2f(584, 496), "Imagenes/BotonAceptar.png");
 	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
@@ -60,11 +61,15 @@ void MenuConfiguraciones::mostrarMenu(sf::RenderWindow& window) {
 MenuTutorial::MenuTutorial() {
 	fondoTexture.loadFromFile("Imagenes/FondoJuego.png");
 	fondoSprite.setTexture(fondoTexture);
+	tutoTexture.loadFromFile("Imagenes/Tutorial.png");
+	tutoSprite.setTexture(tutoTexture);
+	tutoSprite.setPosition(212.00f, 20.00f);
 	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
 	botones.push_back(std::move(regresar));
 }
 void MenuTutorial::mostrarMenu(sf::RenderWindow& window) {
 	window.draw(fondoSprite);
+	window.draw(tutoSprite);
 	dibujarBotones(window);
 }
 ///////////////////////////
@@ -249,4 +254,15 @@ void VentanaJuegoMulti::mostrarMenu(sf::RenderWindow& window) {
 	}
 	dibujarBotones(window);
 	actualizarDireccion();
+}
+
+MenuFinJuego::MenuFinJuego() {
+	fondoTexture.loadFromFile("Imagenes/fin.png");
+	fondoSprite.setTexture(fondoTexture);
+	std::unique_ptr<Boton> regresar = std::make_unique<Boton>("Regresar", sf::Vector2f(4, 4), "Imagenes/BotonRegresar.png");
+	botones.push_back(std::move(regresar));
+}
+void MenuFinJuego::mostrarMenu(sf::RenderWindow& window) {
+	window.draw(fondoSprite);
+	dibujarBotones(window);
 }

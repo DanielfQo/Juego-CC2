@@ -138,6 +138,8 @@ void Viewer::updateMenu(sf::Vector2i coordMouse) {
         tipoMenu = std::make_unique<MenuJugar>();
     else if (nombre == "Configuracion")
         tipoMenu = std::make_unique<MenuConfiguraciones>();
+    else if (nombre == "Aceptar" || nombre== "Cancelar")
+        tipoMenu = std::make_unique<MenuConfiguraciones>();
     else if (nombre == "Tutorial")
         tipoMenu = std::make_unique<MenuTutorial>();
     else if (nombre == "Salir")
@@ -209,4 +211,7 @@ void Viewer::actualizarEnemigosBomber(const std::vector<std::pair<float, float>>
 }
 void Viewer::actualizarVidaPersonaje1(float vida) {
     tipoMenu->setVidaPersonaje1(static_cast<int>(vida));
+    if (vida <= 0) {
+        tipoMenu = std::make_unique<MenuFinJuego>();
+    }
 }

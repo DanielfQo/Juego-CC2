@@ -145,6 +145,9 @@ public:
 	void mostrarMenu(sf::RenderWindow&) override;
 };
 class MenuTutorial:public Menu {
+private:
+    sf::Texture tutoTexture;
+    sf::Sprite tutoSprite;
 public:
 	MenuTutorial();
 	~MenuTutorial() = default;
@@ -186,3 +189,9 @@ public:
     void mostrarMenu(sf::RenderWindow&) override;
 };
 
+class MenuFinJuego : public Menu {
+public:
+    MenuFinJuego();
+    ~MenuFinJuego() = default;
+    void mostrarMenu(sf::RenderWindow&) override;
+};
