@@ -91,7 +91,7 @@ void MapaModel::generarCuartos() {
     std::vector<std::vector<int>> matriz(4, std::vector<int>(4, 0));
     std::time_t currentTime = std::time(nullptr);
     std::srand(static_cast<unsigned int>(currentTime));
-    int posicion2X = std::rand() % 4;
+    int posicion2X = 0; //std::rand() % 4;
     int posY1 = 1;
     matriz[0][posicion2X] = 2;
     matriz[posY1][posicion2X] = 1;
@@ -164,7 +164,7 @@ void MapaModel::generarMapaCompleto() {
     //pasto 1
     // Crear la matriz resultante
     std::vector<std::vector<int>> matrizResultado(80, std::vector<int>(128, 0));
-    // Generar la matriz más grande
+    // Generar la matriz mÃ¡s grande
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             
@@ -274,7 +274,7 @@ void MapaModel::moverMapa(bool vector[4]) {
         }
     }
 
-    // Ajustar las velocidades en función de los flags
+    // Ajustar las velocidades en funciÃ³n de los flags
     if (vector[0])
         velocidadY += aceleracion;
     if (vector[1])
@@ -284,13 +284,13 @@ void MapaModel::moverMapa(bool vector[4]) {
     if (vector[3])
         velocidadX -= aceleracion;
 
-    // Aplicar desaceleración
+    // Aplicar desaceleraciÃ³n
     if (!vector[0] && !vector[1])
         velocidadY -= (velocidadY * desaceleracion);
     if (!vector[2] && !vector[3])
         velocidadX -= (velocidadX * desaceleracion);
 
-    // Limitar la velocidad máxima
+    // Limitar la velocidad mÃ¡xima
     if (velocidadY > velocidadMaxima)
         velocidadY = velocidadMaxima;
     if (velocidadY < -velocidadMaxima)
@@ -300,7 +300,7 @@ void MapaModel::moverMapa(bool vector[4]) {
     if (velocidadX < -velocidadMaxima)
         velocidadX = -velocidadMaxima;
 
-    // Mover la posición en función de las velocidades
+    // Mover la posiciÃ³n en funciÃ³n de las velocidades
     posicionY += velocidadY;
     posicionX += velocidadX;
 
@@ -370,22 +370,22 @@ void MapaModel::movimientoEnemigosPersonaje() {
             if (colision(enemigosMelee[i]->getpX() + 54, enemigosMelee[i]->getpY() + 10, 10, 44, 480, 292, 64, 64)) {
                 enemigosMelee[i]->setPosX(416);
                 enemigosMelee[i]->moverse(*Personaje1);
-                Personaje1->Recibir_Daño(*enemigosMelee[i]);
+                Personaje1->Recibir_DaÃ±o(*enemigosMelee[i]);
             }
             else if (colision(enemigosMelee[i]->getpX(), enemigosMelee[i]->getpY() + 4, 4, 44, 480, 292, 64, 64)) {
                 enemigosMelee[i]->setPosX(544);
                 enemigosMelee[i]->moverse(*Personaje1);
-                Personaje1->Recibir_Daño(*enemigosMelee[i]);
+                Personaje1->Recibir_DaÃ±o(*enemigosMelee[i]);
             }
             else if (colision(enemigosMelee[i]->getpX() + 10, enemigosMelee[i]->getpY() + 54, 44, 10, 480, 292, 64, 64)) {
                 enemigosMelee[i]->setPosY(228);
                 enemigosMelee[i]->moverse(*Personaje1);
-                Personaje1->Recibir_Daño(*enemigosMelee[i]);
+                Personaje1->Recibir_DaÃ±o(*enemigosMelee[i]);
             }
             else if (colision(enemigosMelee[i]->getpX() + 10, enemigosMelee[i]->getpY(), 44, 10, 480, 292, 64, 64)) {
                 enemigosMelee[i]->setPosY(356);
                 enemigosMelee[i]->moverse(*Personaje1);
-                Personaje1->Recibir_Daño(*enemigosMelee[i]);
+                Personaje1->Recibir_DaÃ±o(*enemigosMelee[i]);
             }
             else {
                 enemigosMelee[i]->moverse(*Personaje1);
@@ -406,22 +406,22 @@ void MapaModel::movimientoEnemigosPersonaje() {
             if (colision(enemigosRanged[i]->getpX() + 54, enemigosRanged[i]->getpY() + 14, 10, 44, 480, 292, 64, 64)) {
                 enemigosRanged[i]->setPosX(416);
                 enemigosRanged[i]->moverse(*Personaje1);
-                Personaje1->Recibir_Daño(*enemigosRanged[i]);
+                Personaje1->Recibir_DaÃ±o(*enemigosRanged[i]);
             }
             else if (colision(enemigosRanged[i]->getpX(), enemigosRanged[i]->getpY() + 4, 10, 44, 480, 292, 64, 64)) {
                 enemigosRanged[i]->setPosX(544);
                 enemigosRanged[i]->moverse(*Personaje1);
-                Personaje1->Recibir_Daño(*enemigosRanged[i]);
+                Personaje1->Recibir_DaÃ±o(*enemigosRanged[i]);
             }
             else if (colision(enemigosRanged[i]->getpX() + 10, enemigosRanged[i]->getpY() + 54, 44, 10, 480, 292, 64, 64)) {
                 enemigosRanged[i]->setPosY(228);
                 enemigosRanged[i]->moverse(*Personaje1);
-                Personaje1->Recibir_Daño(*enemigosRanged[i]);
+                Personaje1->Recibir_DaÃ±o(*enemigosRanged[i]);
             }
             else if (colision(enemigosRanged[i]->getpX() + 10, enemigosRanged[i]->getpY(), 44, 10, 480, 292, 64, 64)) {
                 enemigosRanged[i]->setPosY(356);
                 enemigosRanged[i]->moverse(*Personaje1);
-                Personaje1->Recibir_Daño(*enemigosRanged[i]);
+                Personaje1->Recibir_DaÃ±o(*enemigosRanged[i]);
             }
             else {
                 enemigosRanged[i]->moverse(*Personaje1);
@@ -440,22 +440,22 @@ void MapaModel::movimientoEnemigosPersonaje() {
             if (colision(enemigosBomber[i]->getpX() + 54, enemigosBomber[i]->getpY() + 10, 10, 44, 480, 292, 64, 64)) {
                 enemigosBomber[i]->setPosX(416);
                 enemigosBomber[i]->moverse(*Personaje1);
-                Personaje1->Recibir_Daño(*enemigosBomber[i]);
+                Personaje1->Recibir_DaÃ±o(*enemigosBomber[i]);
             }
             else if (colision(enemigosBomber[i]->getpX(), enemigosBomber[i]->getpY() + 10, 10, 44, 480, 292, 64, 64)) {
                 enemigosBomber[i]->setPosX(544);
                 enemigosBomber[i]->moverse(*Personaje1);
-                Personaje1->Recibir_Daño(*enemigosBomber[i]);
+                Personaje1->Recibir_DaÃ±o(*enemigosBomber[i]);
             }
             else if (colision(enemigosBomber[i]->getpX() + 10, enemigosBomber[i]->getpY() + 54, 44, 10, 480, 292, 64, 64)) {
                 enemigosBomber[i]->setPosY(228);
                 enemigosBomber[i]->moverse(*Personaje1);
-                Personaje1->Recibir_Daño(*enemigosBomber[i]);
+                Personaje1->Recibir_DaÃ±o(*enemigosBomber[i]);
             }
             else if (colision(enemigosBomber[i]->getpX() + 10, enemigosBomber[i]->getpY(), 44, 10, 480, 292, 64, 64)) {
                 enemigosBomber[i]->setPosY(356);
                 enemigosBomber[i]->moverse(*Personaje1);
-                Personaje1->Recibir_Daño(*enemigosBomber[i]);
+                Personaje1->Recibir_DaÃ±o(*enemigosBomber[i]);
             }
             else {
                 enemigosBomber[i]->moverse(*Personaje1);
